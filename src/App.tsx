@@ -1,7 +1,13 @@
 import React from 'react';
+import { Header } from './Layots/Header/Header';
+import './App.css'
+import {Schedule} from './Layots/Schedule/Schedule';
 
 function App() {
-	return <div className="App">Shedule</div>;
+	return <>
+	<Header />
+	<Schedule />
+	</>;
 }
 
 export default App;
