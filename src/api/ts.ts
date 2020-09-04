@@ -13,8 +13,26 @@ export const httpRequests = {
         .catch(function (error) {
             console.log(error);
         })
-    } 
-        
-
+    },
+    getEvent: (id: string) => {
+        instance.get(`event/${id}`).then(function (response: any) {
+            console.log(response, 'get event returned');
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
+    },
+    postEvent: (data: any) => {
+        instance.post('event', data)
+          .then(function (response) {
+            console.log(response, 'post status');
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+    },
+    putEvent: (data: any, eventId: string) => {
+        instance.put(`event/${eventId}`, data);
+    }
 }
 
