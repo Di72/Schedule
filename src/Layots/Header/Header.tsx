@@ -1,9 +1,8 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { EyeOutlined } from '@ant-design/icons';
 import styled from 'styled-components';
 import {  Button, Menu, Dropdown } from 'antd';
 import Logo from '../../assets/img/logo-rsschool3.png';
-import axios from 'axios';
 
 const HeaderSC = styled.div`
 	display: flex;
