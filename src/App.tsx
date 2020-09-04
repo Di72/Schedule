@@ -1,13 +1,15 @@
 import React from 'react';
-import { Header } from './Layots/Header/Header';
-import './App.css'
-import {Schedule} from './Layots/Schedule/Schedule';
+import { Header } from './Layouts/Header/Header';
+import './App.less';
+import { Schedule } from './Layouts/Schedule/Schedule';
 
 function App() {
-	return <>
-	<Header />
-	<Schedule />
-	</>;
+	return (
+		<>
+			<Header />
+			<Schedule />
+		</>
+	);
 }
 
 export default App;
