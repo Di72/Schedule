@@ -35,9 +35,6 @@ const menu = (
 
 
 export const Header = () => {
-  
-})
-
 	return (<>
 		<HeaderSC>
 				<ImgLogo src={Logo} alt="" />
