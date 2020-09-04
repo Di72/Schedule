@@ -6,20 +6,7 @@ import { httpRequests } from './api/ts';
 
 function App() {
 	useEffect(() => {
-		httpRequests.getEvents();
-	}, [])
-
-	useEffect(() => {
-		httpRequests.getEvent('undefined');
-	}, [])
-
-
-	useEffect(() => {
-		httpRequests.postEvent({orientation: "very gay"});
-	}, [])
-
-	useEffect(() => {
-		httpRequests. putEvent({state: 'emergency25626236'}, 'undefined');
+		httpRequests.deleteEvent('undefined');
 	}, [])
 
 	return <>

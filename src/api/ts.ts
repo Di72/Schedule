@@ -33,6 +33,10 @@ export const httpRequests = {
     },
     putEvent: (data: any, eventId: string) => {
         instance.put(`event/${eventId}`, data);
+    },
+    deleteEvent: (id: string) => {
+        instance.delete(`event/${id}`)
     }
+
 }
 
