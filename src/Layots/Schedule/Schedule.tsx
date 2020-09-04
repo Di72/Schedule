@@ -31,7 +31,6 @@ const data = [
 ];
 
 
-
 const { Option } = Select;
 
 
