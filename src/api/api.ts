@@ -36,10 +36,24 @@ export const httpRequests = {
 			});
 	},
 	putEvent: (data: any, eventId: string) => {
-		instance.put(`event/${eventId}`, data);
+		instance
+			.put(`event/${eventId}`, data)
+			.then(function(response) {
+				console.log(response, 'put status');
+			})
+			.catch(function(error) {
+				console.log(error);
+			});
 	},
 	deleteEvent: (id: string) => {
-		instance.delete(`event/${id}`);
+		instance
+			.delete(`event/${id}`)
+			.then(function(response) {
+				console.log(response, 'delete status');
+			})
+			.catch(function(error) {
+				console.log(error);
+			});
 	},
 
 	getOrganizers: () => {
@@ -73,9 +87,23 @@ export const httpRequests = {
 			});
 	},
 	putOrganizer: (data: any, organizerId: string) => {
-		instance.put(`organizer/${organizerId}`, data);
+		instance
+			.put(`organizer/${organizerId}`, data)
+			.then(function(response) {
+				console.log(response, 'put status');
+			})
+			.catch(function(error) {
+				console.log(error);
+			});
 	},
 	deleteOrganizer: (id: string) => {
-		instance.delete(`organizer/${id}`);
+		instance
+			.delete(`organizer/${id}`)
+			.then(function(response) {
+				console.log(response, 'delete status');
+			})
+			.catch(function(error) {
+				console.log(error);
+			});
 	}
 };
