@@ -1,11 +1,11 @@
 import {Action, applyMiddleware, combineReducers, compose, createStore} from "redux";
-import reducerOne from "./reducerOne";
+import eventsReducer from "./events-reducer";
 import reducerTwo from "./reducerTwo";
 import thunkMiddleware, {ThunkAction} from "redux-thunk";
 
 
 let rootReducer = combineReducers({
-    reducerOne,
+    eventsReducer,
     reducerTwo
 })
 

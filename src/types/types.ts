@@ -21,6 +21,7 @@ export const EventTypeToName: Record<string, string> = {
   selfeducation: "self education",
   "codewars:stage1": "codewars",
   "codewars:stage2": "codewars",
+
 };
 
 export interface ScheduleDataTemplate {
