@@ -1,8 +1,8 @@
 import React from 'react';
-import { ScheduleData, ScheduleDataSecondary } from "src/types/types"
+import { ScheduleDataSecondary } from "src/types/types"
 import { Card } from 'antd';
 
-export default function TaskCard({ content, el }: { content: ScheduleData, el?: ScheduleDataSecondary }) {
+export default function TaskCard({ content, el }: { content: ScheduleDataSecondary, el?: ScheduleDataSecondary }) {
   const cardContent = el || content
   const time = cardContent.Time &&
     <span style={{ fontWeight: "normal" }} ><b>Time:</b> {cardContent.Time}</span>

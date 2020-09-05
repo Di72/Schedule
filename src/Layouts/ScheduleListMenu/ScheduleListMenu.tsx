@@ -26,7 +26,7 @@ export default function ScheduleListMenu({ blocks, handleClick }: {
       if (block.Blocks) {
         const key = `${item.Blocks} ${count++}`;
         return (
-          <Menu.Item key={key} style={styleListItem} onClick={() => handleClick(block)}>
+          <Menu.Item key={key} style={styleListItem} onClick={() => handleClick(block, item)}>
             {block.Blocks}
           </Menu.Item>
         )
