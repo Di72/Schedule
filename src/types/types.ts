@@ -1,13 +1,15 @@
 export type EventsType = {
-	'ID': string;
-	'Result': string;
-	'Name': string;
-	'Place': string;
-	'Comment': string;
-	'dateTime': string;
-	'timeZone': string;
-	'Description': string;
-	'Time\r\nTheory+Practice': string;
+	'name': string;
+	'description': string;
+	'descriptionUrl': string;
+	'comment': string;
+	'place': string;
 	'type': string;
+	'timeZone': string;
+	'dateTime': string;
+	'id': string;
+};
+export type OrganizersType = {
+	'name': string;
 	'id': string;
 };

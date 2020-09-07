@@ -1,61 +1,61 @@
 {
-  "data": [
-      {
-          "ID": "1",
-          "Name": "Computer Science Basics http://epa.ms/upskill-start",
-          "Description": "Пройти этот курс рекомендует EPAM. Из описания: Данный тренинг может быть хорошим стартом для дальнейшего изучения программирования и инженерной работы в IT сфере.",
-          "Time\r\nTheory+Practice": "16h",
-          "Result": "На странице курса все темы отмечены галочками.\r\nСтудент может пояснить решение алгоритмов раздела Data Types and Algoritms задание Test - operators",
-          "Comment": "Курс проходится за полчаса кликами по кнопке Next и перебором вариантов ответа в тестах.",
-          "Place": "online",
-          "type": "basic task",
-          "timeZone": "GMT +03",
-          "dateTime": "12/12/20"
-      },
-      {
-          "ID": "2",
-          "Name": "HTML/Css online resource \r\nhttps://ru.code-basics.com/languages/html\r\nhttps://ru.code-basics.com/languages/css",
-          "Description": "Базовый курс по html / css",
-          "Time\r\nTheory+Practice": "16h",
-          "Result": "На странице курса все темы отмечены галочками. Студент может пояснить решение некоторых заданий (на выбор ментора)",
-          "Comment": "Решения всех заданий доступны после 20-минутной паузы. Для проверки самостоятельности решения заданий нужно посмотреть и послушать как студент решает пройденные им таски",
-          "Place": "online",
-          "type": "html/css task",
-          "timeZone": "GMT +03",
-          "dateTime": "12/13/20"
-      },
-      {
-          "ID": "3",
-          "Name": "JS online resource\r\nhttps://ru.code-basics.com/languages/javascript",
-          "Description": "Базовый курс JavaScript. Если проходить осмысленно, даст неплохое представление о языке и его возможностях.",
-          "Comment": "Решения всех заданий доступны после 20-минутной паузы. Для проверки самостоятельности решения заданий нужно посмотреть и послушать как студент решает пройденные им таски",
-          "Place": "online",
-          "type": "js task",
-          "timeZone": "GMT +03",
-          "dateTime": "12/14/20"
-      },
-      {
-          "ID": "4",
-          "Name": "Git & GitHub\r\n",
-          "Description": "Регистрация на Гитхабе",
-          "Time\r\nTheory+Practice": "0.5h",
-          "Result": "Установлен Git\r\nСоздан github-аккаунт",
-          "Place": "online",
-          "descriptionUrl": "https://htmlacademy.ru/blog/boost/tools/register-on-github-work-with-console",
-          "type": "git task",
-          "timeZone": "GMT +03",
-          "dateTime": "12/15/20"
-      },
-      {
-          "ID": "5",
-          "Description": "Полезные команды для работы с Git",
-          "Time\r\nTheory+Practice": "0.5h",
-          "Result": "Создан репозиторий на гитхабе, создана ветка, добавлены файлы",
-          "Place": "online",
-          "descriptionUrl": "https://htmlacademy.ru/blog/boost/tools/useful-commands-for-working-with-git",
-          "type": "git task",
-          "timeZone": "GMT +03",
-          "dateTime": "12/16/20"
-      }
-  ]
+	"data": [
+		{
+			"ID": "1",
+			"Name": "Computer Science Basics http://epa.ms/upskill-start",
+			"Description": "Пройти этот курс рекомендует EPAM. Из описания: Данный тренинг может быть хорошим стартом для дальнейшего изучения программирования и инженерной работы в IT сфере.",
+			"Time\r\nTheory+Practice": "16h",
+			"Result": "На странице курса все темы отмечены галочками.\r\nСтудент может пояснить решение алгоритмов раздела Data Types and Algoritms задание Test - operators",
+			"Comment": "Курс проходится за полчаса кликами по кнопке Next и перебором вариантов ответа в тестах.",
+			"Place": "online",
+			"type": "basic task",
+			"timeZone": "GMT +03",
+			"dateTime": "12/12/20"
+		},
+		{
+			"ID": "2",
+			"Name": "HTML/Css online resource \r\nhttps://ru.code-basics.com/languages/html\r\nhttps://ru.code-basics.com/languages/css",
+			"Description": "Базовый курс по html / css",
+			"Time\r\nTheory+Practice": "16h",
+			"Result": "На странице курса все темы отмечены галочками. Студент может пояснить решение некоторых заданий (на выбор ментора)",
+			"Comment": "Решения всех заданий доступны после 20-минутной паузы. Для проверки самостоятельности решения заданий нужно посмотреть и послушать как студент решает пройденные им таски",
+			"Place": "online",
+			"type": "html/css task",
+			"timeZone": "GMT +03",
+			"dateTime": "12/13/20"
+		},
+		{
+			"ID": "3",
+			"Name": "JS online resource\r\nhttps://ru.code-basics.com/languages/javascript",
+			"Description": "Базовый курс JavaScript. Если проходить осмысленно, даст неплохое представление о языке и его возможностях.",
+			"Comment": "Решения всех заданий доступны после 20-минутной паузы. Для проверки самостоятельности решения заданий нужно посмотреть и послушать как студент решает пройденные им таски",
+			"Place": "online",
+			"type": "js task",
+			"timeZone": "GMT +03",
+			"dateTime": "12/14/20"
+		},
+		{
+			"ID": "4",
+			"Name": "Git & GitHub\r\n",
+			"Description": "Регистрация на Гитхабе",
+			"Time\r\nTheory+Practice": "0.5h",
+			"Result": "Установлен Git\r\nСоздан github-аккаунт",
+			"Place": "online",
+			"descriptionUrl": "https://htmlacademy.ru/blog/boost/tools/register-on-github-work-with-console",
+			"type": "git task",
+			"timeZone": "GMT +03",
+			"dateTime": "12/15/20"
+		},
+		{
+			"ID": "5",
+			"Description": "Полезные команды для работы с Git",
+			"Time\r\nTheory+Practice": "0.5h",
+			"Result": "Создан репозиторий на гитхабе, создана ветка, добавлены файлы",
+			"Place": "online",
+			"descriptionUrl": "https://htmlacademy.ru/blog/boost/tools/useful-commands-for-working-with-git",
+			"type": "git task",
+			"timeZone": "GMT +03",
+			"dateTime": "12/16/20"
+		}
+	]
 }

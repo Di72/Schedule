@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Table, Tag, Space, Select } from 'antd';
 
 const { Column } = Table;
@@ -34,32 +34,37 @@ const data = [
 const { Option } = Select;
 
 
-export const Schedule = () => {
+export const Schedule = (props: any) => {
+  useEffect(() => {
+    props.requestOrganizers();
+    props.requestEvents()
+  }, [])
+
   return (<>
     <Select defaultValue="lucy" style={{ width: 120, margin: 15 }} >
       <Option value="jack">Jack</Option>
       <Option value="lucy">Lucy</Option>
       <Option value="Yiminghe">yiminghe</Option>
     </Select>
-    <Table dataSource={data} style={{ margin: 15 }}>
-      <Column title="Data" dataIndex="firstName" key="firstName" />
-      <Column title="Time" dataIndex="lastName" key="lastName" />
-      <Column title="Type" dataIndex="age" key="age" />
-      <Column title="Place" dataIndex="address" key="address" />
-      <Column title="Name" dataIndex="address" key="address" />
-      <Column title="Broadcast Url" dataIndex="address" key="address" />
-      <Column title="Organizer" dataIndex="address" key="address" />
-      <Column title="Details Url" dataIndex="address" key="address" />
-      <Column title="Comment" dataIndex="address" key="address" />
+    <Table dataSource={props.data.events} style={{ margin: 15 }}>
+      <Column title="Data" dataIndex={props.data.events.type} key={props.data.events.type} />
+      <Column title="Time" dataIndex={props.data.events.type} key={props.data.events.type} />
+      <Column title="Type" dataIndex={props.data.events.type} key={props.data.events.type} />
+      <Column title="Place" dataIndex={props.data.events.type} key={props.data.events.type} />
+      <Column title="Name" dataIndex={props.data.events.type} key={props.data.events.type} />
+      <Column title="Broadcast Url" dataIndex={props.data.events.type} key={props.data.events.type} />
+      <Column title="Organizer" dataIndex={props.data.events.type} key={props.data.events.type} />
+      <Column title="Details Url" dataIndex={props.data.events.type} key={props.data.events.type} />
+      <Column title="Comment" dataIndex={props.data.events.type} key={props.data.events.type} />
       <Column
         title="Tags"
         dataIndex="tags"
         key="tags"
         render={(tags: any) => (
           <>
-            {tags.map((tag: any) => (
-              <Tag color="blue" key={tag}>
-                {tag}
+            {props.data.events.type.split.map((tag: any) => (
+              <Tag color="blue" key={props.data.events.type}>
+                {props.data.events.type}
               </Tag>
             ))}
           </>
