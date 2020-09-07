@@ -9,7 +9,8 @@ export const httpRequests = {
 		instance
 			.get('events')
 			.then(function(response: any) {
-				console.log(response);
+				console.log(response.data.data);
+				return response.data.data;
 			})
 			.catch(function(error) {
 				console.log(error);
