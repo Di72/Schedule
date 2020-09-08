@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { AppStateType } from '../../redux/store';
 import { getEvents, getOrganizers } from '../../redux/events-reducer';
-import { Schedule } from './Table';
+import { ScheduleTable } from './ScheduleTable';
 import { setEventsAndOrganizer } from '../../Selectors/selectors';
 
 export const TableContainer = (props: any) => {
@@ -12,7 +12,7 @@ export const TableContainer = (props: any) => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
-	const schedule = <Schedule data={props.data} requestEvents={props.requestEvents} requestOrganizers={props.requestOrganizers} />
+	const schedule = <ScheduleTable data={props.data} requestEvents={props.requestEvents} requestOrganizers={props.requestOrganizers} />
 
 	const content = props.data.events[0] === undefined ? <h1>Подождите...</h1> : schedule;
 

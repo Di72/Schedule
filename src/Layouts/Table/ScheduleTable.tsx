@@ -4,7 +4,7 @@ import { Table, Tag, Select } from 'antd';
 const { Column } = Table;
 const { Option } = Select;
 
-export const Schedule = (props: any) => {
+export const ScheduleTable = (props: any) => {
 
   const { events } = props.data;
   const eventsWithKey = events.map((item: { key: any; id: any; }) => {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Header } from './Layouts/Header/Header';
 import './App.less';
-import Table from './Layouts/Table/TableContainer';
+import Table from './Layouts/Table/ScheduleTableContainer';
 import store from './redux/store';
 import { Provider } from 'react-redux';
 
