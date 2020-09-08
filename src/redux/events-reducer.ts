@@ -1,4 +1,4 @@
-import { httpRequests } from './../api/ts';
+import { httpRequests } from './../api/api';
 import { EventsType, OrganizersType } from '../types/types';
 import { InferActionsTypes, BaseThunkType } from './store';
 

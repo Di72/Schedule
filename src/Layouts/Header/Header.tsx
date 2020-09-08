@@ -1,8 +1,10 @@
 import React from 'react';
 import { EyeOutlined } from '@ant-design/icons';
 import styled from 'styled-components';
-import { Button, Menu, Dropdown } from 'antd';
+import { Button, Menu, Dropdown, Select } from 'antd';
 import Logo from '../../assets/img/logo-rsschool3.png';
+
+const { Option } = Select;
 
 const HeaderSC = styled.div`
 	display: flex;
@@ -42,6 +44,11 @@ export const Header = () => {
         <Button type="dashed">My Profile</Button>
       </Dropdown>
     </HeaderSC>
+    <Select defaultValue="table" style={{ width: 120, margin: 15 }} >
+      <Option value="table">table</Option>
+      <Option value="list">list</Option>
+      <Option value="calendar">calendar</Option>
+    </Select>
   </>);
 
 };
