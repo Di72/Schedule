@@ -10,15 +10,15 @@ let initialState = {
 
 const eventsReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
     switch (action.type) {
-    case 'SN/SET_EVENTS': {
-        return {...state, events: action.response}
+        case 'SN/SET_EVENTS': {
+            return {...state, events: action.response}
+        }
+        case 'SN/SET_ORGANIZERS': {
+            return {...state, organizers: action.response}
+        }
+        default:
+            return state;
     }
-    case 'SN/SET_ORGANIZERS': {
-        return {...state, organizers: action.response}
-    }
-    default:
-        return state;
-}
 };
 
 export const actions = {
