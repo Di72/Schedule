@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 
 import { AppStateType } from '../../redux/store';
-import { useSelector, connect } from 'react-redux';
+import { connect } from 'react-redux';
 import { getEvents, getOrganizers } from '../../redux/events-reducer';
 
 import {Calendar, momentLocalizer } from 'react-big-calendar';
@@ -20,7 +20,7 @@ const CalendarContainer = (props:any) => {
     props.requestEvents();
   }, []);
 
-  const events = useSelector((store:any) => store.eventsReducer.events);
+  const events = props.data.events;
 
   const modifiedEventsData = events.map((el:any) => {
     const taskDate = el.dateTime.split('/')
