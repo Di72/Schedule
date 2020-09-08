@@ -1,8 +1,7 @@
 import React from 'react'
-import { Table, Tag, Select } from 'antd';
+import { Table, Tag } from 'antd';
 
 const { Column } = Table;
-const { Option } = Select;
 
 export const ScheduleTable = (props: any) => {
 
@@ -19,12 +18,7 @@ export const ScheduleTable = (props: any) => {
     </Tag>
   }
 
-  return (<>
-    <Select defaultValue="lucy" style={{ width: 120, margin: 15 }} >
-      <Option value="jack">Jack</Option>
-      <Option value="lucy">Lucy</Option>
-      <Option value="Yiminghe">yiminghe</Option>
-    </Select>
+  return (
     <Table dataSource={eventsWithKey}>
       <Column key="dateTime" title="Data" dataIndex="dateTime" />
       <Column key="name" title="Name" dataIndex="name" />
@@ -33,5 +27,5 @@ export const ScheduleTable = (props: any) => {
       <Column key="description" title="Description" dataIndex="description" />
       <Column key="place" title="Place" dataIndex="place" />
     </Table>
-  </>)
+  )
 };
