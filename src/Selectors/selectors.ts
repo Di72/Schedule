@@ -1,5 +1,5 @@
 import { AppStateType } from '../redux/store';
 
-export const getdefaultanimName = (state: AppStateType) => {
+export const setEventsAndOrganizer = (state: AppStateType) => {
 	return state.eventsReducer;
 };
