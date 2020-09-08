@@ -17,7 +17,7 @@ export const ScheduleView = (props: any) => {
 	const schedule = (
 		<>
 			<ScheduleTable data={props.data} />
-			<ScheduleList />
+			<ScheduleList data={props.data} />
 			<CalendarContainer data={props.data} />
 		</>
 	);

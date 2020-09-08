@@ -1,26 +1,31 @@
-import React from 'react';
-import { ScheduleDataSecondary } from "src/types/types"
+import React, { CSSProperties } from 'react';
+import { EventsType } from "src/types/types"
 import { Card } from 'antd';
 
-export default function TaskCard({ content, el }: { content: ScheduleDataSecondary, el?: ScheduleDataSecondary }) {
-  const cardContent = el || content
-  const time = cardContent.Time &&
-    <span style={{ fontWeight: "normal" }} ><b>Time:</b> {cardContent.Time}</span>
+export default function TaskCard({ event }: { event: EventsType }) {
+
+  function cardTitle(field: string, title: string, style: CSSProperties) {
+    return (field &&
+      <span style={style} ><b>{title}:</b> {field}</span>
+    )
+  }
+
+  const time = cardTitle(event.dateTime, 'Time', { fontWeight: "normal" });
+
   const title = (
     <div style={{ display: "flex", justifyContent: "space-between", }}>
-      <span>{cardContent.Task}</span>
+      <span>{event.name}</span>
       {time}
     </div>
   );
-  const result = cardContent.Result && <p style={{ display: "flex" }}> <b style={{ marginRight: "4px" }}>Result:</b> {cardContent.Result}</p>
-  const taskContent = cardContent.Notate &&
-    <p style={{ display: "flex" }}> <b style={{ marginRight: "4px" }}>Notate:</b> {cardContent.Notate}</p>
-
-
+  const description = event.description && <p style={{ display: "flex" }}> <b style={{ marginRight: "4px" }}>Description:</b> {event.description}</p>
+  const comment = event.comment &&
+    <p style={{ display: "flex" }}> <b style={{ marginRight: "4px" }}>Notate:</b> {event.comment}</p>
 
   return (
-    <Card key={`${content!.Blocks} ${cardContent.Task}`} title={title} >
-      {result}
-      {taskContent}
-    </Card>)
+    <Card key={event.id} title={title} >
+      {description}
+      {comment}
+    </Card>
+  )
 }
