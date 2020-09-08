@@ -6,76 +6,59 @@ export const instance = axios.create({
 
 export const httpRequests = {
 	getEvents: () => {
-		instance
-			.get('events')
-			.then(function(response: any) {
-				console.log(response);
-			})
-			.catch(function(error) {
-				console.log(error);
-			});
+		return instance.get('events').then((res) => res.data.data).catch(function(error) {
+			console.log(error);
+		});
 	},
 	getEvent: (id: string) => {
-		instance
-			.get(`event/${id}`)
-			.then(function(response: any) {
-				console.log(response, 'get event returned');
-			})
-			.catch(function(error) {
-				console.log(error);
-			});
+		return instance.get(`event/${id}`).then((res) => res.data.data).catch(function(error) {
+			console.log(error);
+		});
 	},
 	postEvent: (data: any) => {
-		instance
-			.post('event', data)
+		return instance.post('event', data).then((res) => res.data.data).catch(function(error) {
+			console.log(error);
+		});
+	},
+	putEvent: (data: any, eventId: string) => {
+		return instance.put(`event/${eventId}`, data).then((res) => res.data.data).catch(function(error) {
+			console.log(error);
+		});
+	},
+	deleteEvent: (id: string) => {
+		return instance
+			.delete(`event/${id}`)
 			.then(function(response) {
-				console.log(response, 'post status');
+				console.log(response, 'delete status');
 			})
 			.catch(function(error) {
 				console.log(error);
 			});
-	},
-	putEvent: (data: any, eventId: string) => {
-		instance.put(`event/${eventId}`, data);
-	},
-	deleteEvent: (id: string) => {
-		instance.delete(`event/${id}`);
 	},
 
 	getOrganizers: () => {
-		instance
-			.get('organizers')
-			.then(function(response: any) {
-				console.log(response);
-			})
-			.catch(function(error) {
-				console.log(error);
-			});
+		return instance.get('organizers').then((res) => res.data.data).catch(function(error) {
+			console.log(error);
+		});
 	},
 	getOrganizer: (id: string) => {
-		instance
-			.get(`organizer/${id}`)
-			.then(function(response: any) {
-				console.log(response, 'get organizer returned');
-			})
-			.catch(function(error) {
-				console.log(error);
-			});
+		return instance.get(`organizer/${id}`).then((res) => res.data.data).catch(function(error) {
+			console.log(error);
+		});
 	},
 	postOrganizer: (data: any) => {
-		instance
-			.post('organizer', data)
-			.then(function(response) {
-				console.log(response, 'post status');
-			})
-			.catch(function(error) {
-				console.log(error);
-			});
+		return instance.post('organizer', data).then((res) => res.data.data).catch(function(error) {
+			console.log(error);
+		});
 	},
 	putOrganizer: (data: any, organizerId: string) => {
-		instance.put(`organizer/${organizerId}`, data);
+		return instance.put(`organizer/${organizerId}`, data).then((res) => res.data.data).catch(function(error) {
+			console.log(error);
+		});
 	},
 	deleteOrganizer: (id: string) => {
-		instance.delete(`organizer/${id}`);
+		return instance.delete(`organizer/${id}`).then((res) => res.data.data).catch(function(error) {
+			console.log(error);
+		});
 	}
 };
