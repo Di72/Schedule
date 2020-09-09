@@ -6,6 +6,8 @@ import { ScheduleTable } from '../Table/ScheduleTable';
 import { setEventsAndOrganizerSelector } from '../../redux/selectors';
 import { ScheduleList } from '../Schedule-list';
 import CalendarContainer from '../Calendar/CalendarContainer';
+import { Route } from 'react-router-dom';
+
 
 export const ScheduleView = (props: any) => {
 	useEffect(() => {
@@ -14,11 +16,17 @@ export const ScheduleView = (props: any) => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
-	const schedule = (
-		<>
-			<ScheduleTable data={props.data} />
-			<ScheduleList />
-			<CalendarContainer data={props.data} />
+	const schedule = (<>
+	
+		    <Route path='/table'
+		render={ () => <ScheduleTable data={props.data} /> }/>
+	 		<Route path='/list'
+		render={ () => <ScheduleList /> }/>
+	 		<Route path='/calendar'
+		render={ () => <CalendarContainer data={props.data} /> }/>
+			
+			
+			
 		</>
 	);
 
