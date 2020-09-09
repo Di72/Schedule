@@ -19,3 +19,17 @@ export interface IInitialState {
   events: EventsType[];
   organizers: OrganizersType[];
 }
+
+export interface ICourseOverview {
+  description: string;
+  goal: string;
+  agenda: string[];
+  teachers: CourseTeam[];
+}
+
+export interface CourseTeam {
+  firstName: string;
+  secondName: string;
+  company: string;
+  photo: string;
+}

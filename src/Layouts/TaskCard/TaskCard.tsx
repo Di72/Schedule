@@ -1,9 +1,52 @@
-import React, { CSSProperties } from 'react';
-import { EventsType } from "src/types/types"
-import { Card, Tag } from 'antd';
+import React, { CSSProperties, useState } from 'react';
+import { EventsType, ICourseOverview   } from "src/types/types"
+import { Card, Tag, Modal } from 'antd';
+import ModalContent from '../ModalContent/ModalContent';
+
+const DUMMY_DATA = {
+  description: `
+  Курс состоит из нескольких крупных модулей, 
+  каждый из которых содержит короткие видео и тесты. 
+  Задача тестов - проверить, насколько хорошо стала понятна тема. 
+  Тесты можно проходить неограниченное количество раз, более того,
+  во многих из них есть пояснения к неправильным ответам.
+  Этот курс максимально гибкий: нет дедлайнов, 
+  нет возможности "завалить" тест, 
+  можно проходить обучение в удобное время в удобном месте.`,
+  goal: "Цель курса - ознакомиться с основными технологиями и инструментами, используемыми в инженерной работе.",
+  agenda: ['Железо компьютера',
+    'Двоичная система счисления',
+    'Операционные системы',
+    'Типы данных и алгоритмы',
+    'Компьютерные сети',
+    'Инструменты повышения производительности'],
+  teachers: [{
+    firstName: 'Ricardo',
+    secondName: 'Milos',
+    company: 'Hot guys GMBH',
+    photo: 'https://24smi.org/public/media/celebrity/2020/03/17/ndyuq11dpxep-rikardo-milos.jpg'
+  }],
+}
 
 export default function TaskCard({ event }: { event: EventsType }) {
   const { comment, dateTime, description, descriptionUrl, id, name, place, timeZone, type } = event;
+
+  const [modalVisibility, setModalVisibility] = useState(false);
+  const [modalContent, setModalContent] = useState<ICourseOverview | null>(DUMMY_DATA);
+
+  console.log(modalContent);
+
+  const toggleModalVisibility = () => {
+    setModalVisibility(true);
+  }
+
+  const onModalOkHandler = () => {
+    setModalVisibility(false);
+  }
+
+  const onModalCancelHandler = () => {
+    setModalVisibility(false);
+  }
 
   const cardTitle = (field: string, title: string, style: CSSProperties) => {
     return (field &&
@@ -41,11 +84,17 @@ export default function TaskCard({ event }: { event: EventsType }) {
   const dateTimeTSX = dateTime && cardRow('Time start', dateTime)
 
   return (
-    <Card className="schedule-list__card" key={id} title={title} style={{ marginBottom: '16px' }} >
+    <>
+    <Card onClick={toggleModalVisibility} className="schedule-list__card" key={id} title={title} style={{ marginBottom: '16px' }} >
       {descriptionTSX}
       {commentTSX}
       {placeTSX}
       {dateTimeTSX}
     </Card>
+    {modalContent ? (
+      <Modal onOk={onModalOkHandler} onCancel={onModalCancelHandler} visible={modalVisibility}>
+        <ModalContent {...modalContent}/>
+      </Modal>) : null }
+    </>
   )
 }
