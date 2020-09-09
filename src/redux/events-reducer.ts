@@ -19,8 +19,8 @@ const eventsReducer = (state = initialState, action: ActionsTypes): InitialState
         }
         case 'SN/EDIT_TOGGLE': {
         if(state.editStatus === false ){
-            return {...state, editStatus: true
-            }}else if(state.editStatus === true){
+            return {...state, editStatus: true}
+        } else if (state.editStatus === true){
             return {...state, editStatus: false}
         }else {
             return {
