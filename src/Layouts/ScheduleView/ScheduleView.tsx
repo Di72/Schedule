@@ -18,7 +18,7 @@ export const ScheduleView = (props: any) => {
 	}, []);
 
 	const schedule = (<>
-		<Header data={props.data} />
+		<Header data={props.data} editStatus={props.editStatus}/>
 		    <Route path='/table'
 		render={ () => <ScheduleTable data={props.data} /> }/>
 	 		<Route path='/list'
