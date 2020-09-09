@@ -1,9 +1,10 @@
 import React from 'react';
+import './Header.less';
 import { EyeOutlined } from '@ant-design/icons';
 import styled from 'styled-components';
 import { Button, Menu, Dropdown, Select } from 'antd';
 import Logo from '../../assets/img/logo-rsschool3.png';
-import {NavLink} from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const { Option } = Select;
 
@@ -46,7 +47,7 @@ export const Header = () => {
       </Dropdown>
     </HeaderSC>
     <Select defaultValue="table" style={{ width: 120, margin: 15 }} >
-      <Option value="table"><NavLink className='navlink' to="/table" >table</NavLink></Option>
+      <Option value="table"><NavLink className='navlink' to="/" >table</NavLink></Option>
       <Option value="list"><NavLink className='navlink' to="/list" >list</NavLink></Option>
       <Option value="calendar"><NavLink className='navlink' to="/calendar" >calendar</NavLink></Option>
     </Select>

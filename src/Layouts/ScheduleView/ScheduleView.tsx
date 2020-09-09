@@ -7,6 +7,7 @@ import { setEventsAndOrganizerSelector } from '../../redux/selectors';
 import { ScheduleList } from '../Schedule-list';
 import CalendarContainer from '../Calendar/CalendarContainer';
 import { Route } from 'react-router-dom';
+import { Layout } from 'antd';
 
 export const ScheduleView = (props: any) => {
 	useEffect(() => {
@@ -20,19 +21,16 @@ export const ScheduleView = (props: any) => {
 				<h3>Loading...</h3>
 			</ Layout>
 		)
-    
-	const schedule = (<>
-	
-		    <Route path='/table'
-		render={ () => <ScheduleTable data={props.data} /> }/>
-	 		<Route path='/list'
-		render={ () => <ScheduleList /> }/>
-	 		<Route path='/calendar'
-		render={ () => <CalendarContainer data={props.data} /> }/>
-			
-			
-			
-		</>=
+
+	return (
+		<Layout style={{ margin: "16px", backgroundColor: "transparent" }}>
+			<Route path='/' exact
+				render={() => <ScheduleTable data={props.data} />} />
+			<Route path='/list'
+				render={() => <ScheduleList data={props.data} />} />
+			<Route path='/calendar'
+				render={() => <CalendarContainer data={props.data} />} />
+		</ Layout>
 	);
 };
 
