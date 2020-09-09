@@ -1,5 +1,6 @@
 import React, { CSSProperties, useState } from 'react';
-import { EventsType, ICourseOverview   } from "src/types/types"
+import './TaskCard.less';
+import { EventsType, ICourseOverview } from "src/types/types"
 import { Card, Tag, Modal } from 'antd';
 import ModalContent from '../ModalContent/ModalContent';
 
@@ -36,7 +37,9 @@ export default function TaskCard({ event }: { event: EventsType }) {
 
   console.log(modalContent);
 
-  const toggleModalVisibility = () => {
+  const toggleModalVisibility = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    const currentElement = e.target as HTMLElement;
+    if (currentElement.closest('a')) return;
     setModalVisibility(true);
   }
 
@@ -85,16 +88,16 @@ export default function TaskCard({ event }: { event: EventsType }) {
 
   return (
     <>
-    <Card onClick={toggleModalVisibility} className="schedule-list__card" key={id} title={title} style={{ marginBottom: '16px' }} >
-      {descriptionTSX}
-      {commentTSX}
-      {placeTSX}
-      {dateTimeTSX}
-    </Card>
-    {modalContent ? (
-      <Modal onOk={onModalOkHandler} onCancel={onModalCancelHandler} visible={modalVisibility}>
-        <ModalContent {...modalContent}/>
-      </Modal>) : null }
+      <Card onClick={toggleModalVisibility} className="schedule-list__card" key={id} title={title} style={{ marginBottom: '16px' }} >
+        {descriptionTSX}
+        {commentTSX}
+        {placeTSX}
+        {dateTimeTSX}
+      </Card>
+      {modalContent ? (
+        <Modal onOk={onModalOkHandler} onCancel={onModalCancelHandler} visible={modalVisibility}>
+          <ModalContent {...modalContent} />
+        </Modal>) : null}
     </>
   )
 }
