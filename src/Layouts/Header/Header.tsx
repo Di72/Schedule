@@ -36,7 +36,8 @@ const menu = (
 );
 
 
-export const Header = () => {
+
+export const Header = (data: any) => {
   return (<>
     <HeaderSC>
       <ImgLogo src={Logo} alt="" />
@@ -50,6 +51,7 @@ export const Header = () => {
       <Option value="list"><NavLink className='navlink' to="/list" >list</NavLink></Option>
       <Option value="calendar"><NavLink className='navlink' to="/calendar" >calendar</NavLink></Option>
     </Select>
+    {data.editStatus ?  <Button type="dashed" onClick={()=>data.editStatus}>Mentor</Button> : <Button type="dashed" onClick={data.editStatus}>Student</Button>}
   </>);
 
 };

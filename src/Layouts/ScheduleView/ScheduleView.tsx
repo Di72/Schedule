@@ -1,12 +1,13 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { AppStateType } from '../../redux/store';
-import { getEvents, getOrganizers } from '../../redux/events-reducer';
+import { getEvents, getOrganizers, actions } from '../../redux/events-reducer';
 import { ScheduleTable } from '../Table/ScheduleTable';
 import { setEventsAndOrganizerSelector } from '../../redux/selectors';
 import { ScheduleList } from '../Schedule-list';
 import CalendarContainer from '../Calendar/CalendarContainer';
 import { Route } from 'react-router-dom';
+import { Header } from '../Header/Header';
 
 
 export const ScheduleView = (props: any) => {
@@ -17,7 +18,7 @@ export const ScheduleView = (props: any) => {
 	}, []);
 
 	const schedule = (<>
-	
+		<Header data={props.data} />
 		    <Route path='/table'
 		render={ () => <ScheduleTable data={props.data} /> }/>
 	 		<Route path='/list'
@@ -41,4 +42,4 @@ const mapStateToProps = (state: AppStateType) => {
 	};
 };
 
-export default connect(mapStateToProps, { requestEvents: getEvents, requestOrganizers: getOrganizers })(ScheduleView);
+export default connect(mapStateToProps, { requestEvents: getEvents, requestOrganizers: getOrganizers, editStatus: actions.editStatus})(ScheduleView);

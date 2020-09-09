@@ -4,7 +4,8 @@ import { InferActionsTypes, BaseThunkType } from './store';
 
 let initialState = {
     events: [] as Array<EventsType>,
-    organizers: [] as Array<OrganizersType>
+    organizers: [] as Array<OrganizersType>,
+    editStatus: false as boolean
 };
 
 
@@ -16,6 +17,16 @@ const eventsReducer = (state = initialState, action: ActionsTypes): InitialState
         case 'SN/SET_ORGANIZERS': {
             return {...state, organizers: action.response}
         }
+        case 'SN/EDIT_TOGGLE': {
+        if(state.editStatus === false ){
+            return {...state, editStatus: true
+            }}else if(state.editStatus === true){
+            return {...state, editStatus: false}
+        }else {
+            return {
+                ...state
+            };
+        }}
         default:
             return state;
     }
@@ -24,6 +35,7 @@ const eventsReducer = (state = initialState, action: ActionsTypes): InitialState
 export const actions = {
     setEvents: (response: Array<EventsType>) => ({type: 'SN/SET_EVENTS', response} as const),
     setOrganizers: (response: Array<OrganizersType>) => ({type: 'SN/SET_ORGANIZERS', response} as const),
+    editStatus: () => ({type: 'SN/EDIT_TOGGLE'} as const),
 }
 
 export const getEvents = (): ThunkType => async (dispatch) => {
