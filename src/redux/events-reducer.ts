@@ -22,7 +22,7 @@ const eventsReducer = (state = initialState, action: ActionsTypes): InitialState
             return {...state, editStatus: true}
         } else if (state.editStatus === true){
             return {...state, editStatus: false}
-        }else {
+        } else {
             return {
                 ...state
             };
