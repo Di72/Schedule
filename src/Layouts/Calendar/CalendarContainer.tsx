@@ -5,7 +5,7 @@ import 'react-big-calendar/lib/css/react-big-calendar.css';
 import moment from 'moment';
 import './style.less';
 
-const refatcorDates = (date:any) => {
+const dataModification = (date:any) => {
   const taskStaretDate = date.split('/');
   const day = Number(taskStaretDate[0]);
   const month = Number(taskStaretDate[1]) - 1;
@@ -22,10 +22,8 @@ const CalendarContainer = (props: any) => {
   const modifiedEventsData = events.map((el: any) => {
     if(!el.deadline) return {};
 
-    console.log(true);
-
-    const startDate = refatcorDates(el.dateTime);
-    const deadlineDate = refatcorDates(el.deadline)
+    const startDate = dataModification(el.dateTime);
+    const deadlineDate = dataModification(el.deadline)
 
     return {
       title: el.description,
