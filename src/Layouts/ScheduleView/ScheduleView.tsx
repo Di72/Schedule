@@ -8,14 +8,19 @@ import { ScheduleList } from '../Schedule-list';
 import CalendarContainer from '../Calendar/CalendarContainer';
 import { Route } from 'react-router-dom';
 
-
 export const ScheduleView = (props: any) => {
 	useEffect(() => {
 		props.requestOrganizers();
 		props.requestEvents();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
-
+	if (!props.data.events[0])
+		return (
+			<Layout style={{ display: "flex", alignItems: "center", backgroundColor: "transparent" }}>
+				<h3>Loading...</h3>
+			</ Layout>
+		)
+    
 	const schedule = (<>
 	
 		    <Route path='/table'
@@ -27,12 +32,8 @@ export const ScheduleView = (props: any) => {
 			
 			
 			
-		</>
+		</>=
 	);
-
-	const content = props.data.events[0] === undefined ? <h1>Подождите...</h1> : schedule;
-
-	return content;
 };
 
 const mapStateToProps = (state: AppStateType) => {
