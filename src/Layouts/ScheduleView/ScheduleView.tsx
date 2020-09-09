@@ -7,8 +7,7 @@ import { setEventsAndOrganizerSelector } from '../../redux/selectors';
 import { ScheduleList } from '../Schedule-list';
 import CalendarContainer from '../Calendar/CalendarContainer';
 import { Route } from 'react-router-dom';
-import { Header } from '../Header/Header';
-
+import { Layout } from 'antd';
 
 export const ScheduleView = (props: any) => {
 	useEffect(() => {
@@ -16,24 +15,22 @@ export const ScheduleView = (props: any) => {
 		props.requestEvents();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
-
-	const schedule = (<>
-		<Header data={props.data} editStatus={props.editStatus}/>
-		    <Route path='/table'
-		render={ () => <ScheduleTable data={props.data} /> }/>
-	 		<Route path='/list'
-		render={ () => <ScheduleList /> }/>
-	 		<Route path='/calendar'
-		render={ () => <CalendarContainer data={props.data} /> }/>
-			
-			
-			
-		</>
+	if (!props.data.events[0])
+		return (
+			<Layout style={{ display: "flex", alignItems: "center", backgroundColor: "transparent" }}>
+				<h3>Loading...</h3>
+			</ Layout>
+		)
+	return (
+		<Layout style={{ margin: "16px", backgroundColor: "transparent" }}>
+			<Route path='/' exact
+				render={() => <ScheduleTable data={props.data} />} />
+			<Route path='/list'
+				render={() => <ScheduleList data={props.data} />} />
+			<Route path='/calendar'
+				render={() => <CalendarContainer data={props.data} />} />
+		</ Layout>
 	);
-
-	const content = props.data.events[0] === undefined ? <h1>Подождите...</h1> : schedule;
-
-	return content;
 };
 
 const mapStateToProps = (state: AppStateType) => {
