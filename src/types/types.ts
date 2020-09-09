@@ -15,23 +15,7 @@ export type OrganizersType = {
   id: string;
 };
 
-export interface ScheduleDataTemplate {
-  Blocks?: string;
-  Time?: string;
-  Result?: string;
-  Notate?: string;
-}
-
-export interface ScheduleDataTertiary extends ScheduleDataTemplate {
-  Task: string;
-}
-
-export interface ScheduleDataSecondary extends ScheduleDataTemplate {
-  Task?: string;
-  Include?: ScheduleDataTertiary[];
-}
-
-export interface ScheduleData extends ScheduleDataTemplate {
-  Task: string;
-  Include?: ScheduleDataSecondary[];
+export interface IInitialState {
+  events: EventsType[];
+  organizers: OrganizersType[];
 }
