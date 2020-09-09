@@ -8,12 +8,12 @@ import { Header } from './Layouts/Header/Header';
 
 const App: React.FC = () => {
 	return (
-		<BrowserRouter>
+		<Router>
 			<Provider store={store}>
 				<Header />
 				<ScheduleView />
 			</Provider>
-		</BrowserRouter>
+		</Router>
 	);
 };
 
