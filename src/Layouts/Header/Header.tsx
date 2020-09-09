@@ -37,7 +37,8 @@ const menu = (
 );
 
 
-export const Header = () => {
+//@ts-ignore
+export const Header = ({data, editStatus}) => {
   return (<>
     <HeaderSC>
       <ImgLogo src={Logo} alt="" />
@@ -51,6 +52,7 @@ export const Header = () => {
       <Option value="list"><NavLink className='navlink' to="/list" >list</NavLink></Option>
       <Option value="calendar"><NavLink className='navlink' to="/calendar" >calendar</NavLink></Option>
     </Select>
+    {data.editStatus ?  <Button type="primary" danger onClick={()=>editStatus()}>Mentor</Button> : <Button type="primary" onClick={()=>editStatus()}>Student</Button>}
   </>);
 
 };

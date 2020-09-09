@@ -1,13 +1,15 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { AppStateType } from '../../redux/store';
-import { getEvents, getOrganizers } from '../../redux/events-reducer';
+import { getEvents, getOrganizers, actions } from '../../redux/events-reducer';
 import { ScheduleTable } from '../Table/ScheduleTable';
 import { setEventsAndOrganizerSelector } from '../../redux/selectors';
 import { ScheduleList } from '../Schedule-list';
 import CalendarContainer from '../Calendar/CalendarContainer';
 import { Route } from 'react-router-dom';
 import { Layout } from 'antd';
+import { Header } from '../Header/Header';
+
 
 export const ScheduleView = (props: any) => {
 	useEffect(() => {
@@ -21,9 +23,9 @@ export const ScheduleView = (props: any) => {
 				<h3>Loading...</h3>
 			</ Layout>
 		)
-
 	return (
 		<Layout style={{ margin: "16px", backgroundColor: "transparent" }}>
+			<Header data={props.data} editStatus={props.editStatus} />
 			<Route path='/' exact
 				render={() => <ScheduleTable data={props.data} />} />
 			<Route path='/list'
@@ -40,4 +42,4 @@ const mapStateToProps = (state: AppStateType) => {
 	};
 };
 
-export default connect(mapStateToProps, { requestEvents: getEvents, requestOrganizers: getOrganizers })(ScheduleView);
+export default connect(mapStateToProps, { requestEvents: getEvents, requestOrganizers: getOrganizers, editStatus: actions.editStatus })(ScheduleView);
