@@ -8,6 +8,8 @@ import { ScheduleList } from '../Schedule-list';
 import CalendarContainer from '../Calendar/CalendarContainer';
 import { Route } from 'react-router-dom';
 import { Layout } from 'antd';
+import { Header } from '../Header/Header';
+
 
 export const ScheduleView = (props: any) => {
 	useEffect(() => {
@@ -23,6 +25,7 @@ export const ScheduleView = (props: any) => {
 		)
 	return (
 		<Layout style={{ margin: "16px", backgroundColor: "transparent" }}>
+				<Header data={props.data} editStatus={props.editStatus}/>
 			<Route path='/' exact
 				render={() => <ScheduleTable data={props.data} />} />
 			<Route path='/list'
