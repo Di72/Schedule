@@ -4,7 +4,7 @@ import { AppStateType } from '../../redux/store';
 import { getEvents, getOrganizers } from '../../redux/events-reducer';
 import { ScheduleTable } from '../Table/ScheduleTable';
 import { setEventsAndOrganizerSelector } from '../../redux/selectors';
-import { ScheduleList } from '../Schedule-list';
+import { ScheduleList } from '../List';
 import CalendarContainer from '../Calendar/CalendarContainer';
 import { Route } from 'react-router-dom';
 import { Layout } from 'antd';
