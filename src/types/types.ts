@@ -36,6 +36,6 @@ export interface CourseTeam {
 }
 
 export interface ITaskPage extends ICourseOverview {
-  requestEvent: (id: string) => ICourseOverview;
+  requestEvent: Function;
   id: string;
 }
