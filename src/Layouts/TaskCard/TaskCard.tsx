@@ -1,11 +1,10 @@
-import React, { CSSProperties, useState } from 'react';
+import React, { CSSProperties } from 'react';
 import './TaskCard.less';
-import { EventsType, ICourseOverview } from "src/types/types"
-import { Card, Tag, Modal } from 'antd';
-import ModalContent from '../ModalContent/ModalContent';
+import { EventsType } from "src/types/types"
+import { Card, Tag } from 'antd';
 import { Link, useRouteMatch } from 'react-router-dom';
 
-const DUMMY_DATA = {
+export const DUMMY_DATA = {
   description: `
   Курс состоит из нескольких крупных модулей, 
   каждый из которых содержит короткие видео и тесты. 
@@ -33,25 +32,6 @@ const DUMMY_DATA = {
 export default function TaskCard({ event }: { event: EventsType }) {
   const { comment, dateTime, description, descriptionUrl, id, name, place, timeZone, type } = event;
 
-  const [modalVisibility, setModalVisibility] = useState(false);
-  const [modalContent, setModalContent] = useState<ICourseOverview | null>(DUMMY_DATA);
-
-  // console.log(modalContent);
-
-  const toggleModalVisibility = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    const currentElement = e.target as HTMLElement;
-    if (currentElement.closest('a')) return;
-    setModalVisibility(true);
-  }
-
-  const onModalOkHandler = () => {
-    setModalVisibility(false);
-  }
-
-  const onModalCancelHandler = () => {
-    setModalVisibility(false);
-  }
-
   const cardTitle = (field: string, title: string, style: CSSProperties) => {
     return (field &&
       <span style={style} ><b>{title}:</b> {field}</span>
@@ -65,8 +45,8 @@ export default function TaskCard({ event }: { event: EventsType }) {
     </Tag>
   }
 
-  const time = cardTitle(timeZone, 'Time', { fontWeight: "normal" });
-  const typeTSX = renderTags(type, id);
+  const time = timeZone && cardTitle(timeZone, 'Time', { fontWeight: "normal" });
+  const typeTSX = type && renderTags(type, id);
   const match = useRouteMatch();
 
   const title = (
@@ -87,23 +67,17 @@ export default function TaskCard({ event }: { event: EventsType }) {
     )
   }
 
-  const descriptionTSX = description && cardRow('Description', description, descriptionUrl)
-  const commentTSX = comment && cardRow('Notate', comment)
+  // const descriptionTSX = description && cardRow('Description', description, descriptionUrl)
+  // const commentTSX = comment && cardRow('Notate', comment)
   const placeTSX = place && cardRow('Place', place)
   const dateTimeTSX = dateTime && cardRow('Time start', dateTime)
 
   return (
-    <>
-      <Card className="schedule-list__card" key={id} title={title} style={{ marginBottom: '16px' }} >
-        {descriptionTSX}
-        {commentTSX}
-        {placeTSX}
-        {dateTimeTSX}
-      </Card>
-      {modalContent ? (
-        <Modal onOk={onModalOkHandler} onCancel={onModalCancelHandler} visible={modalVisibility}>
-          <ModalContent {...modalContent} />
-        </Modal>) : null}
-    </>
+    <Card className="schedule-list__card" key={id} title={title} style={{ marginBottom: '16px' }} >
+      {/* {descriptionTSX} */}
+      {/* {commentTSX} */}
+      {placeTSX}
+      {dateTimeTSX}
+    </Card>
   )
 }

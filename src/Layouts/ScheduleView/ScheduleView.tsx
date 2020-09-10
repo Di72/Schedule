@@ -9,6 +9,8 @@ import CalendarContainer from '../Calendar/CalendarContainer';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Layout } from 'antd';
 import { Header } from '../Header/Header';
+import { DUMMY_DATA } from '../TaskCard/TaskCard';
+import TaskPage from '../TaskPage/TaskPage';
 
 
 export const ScheduleView = (props: any) => {
@@ -36,7 +38,9 @@ export const ScheduleView = (props: any) => {
 						render={() => <CalendarContainer data={props.data} />} />
 					<Route path='/list/:id' render={({ match }) => {
 						const { id } = match.params;
-						return <h1>{id}</h1>
+						return (
+							<TaskPage {...DUMMY_DATA } id={id}/>
+						)
 					}}></Route>
 				</Switch>
 			</ Layout>
