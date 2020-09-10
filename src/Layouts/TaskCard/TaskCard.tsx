@@ -3,6 +3,7 @@ import './TaskCard.less';
 import { EventsType, ICourseOverview } from "src/types/types"
 import { Card, Tag, Modal } from 'antd';
 import ModalContent from '../ModalContent/ModalContent';
+import { Link, useRouteMatch } from 'react-router-dom';
 
 const DUMMY_DATA = {
   description: `
@@ -35,7 +36,7 @@ export default function TaskCard({ event }: { event: EventsType }) {
   const [modalVisibility, setModalVisibility] = useState(false);
   const [modalContent, setModalContent] = useState<ICourseOverview | null>(DUMMY_DATA);
 
-  console.log(modalContent);
+  // console.log(modalContent);
 
   const toggleModalVisibility = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     const currentElement = e.target as HTMLElement;
@@ -66,10 +67,15 @@ export default function TaskCard({ event }: { event: EventsType }) {
 
   const time = cardTitle(timeZone, 'Time', { fontWeight: "normal" });
   const typeTSX = renderTags(type, id);
+  const match = useRouteMatch();
 
   const title = (
     <div style={{ display: "flex", justifyContent: "space-between", }}>
-      <span>{name} {typeTSX}</span>
+      <span>
+        <Link to={`${match.url}/${event.id}`} style={{ marginRight: "4px" }} >
+          {name}
+        </Link>
+        {typeTSX}</span>
       {time}
     </div>
   );
@@ -88,7 +94,7 @@ export default function TaskCard({ event }: { event: EventsType }) {
 
   return (
     <>
-      <Card onClick={toggleModalVisibility} className="schedule-list__card" key={id} title={title} style={{ marginBottom: '16px' }} >
+      <Card className="schedule-list__card" key={id} title={title} style={{ marginBottom: '16px' }} >
         {descriptionTSX}
         {commentTSX}
         {placeTSX}
