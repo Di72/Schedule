@@ -5,20 +5,30 @@ import 'react-big-calendar/lib/css/react-big-calendar.css';
 import moment from 'moment';
 import './style.less';
 
+const dataModification = (date:any) => {
+  const taskStaretDate = date.split('/');
+  const day = Number(taskStaretDate[0]);
+  const month = Number(taskStaretDate[1]) - 1;
+  const year = Number('20' + taskStaretDate[2]);
+
+  return {day, month, year}
+}
+
 const localizer = momentLocalizer(moment);
 
 const CalendarContainer = (props: any) => {
   const events = props.data.events;
 
   const modifiedEventsData = events.map((el: any) => {
-    const taskDate = el.dateTime.split('/')
-    const day = Number(taskDate[0]);
-    const month = Number(taskDate[1]) - 1;
-    const year = Number('20' + taskDate[2]);
+    if(!el.deadline) return {};
+
+    const startDate = dataModification(el.dateTime);
+    const deadlineDate = dataModification(el.deadline)
+
     return {
       title: el.description,
-      start: new Date(year, month, day),
-      end: new Date(year, month, day),
+      start: new Date(startDate.year, startDate.month, startDate.day),
+      end: new Date(deadlineDate.year, deadlineDate.month, deadlineDate.day),
       allDay: true,
       resource: el.comment
     }

@@ -1,5 +1,5 @@
 import React, { CSSProperties, useState } from 'react';
-
+import './TaskCard.less';
 import { EventsType, ICourseOverview } from "src/types/types"
 import { Card, Tag, Modal } from 'antd';
 import ModalWindow from '../ModalWindow/ModalWindow';

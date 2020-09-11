@@ -19,7 +19,6 @@ interface ModalProps {
   visible: boolean;
 }
 
-
 const ModalWindow = (props: ModalProps) => {
   const { okClickHandler, cancelClickHandler, visible } = props;
   const { description, goal, agenda, teachers } = props.data;
