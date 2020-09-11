@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Table, Tag } from 'antd';
+import moment from 'moment-timezone';
 
 const { Column } = Table;
 
 export const ScheduleTable = (props: any) => {
 	const { events } = props.data;
+
 	const eventsWithKey = events.map((item: { key: any; id: any }) => {
 		item.key = item.id;
 		return item;
@@ -17,10 +19,55 @@ export const ScheduleTable = (props: any) => {
 				{type}
 			</Tag>
 		);
-	};
+  };
 
+	const mockEvent = [{
+    comment: "Установить Git. Создать github-аккаунт",
+    dateTime: "12/11/20",
+    formmatedTime: new Date(),
+    deadline: "12/12/20",
+    description: "Регистрация на Гитхабе",
+    descriptionUrl: "https://htmlacademy.ru/blog/boost/tools/register-on-github-work-with-console",
+    id: "M3gTaSE0GGVrSZmQGabQ",
+    key: "M3gTaSE0GGVrSZmQGabQ",
+    name: "Git & GitHub",
+    place: "online",
+    timeZone: "8h",
+    type: "git task",
+  }];
+
+  
+
+
+const currentTimeAndDate = new Date();
+const timezones = [
+"Europe/London",
+"Europe/Kaliningrad",
+"Europe/Moscow",
+"Europe/Volgograd"
+];
+
+
+
+
+  const dateRenderer = (timeZone: string) => (value: string) =>
+    value
+      ? moment(value, 'YYYY-MM-DD HH:mmZ')
+          .tz(timeZone)
+          .format('YYYY-MM-DD')
+      : '';
+
+  const timeRenderer = (timeZone: string) => (value: string) => {
+    console.log(timeZone, value, 'timerendered');
+    return value
+      ? moment(value, 'YYYY-MM-DD HH:mmZ')
+          .tz(timeZone)
+          .format('HH:mm')
+      : '';
+  }
+	
 	return (
-		<Table dataSource={eventsWithKey}>
+		<Table dataSource={mockEvent}>
 			<Column key="dateTime" title="Data" dataIndex="dateTime" />
 			<Column key="name" title="Name" dataIndex="name" />
 			<Column
@@ -30,8 +77,14 @@ export const ScheduleTable = (props: any) => {
 				render={(type: string, id: string) => renderTags(type, id)}
 			/>
 			<Column key="timeZone" title="TimeZone" dataIndex="timeZone" />
+      <Column 
+      key="formmatedTime"
+      title="formmatedTime"
+      dataIndex="formmatedTime"
+      render={timeRenderer(props.data.timeZone)}
+      />
 			<Column key="description" title="Description" dataIndex="description" />
-			<Column key="place" title="Place" dataIndex="place" />
+			<Column key="place" title="Place" dataIndex="place" />  
 		</Table>
 	);
 };

@@ -25,7 +25,7 @@ export const ScheduleView = (props: any) => {
 		)
 	return (
 		<Layout style={{ margin: "16px", backgroundColor: "transparent" }}>
-			<Header data={props.data} editStatus={props.editStatus} />
+			<Header data={props.data} timeZone={props.timeZone} editStatus={props.editStatus} />
 			<Route path='/' exact
 				render={() => <ScheduleTable data={props.data} />} />
 			<Route path='/list'
@@ -42,4 +42,4 @@ const mapStateToProps = (state: AppStateType) => {
 	};
 };
 
-export default connect(mapStateToProps, { requestEvents: getEvents, requestOrganizers: getOrganizers, editStatus: actions.editStatus })(ScheduleView);
+export default connect(mapStateToProps, { requestEvents: getEvents, requestOrganizers: getOrganizers, editStatus: actions.editStatus, timeZone: actions.setTimeZone })(ScheduleView);

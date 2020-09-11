@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment-timezone';
 import './Header.less';
 import { EyeOutlined } from '@ant-design/icons';
 import styled from 'styled-components';
@@ -13,6 +14,13 @@ const HeaderSC = styled.div`
   justify-content: space-between;
 `;
 const ImgLogo = styled.img`height: 30px; margin-left: 15px;`;
+
+const timezones = [
+"Europe/London",
+"Europe/Kaliningrad",
+"Europe/Moscow",
+"Europe/Volgograd"
+];
 
 const menu = (
   <Menu>
@@ -36,9 +44,12 @@ const menu = (
   </Menu>
 );
 
-
 //@ts-ignore
-export const Header = ({data, editStatus}) => {
+export const Header = ({data, editStatus, timeZone}) => {
+  const onTimezoneChange = (timezone: string) => {
+    timeZone(timezone)
+  }
+
   return (<>
     <HeaderSC>
       <ImgLogo src={Logo} alt="" />
@@ -51,6 +62,12 @@ export const Header = ({data, editStatus}) => {
       <Option value="table"><NavLink className='navlink' to="/" >table</NavLink></Option>
       <Option value="list"><NavLink className='navlink' to="/list" >list</NavLink></Option>
       <Option value="calendar"><NavLink className='navlink' to="/calendar" >calendar</NavLink></Option>
+    </Select>
+
+    <Select defaultValue="Europe/Moscow" style={{ width: 200, margin: 15}} onChange={onTimezoneChange}>
+      {timezones.map(timeZone => {
+        return <Option key={timeZone} style={{ paddingLeft: 15, paddingRight: 15 }} value={timeZone}> {timeZone}</Option>
+      })}
     </Select>
     {data.editStatus ?  <Button type="primary" danger onClick={()=>editStatus()}>Mentor</Button> : <Button type="primary" onClick={()=>editStatus()}>Student</Button>}
   </>);
