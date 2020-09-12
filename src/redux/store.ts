@@ -2,10 +2,12 @@ import {Action, applyMiddleware, combineReducers, compose, createStore} from "re
 import eventsReducer from "./events-reducer";
 import reducerTwo from "./reducerTwo";
 import thunkMiddleware, {ThunkAction} from "redux-thunk";
+import { reducer as formReducer } from 'redux-form'
 
 
 let rootReducer = combineReducers({
     eventsReducer,
+    form: formReducer,
     reducerTwo
 })
 
