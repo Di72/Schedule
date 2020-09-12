@@ -16,7 +16,7 @@ export const httpRequests = {
   getEvent: (id: string) => {
     return instance
       .get(`event/${id}`)
-      .then((res) => res.data.data)
+      .then((res) => res.data)
       .catch(function (error) {
         console.log(error);
       });

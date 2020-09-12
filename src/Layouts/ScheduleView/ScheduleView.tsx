@@ -6,9 +6,11 @@ import { ScheduleTable } from '../Table/ScheduleTable';
 import { setEventsAndOrganizerSelector } from '../../redux/selectors';
 import { ScheduleList } from '../List';
 import CalendarContainer from '../Calendar/CalendarContainer';
-import { Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Layout } from 'antd';
 import { Header } from '../Header/Header';
+import { DUMMY_DATA } from '../TaskCard/TaskCard';
+import TaskPage from '../TaskPage/TaskPage';
 
 
 export const ScheduleView = (props: any) => {
@@ -24,15 +26,25 @@ export const ScheduleView = (props: any) => {
 			</ Layout>
 		)
 	return (
-		<Layout style={{ margin: "16px", backgroundColor: "transparent" }}>
-			<Header data={props.data} editStatus={props.editStatus} />
-			<Route path='/' exact
-				render={() => <ScheduleTable data={props.data} />} />
-			<Route path='/list'
-				render={() => <ScheduleList data={props.data} />} />
-			<Route path='/calendar'
-				render={() => <CalendarContainer data={props.data} />} />
-		</ Layout>
+		<Router>
+			<Layout style={{ margin: "16px", backgroundColor: "transparent" }}>
+				<Header data={props.data} editStatus={props.editStatus} />
+				<Switch>
+					<Route path='/' exact={true}
+						render={() => <ScheduleTable data={props.data} />} />
+					<Route path='/list/' exact={true}
+						render={() => <ScheduleList data={props.data} />} />
+					<Route path='/calendar'
+						render={() => <CalendarContainer data={props.data} />} />
+					<Route path='/list/:id' render={({ match }) => {
+						const { id } = match.params;
+						return (
+							<TaskPage {...DUMMY_DATA } id={id}/>
+						)
+					}}></Route>
+				</Switch>
+			</ Layout>
+		</Router>
 	);
 };
 
