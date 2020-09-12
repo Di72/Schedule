@@ -1,8 +1,7 @@
 import React, { CSSProperties } from 'react';
 import './TaskCard.less';
-import { EventsType, ICourseOverview } from "src/types/types"
-import { Card, Tag, Modal } from 'antd';
-import ModalWindow from '../ModalWindow/ModalWindow';
+import { EventsType } from "src/types/types"
+import { Card, Tag } from 'antd';
 import { Link, useRouteMatch } from 'react-router-dom';
 
 
@@ -32,7 +31,7 @@ export const DUMMY_DATA = {
 }
 
 export default function TaskCard({ event }: { event: EventsType }) {
-  const { comment, dateTime, description, descriptionUrl, id, name, place, timeZone, type } = event;
+  const { dateTime, id, name, place, timeZone, type } = event;
 
   const cardTitle = (field: string, title: string, style: CSSProperties) => {
     return (field &&
@@ -69,22 +68,13 @@ export default function TaskCard({ event }: { event: EventsType }) {
     )
   }
 
-  // const descriptionTSX = description && cardRow('Description', description, descriptionUrl)
-  // const commentTSX = comment && cardRow('Notate', comment)
   const placeTSX = place && cardRow('Place', place)
   const dateTimeTSX = dateTime && cardRow('Time start', dateTime)
 
   return (
-    <>
-      <Card onClick={toggleModalVisibility} className="schedule-list__card" key={id} title={title} style={{ marginBottom: '16px' }} >
-        {descriptionTSX}
-        {commentTSX}
-        {placeTSX}
-        {dateTimeTSX}
-      </Card>
-      {modalContent ?
-        <ModalWindow data={modalContent}  okClickHandler={onModalOkHandler} cancelClickHandler={onModalCancelHandler} visible={modalVisibility}/> : null
-      }
-    </>
+    <Card className="schedule-list__card" key={id} title={title} style={{ marginBottom: '16px' }} >
+      {placeTSX}
+      {dateTimeTSX}
+    </Card>
   )
 }
