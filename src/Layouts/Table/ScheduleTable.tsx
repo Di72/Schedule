@@ -8,26 +8,20 @@ const { Column } = Table;
 export const ScheduleTable = (props: any) => {
 
 	const [ editMode, setEditMode ] = useState({ editMode: false });
-	const [ currentTask, setCurrentTask ] = useState(null as null | EventsType[] );
-	const [ event, setEvent ] = useState('');
+  const [ currentTask, setCurrentTask ] = useState(null as null | EventsType[] );
+  
+
+  const [event, setEvent] = useState(currentTask && currentTask[0].name);
+
+
 	useEffect(
 		() => {
 			// eslint-disable-next-line react-hooks/exhaustive-deps
-			setCurrentTask(props.data.events);
+      setCurrentTask(props.data.events);
+      if(currentTask) setEvent(currentTask[0].name)
 		},
-		[]
+		[props.data.events]
 	);
-
-	useEffect(
-		() => {
-			if(currentTask) console.log(currentTask[0].name);
-			
-		},
-		[ currentTask ]
-	);
-
-	
-
 
 	const { events } = props.data;
 	const eventsWithKey = events.map((item: { key: any; id: any }) => {
@@ -44,21 +38,18 @@ export const ScheduleTable = (props: any) => {
 		);
 	};
 
-	const onDataChange = (e:any)=>{
-		console.log(e.currentTarget.value)
-		const newState = currentTask
-		if(newState)  newState[0].name = e.currentTarget.value
-		setCurrentTask(newState)
+	const onDataChange = (e: React.FormEvent<HTMLInputElement>)=>{
+    console.log(e.currentTarget.value)
+    const newState = e.currentTarget.value
+    setEvent(newState);
 	}
 
-	const renderInput = () => {
-		return (
-			<input onChange={onDataChange} value={event} />
-		);
-	};
+    const input = currentTask !== null ? <input onChange={onDataChange} value={event ? event : ''} /> : null
+
+
 
 const content = currentTask ? (
-<> <input onChange={onDataChange} value={currentTask[0].name} />
+<> {input}
 		<Table dataSource={currentTask}>
 			<Column key="dateTime" title="Data" dataIndex="dateTime" />
 			<Column key="name" title="Name" dataIndex="name" />
