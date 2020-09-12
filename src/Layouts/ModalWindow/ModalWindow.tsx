@@ -1,5 +1,6 @@
 import React from 'react';
-import { ICourseOverview } from "src/types/types"
+import { ICourseOverview } from "../../types/types";
+import { Modal } from 'antd';
 import styled from 'styled-components';
 
 const Teacher = styled.div`
@@ -11,23 +12,33 @@ const Photo = styled.img`
 max-width: 150px;
 height: auto;`;
 
-const ModalContent = (props: ICourseOverview) => {
+interface ModalProps {
+  data: ICourseOverview;
+  okClickHandler: (event: React.MouseEvent<HTMLElement>) => void;
+  cancelClickHandler: (event: React.MouseEvent<HTMLElement>) => void;
+  visible: boolean;
+}
+
+const ModalWindow = (props: ModalProps) => {
+  const { okClickHandler, cancelClickHandler, visible } = props;
+  const { description, goal, agenda, teachers } = props.data;
+
   return (
-    <>
+    <Modal onOk={okClickHandler} onCancel={cancelClickHandler } visible={visible}>
       <h5> Description </h5>
-      <p> {props.description} </p>
+      <p> {description} </p>
       
       <h5> Course Goal </h5>
-      <p> {props.goal} </p>
+      <p> {goal} </p>
       
       <h5> Agenda </h5>
       <ul> 
-        { props.agenda.map(theme => {return <li> { theme } </li>}) }
+        { agenda.map(theme => {return <li> { theme } </li>}) }
       </ul>
       <h5> Course Team </h5>
       <div>
         {
-          props.teachers.map(teacher => {
+          teachers.map(teacher => {
             return (
               <Teacher>
                 <Photo src={teacher.photo}/>
@@ -40,8 +51,8 @@ const ModalContent = (props: ICourseOverview) => {
           })
         }
         </div>
-    </>
+    </Modal>
   )
 }
 
-export default ModalContent
+export default ModalWindow;

@@ -1,8 +1,10 @@
 import React, { CSSProperties } from 'react';
 import './TaskCard.less';
-import { EventsType } from "src/types/types"
-import { Card, Tag } from 'antd';
+import { EventsType, ICourseOverview } from "src/types/types"
+import { Card, Tag, Modal } from 'antd';
+import ModalWindow from '../ModalWindow/ModalWindow';
 import { Link, useRouteMatch } from 'react-router-dom';
+
 
 export const DUMMY_DATA = {
   description: `
@@ -73,11 +75,16 @@ export default function TaskCard({ event }: { event: EventsType }) {
   const dateTimeTSX = dateTime && cardRow('Time start', dateTime)
 
   return (
-    <Card className="schedule-list__card" key={id} title={title} style={{ marginBottom: '16px' }} >
-      {/* {descriptionTSX} */}
-      {/* {commentTSX} */}
-      {placeTSX}
-      {dateTimeTSX}
-    </Card>
+    <>
+      <Card onClick={toggleModalVisibility} className="schedule-list__card" key={id} title={title} style={{ marginBottom: '16px' }} >
+        {descriptionTSX}
+        {commentTSX}
+        {placeTSX}
+        {dateTimeTSX}
+      </Card>
+      {modalContent ?
+        <ModalWindow data={modalContent}  okClickHandler={onModalOkHandler} cancelClickHandler={onModalCancelHandler} visible={modalVisibility}/> : null
+      }
+    </>
   )
 }
