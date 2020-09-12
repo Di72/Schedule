@@ -24,7 +24,7 @@ export const ScheduleTable = (props: any) => {
   const disableEditEvent = () => {
     toggle();
     if(currentEvents && event) setCurrentEvents([ ...props.data.events, events[0].name = event])
-    httpRequests.putEvent(currentEvents[0], currentEvents[0].id)
+    props.putEvent(currentEvents[0], currentEvents[0].id)
     props.requestEvents()
   }
   const enableEditEvent = () => {
