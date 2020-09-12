@@ -1,30 +1,30 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Table, Tag } from 'antd';
 import moment from 'moment-timezone';
 
 const { Column } = Table;
 
 export const ScheduleTable = (props: any) => {
-	const { events } = props.data;
+  // const { events } = props.data;
 
-	const eventsWithKey = events.map((item: { key: any; id: any }) => {
-		item.key = item.id;
-		return item;
-	});
+  // const eventsWithKey = events.map((item: { key: any; id: any }) => {
+  //   item.key = item.id;
+  //   return item;
+  // });
 
-	const renderTags = (type: string, id: string) => {
-		const color = type === 'deadline' ? 'red' : 'green';
-		return (
-			<Tag color={color} key={id}>
-				{type}
-			</Tag>
-		);
+  const renderTags = (type: string, id: string) => {
+    const color = type === 'deadline' ? 'red' : 'green';
+    return (
+      <Tag color={color} key={id}>
+        {type}
+      </Tag>
+    );
   };
 
-	const mockEvent = [{
+  const mockEvent = [{
     comment: "Установить Git. Создать github-аккаунт",
     dateTime: "12/11/20",
-    formmatedTime: new Date(),
+    formattedTime: new Date(),
     deadline: "12/12/20",
     description: "Регистрация на Гитхабе",
     descriptionUrl: "https://htmlacademy.ru/blog/boost/tools/register-on-github-work-with-console",
@@ -36,55 +36,55 @@ export const ScheduleTable = (props: any) => {
     type: "git task",
   }];
 
-  
-
-
-const currentTimeAndDate = new Date();
-const timezones = [
-"Europe/London",
-"Europe/Kaliningrad",
-"Europe/Moscow",
-"Europe/Volgograd"
-];
 
 
 
+  // const currentTimeAndDate = new Date();
+  // const timezones = [
+  //   "Europe/London",
+  //   "Europe/Kaliningrad",
+  //   "Europe/Moscow",
+  //   "Europe/Volgograd"
+  // ];
 
-  const dateRenderer = (timeZone: string) => (value: string) =>
-    value
-      ? moment(value, 'YYYY-MM-DD HH:mmZ')
-          .tz(timeZone)
-          .format('YYYY-MM-DD')
-      : '';
+
+
+
+  // const dateRenderer = (timeZone: string) => (value: string) =>
+  //   value
+  //     ? moment(value, 'YYYY-MM-DD HH:mmZ')
+  //       .tz(timeZone)
+  //       .format('YYYY-MM-DD')
+  //     : '';
 
   const timeRenderer = (timeZone: string) => (value: string) => {
     console.log(timeZone, value, 'timerendered');
     return value
       ? moment(value, 'YYYY-MM-DD HH:mmZ')
-          .tz(timeZone)
-          .format('HH:mm')
+        .tz(timeZone)
+        .format('HH:mm')
       : '';
   }
-	
-	return (
-		<Table dataSource={mockEvent}>
-			<Column key="dateTime" title="Data" dataIndex="dateTime" />
-			<Column key="name" title="Name" dataIndex="name" />
-			<Column
-				key="type"
-				title="Type"
-				dataIndex="type"
-				render={(type: string, id: string) => renderTags(type, id)}
-			/>
-			<Column key="timeZone" title="TimeZone" dataIndex="timeZone" />
-      <Column 
-      key="formmatedTime"
-      title="formmatedTime"
-      dataIndex="formmatedTime"
-      render={timeRenderer(props.data.timeZone)}
+
+  return (
+    <Table dataSource={mockEvent}>
+      <Column key="dateTime" title="Data" dataIndex="dateTime" />
+      <Column key="name" title="Name" dataIndex="name" />
+      <Column
+        key="type"
+        title="Type"
+        dataIndex="type"
+        render={(type: string, id: string) => renderTags(type, id)}
       />
-			<Column key="description" title="Description" dataIndex="description" />
-			<Column key="place" title="Place" dataIndex="place" />  
-		</Table>
-	);
+      <Column key="timeZone" title="TimeZone" dataIndex="timeZone" />
+      <Column
+        key="formattedTime"
+        title="formattedTime"
+        dataIndex="formattedTime"
+        render={timeRenderer(props.data.timeZone)}
+      />
+      <Column key="description" title="Description" dataIndex="description" />
+      <Column key="place" title="Place" dataIndex="place" />
+    </Table>
+  );
 };

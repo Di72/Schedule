@@ -1,5 +1,4 @@
 import React from 'react';
-import moment from 'moment-timezone';
 import './Header.less';
 import { EyeOutlined } from '@ant-design/icons';
 import styled from 'styled-components';
@@ -16,10 +15,10 @@ const HeaderSC = styled.div`
 const ImgLogo = styled.img`height: 30px; margin-left: 15px;`;
 
 const timezones = [
-"Europe/London",
-"Europe/Kaliningrad",
-"Europe/Moscow",
-"Europe/Volgograd"
+  "Europe/London",
+  "Europe/Kaliningrad",
+  "Europe/Moscow",
+  "Europe/Volgograd"
 ];
 
 const menu = (
@@ -44,32 +43,34 @@ const menu = (
   </Menu>
 );
 
-//@ts-ignore
-export const Header = ({data, editStatus, timeZone}) => {
+export const Header = ({ data, editStatus, timeZone }: { [x: string]: any }) => {
   const onTimezoneChange = (timezone: string) => {
     timeZone(timezone)
   }
 
-  return (<>
-    <HeaderSC>
-      <ImgLogo src={Logo} alt="" />
-      <h1>Schedule</h1>
-      <Dropdown overlay={menu} placement="bottomCenter">
-        <Button type="dashed">My Profile</Button>
-      </Dropdown>
-    </HeaderSC>
-    <Select defaultValue="table" style={{ width: 120, margin: 15 }} >
-      <Option value="table"><NavLink className='navlink' to="/" >table</NavLink></Option>
-      <Option value="list"><NavLink className='navlink' to="/list" >list</NavLink></Option>
-      <Option value="calendar"><NavLink className='navlink' to="/calendar" >calendar</NavLink></Option>
-    </Select>
+  const options = timezones.map((timeZone: string) => {
+    return <Option key={timeZone} style={{ paddingLeft: 15, paddingRight: 15 }} value={timeZone}> {timeZone}</Option>
+  })
 
-    <Select defaultValue="Europe/Moscow" style={{ width: 200, margin: 15}} onChange={onTimezoneChange}>
-      {timezones.map(timeZone => {
-        return <Option key={timeZone} style={{ paddingLeft: 15, paddingRight: 15 }} value={timeZone}> {timeZone}</Option>
-      })}
-    </Select>
-    {data.editStatus ?  <Button type="primary" danger onClick={()=>editStatus()}>Mentor</Button> : <Button type="primary" onClick={()=>editStatus()}>Student</Button>}
-  </>);
+  return (
+    <>
+      <HeaderSC>
+        <ImgLogo src={Logo} alt="" />
+        <h1>Schedule</h1>
+        <Dropdown overlay={menu} placement="bottomCenter">
+          <Button type="dashed">My Profile</Button>
+        </Dropdown>
+      </HeaderSC>
+      <Select defaultValue="table" style={{ width: 120, margin: 15 }} >
+        <Option value="table"><NavLink className='navlink' to="/" >table</NavLink></Option>
+        <Option value="list"><NavLink className='navlink' to="/list" >list</NavLink></Option>
+        <Option value="calendar"><NavLink className='navlink' to="/calendar" >calendar</NavLink></Option>
+      </Select>
 
+      <Select defaultValue="Europe/Moscow" style={{ width: 200, margin: 15 }} onChange={onTimezoneChange}>
+        {options}
+      </Select>
+      {data.editStatus ? <Button type="primary" danger onClick={() => editStatus()}>Mentor</Button> : <Button type="primary" onClick={() => editStatus()}>Student</Button>}
+    </>
+  );
 };
