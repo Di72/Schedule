@@ -36,20 +36,6 @@ export const ScheduleTable = (props: any) => {
     type: "git task",
   }];
 
-
-
-
-  // const currentTimeAndDate = new Date();
-  // const timezones = [
-  //   "Europe/London",
-  //   "Europe/Kaliningrad",
-  //   "Europe/Moscow",
-  //   "Europe/Volgograd"
-  // ];
-
-
-
-
   // const dateRenderer = (timeZone: string) => (value: string) =>
   //   value
   //     ? moment(value, 'YYYY-MM-DD HH:mmZ')
