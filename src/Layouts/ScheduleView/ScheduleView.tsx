@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { AppStateType } from '../../redux/store';
-import { getEvents, getOrganizers, actions, updateEvent, getEvent } from '../../redux/events-reducer';
+import { getEvents, getOrganizers, actions, updateEvent, getEvent, putEvent } from '../../redux/events-reducer';
 import { ScheduleTable } from '../Table/ScheduleTable';
 import { setEventsAndOrganizerSelector } from '../../redux/selectors';
 import { ScheduleList } from '../List';
@@ -26,23 +26,25 @@ export const ScheduleView = (props: any) => {
 		);
 	return (
 		<Router>
-			<Layout style={{ margin: "16px", backgroundColor: "transparent" }}>
+			<Layout style={{ margin: '16px', backgroundColor: 'transparent' }}>
 				<Header data={props.data} timeZone={props.timeZone} editStatus={props.editStatus} />
 				<Switch>
-					<Route path='/' exact={true}
-						render={() => <ScheduleTable data={props.data} />} />
-					<Route path='/list/' exact={true}
-						render={() => <ScheduleList data={props.data} />} />
-					<Route path='/calendar'
-						render={() => <CalendarContainer data={props.data} />} />
-					<Route path='/list/:id' render={({ match }) => {
-						const { id } = match.params;
-						return (
-							<TaskPage {...DUMMY_DATA} id={id} />
-						)
-					}}></Route>
+					<Route
+						path="/"
+						exact={true}
+						render={() => <ScheduleTable data={props.data} requestEvents={props.requestEvents} />}
+					/>
+					<Route path="/list/" exact={true} render={() => <ScheduleList data={props.data} />} />
+					<Route path="/calendar" render={() => <CalendarContainer data={props.data} />} />
+					<Route
+						path="/list/:id"
+						render={({ match }) => {
+							const { id } = match.params;
+							return <TaskPage {...DUMMY_DATA} id={id} />;
+						}}
+					/>
 				</Switch>
-			</ Layout>
+			</Layout>
 		</Router>
 	);
 };
@@ -61,4 +63,10 @@ const mapStateToProps = (state: AppStateType) => {
 // 	getEvent,
 // 	editStatus: actions.editStatus
 // })(ScheduleView);
-export default connect(mapStateToProps, { requestEvents: getEvents, requestOrganizers: getOrganizers, editStatus: actions.editStatus, timeZone: actions.setTimeZone })(ScheduleView);
+export default connect(mapStateToProps, {
+	requestEvents: getEvents,
+	requestOrganizers: getOrganizers,
+	editStatus: actions.editStatus,
+	timeZone: actions.setTimeZone,
+	putEvent
+})(ScheduleView);

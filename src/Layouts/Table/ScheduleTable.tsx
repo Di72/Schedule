@@ -1,20 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Table, Tag } from 'antd';
 import { EventsType } from '../../types/types';
+import { httpRequests } from '../../api/api';
 
 const { Column } = Table;
 
 
 export const ScheduleTable = (props: any) => {
 
-	const [currentTask, setCurrentTask] = useState(null as null | EventsType[]);
-	const [event, setEvent] = useState(currentTask && currentTask[0].name);
+	const [currentEvents, setCurrentEvents] = useState(props.data.events as Array<EventsType>);
+  const [event, setEvent] = useState(currentEvents && currentEvents[0].name);
+  const [ editEvent, setEditEvent] = useState(false)
+  const toggle = () => setEditEvent(!editEvent);
 
-	useEffect(() => {
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-		setCurrentTask(props.data.events);
-		setEvent(props.data.events[0].name)
-	}, [props.data.events]);
 
 	const { events } = props.data;
 	const eventsWithKey = events.map((item: { key: any; id: any }) => {
@@ -22,26 +20,46 @@ export const ScheduleTable = (props: any) => {
 		return item;
 	});
 
-	const renderTags = (type: string, id: string) => {
+  
+  const disableEditEvent = () => {
+    toggle();
+    if(currentEvents && event) setCurrentEvents([ ...props.data.events, events[0].name = event])
+    httpRequests.putEvent(currentEvents[0], currentEvents[0].id)
+    props.requestEvents()
+  }
+  const enableEditEvent = () => {
+    toggle()
+  }
+
+	const onDataChange = (e: React.FormEvent<HTMLInputElement>) => {
+		console.log(e.currentTarget.value)
+		const newState = e.currentTarget.value
+		setEvent(newState);
+  }
+  
+  	const renderTags = (type: string, id: string) => {
 		const color = type === 'deadline' ? 'red' : 'green';
 		return (
 			<Tag color={color} key={id}>
 				{type}
 			</Tag>
 		);
-	};
+  };
 
-	const onDataChange = (e: React.FormEvent<HTMLInputElement>) => {
-		console.log(e.currentTarget.value)
-		const newState = e.currentTarget.value
-		setEvent(newState);
-	}
+	const input = currentEvents !== null ?  <div>
+  {!editEvent &&
+          <span onDoubleClick={enableEditEvent}>{event ? event : ''}</span>
+  }
+  {editEvent &&
+          <input onChange={onDataChange} autoFocus={true} onBlur={disableEditEvent} value={event ? event : ''} onKeyPress={k => {
+                if (k.key === 'Enter') disableEditEvent()
+              }}/>
+  }
+</div> : null
 
-	const input = currentTask !== null ? <input onChange={onDataChange} value={event ? event : ''} /> : null
-
-	const content = currentTask ? (
+	const content = currentEvents ? (
 		<> {input}
-			<Table dataSource={currentTask} >
+			<Table dataSource={currentEvents} >
 				<Column key="dateTime" title="Data" dataIndex="dateTime" />
 				<Column key="name" title="Name" dataIndex="name" />
 				<Column
