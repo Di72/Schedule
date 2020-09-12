@@ -7,6 +7,7 @@ let initialState = {
   event: {} as EventsType,
   organizers: [] as Array<OrganizersType>,
   editStatus: false as boolean,
+  timeZone: "Europe/Moscow" as string,
 };
 
 const eventsReducer = (
@@ -31,6 +32,9 @@ const eventsReducer = (
         };
       }
     }
+    case "SN/SET_TIMEZONE": {
+      return { ...state, timeZone: action.timeZone };
+    }
     case "SN/SET_EVENT": {
       return { ...state, event: action.response };
     }
@@ -45,6 +49,8 @@ export const actions = {
   setOrganizers: (response: Array<OrganizersType>) =>
     ({ type: "SN/SET_ORGANIZERS", response } as const),
   editStatus: () => ({ type: "SN/EDIT_TOGGLE" } as const),
+  setTimeZone: (timeZone: string) =>
+    ({ type: "SN/SET_TIMEZONE", timeZone } as const),
   setEvent: (response: EventsType) =>
     ({ type: "SN/SET_EVENT", response } as const),
 };

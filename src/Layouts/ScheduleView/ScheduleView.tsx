@@ -28,7 +28,7 @@ export const ScheduleView = (props: any) => {
 	return (
 		<Router>
 			<Layout style={{ margin: "16px", backgroundColor: "transparent" }}>
-				<Header data={props.data} editStatus={props.editStatus} />
+				<Header data={props.data} timeZone={props.timeZone} editStatus={props.editStatus} />
 				<Switch>
 					<Route path='/' exact={true}
 						render={() => <ScheduleTable data={props.data} />} />
@@ -39,7 +39,7 @@ export const ScheduleView = (props: any) => {
 					<Route path='/list/:id' render={({ match }) => {
 						const { id } = match.params;
 						return (
-							<TaskPage {...DUMMY_DATA } id={id}/>
+							<TaskPage {...DUMMY_DATA} id={id} />
 						)
 					}}></Route>
 				</Switch>
@@ -54,4 +54,4 @@ const mapStateToProps = (state: AppStateType) => {
 	};
 };
 
-export default connect(mapStateToProps, { requestEvents: getEvents, requestOrganizers: getOrganizers, editStatus: actions.editStatus })(ScheduleView);
+export default connect(mapStateToProps, { requestEvents: getEvents, requestOrganizers: getOrganizers, editStatus: actions.editStatus, timeZone: actions.setTimeZone })(ScheduleView);
