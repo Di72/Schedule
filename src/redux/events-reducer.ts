@@ -4,9 +4,10 @@ import { InferActionsTypes, BaseThunkType } from "./store";
 
 let initialState = {
   events: [] as Array<EventsType>,
+  event: {} as EventsType,
   organizers: [] as Array<OrganizersType>,
   editStatus: false as boolean,
-  timeZone: "Europe/Moscow" as string
+  timeZone: "Europe/Moscow" as string,
 };
 
 const eventsReducer = (
@@ -34,6 +35,9 @@ const eventsReducer = (
     case "SN/SET_TIMEZONE": {
       return { ...state, timeZone: action.timeZone };
     }
+    case "SN/SET_EVENT": {
+      return { ...state, event: action.response };
+    }
     default:
       return state;
   }
@@ -46,7 +50,9 @@ export const actions = {
     ({ type: "SN/SET_ORGANIZERS", response } as const),
   editStatus: () => ({ type: "SN/EDIT_TOGGLE" } as const),
   setTimeZone: (timeZone: string) =>
-  ({ type: "SN/SET_TIMEZONE", timeZone } as const)
+    ({ type: "SN/SET_TIMEZONE", timeZone } as const),
+  setEvent: (response: EventsType) =>
+    ({ type: "SN/SET_EVENT", response } as const),
 };
 
 export const getEvents = (): ThunkType => async (dispatch) => {
@@ -54,10 +60,16 @@ export const getEvents = (): ThunkType => async (dispatch) => {
   console.log(response);
   dispatch(actions.setEvents(response));
 };
+
 export const getOrganizers = (): ThunkType => async (dispatch) => {
   const response = await httpRequests.getOrganizers();
   console.log(response);
   dispatch(actions.setOrganizers(response));
+};
+
+export const getEvent = (id: string): ThunkType => async (dispatch) => {
+  const response = await httpRequests.getEvent(id);
+  dispatch(actions.setEvent(response));
 };
 
 type InitialStateType = typeof initialState;
