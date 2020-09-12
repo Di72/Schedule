@@ -4,10 +4,10 @@ import { InferActionsTypes, BaseThunkType } from "./store";
 
 let initialState = {
   events: [] as Array<EventsType>,
-  organizers: [] as Array<OrganizersType>,
   event: {} as EventsType,
+  organizers: [] as Array<OrganizersType>,
   editStatus: false as boolean,
-  timeZone: '' as string
+  timeZone: "Europe/Moscow" as string,
 };
 
 const eventsReducer = (
@@ -60,6 +60,7 @@ export const getEvents = (): ThunkType => async (dispatch) => {
   console.log(response);
   dispatch(actions.setEvents(response));
 };
+
 export const getOrganizers = (): ThunkType => async (dispatch) => {
   const response = await httpRequests.getOrganizers();
   console.log(response);
@@ -73,7 +74,6 @@ export const getEvent = (id: string): ThunkType => async (dispatch) => {
   const response = await httpRequests.getEvent(id);
   dispatch(actions.setEvent(response));
 };
-
 
 type InitialStateType = typeof initialState;
 type ActionsTypes = InferActionsTypes<typeof actions>;

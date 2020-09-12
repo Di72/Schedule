@@ -7,6 +7,7 @@ export type EventsType = {
   type: string;
   timeZone: string;
   dateTime: string;
+  deadline: string;
   id: string;
 };
 
@@ -21,6 +22,7 @@ export interface IInitialState {
 }
 
 export interface ICourseOverview {
+  [string: string]: any;
   description: string;
   goal: string;
   agenda: string[];
@@ -32,4 +34,9 @@ export interface CourseTeam {
   secondName: string;
   company: string;
   photo: string;
+}
+
+export interface ITaskPage extends ICourseOverview {
+  requestEvent: Function;
+  id: string;
 }

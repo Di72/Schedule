@@ -7,12 +7,8 @@ const { Column } = Table;
 
 export const ScheduleTable = (props: any) => {
 
-	const [editMode, setEditMode] = useState({ editMode: false });
 	const [currentTask, setCurrentTask] = useState(null as null | EventsType[]);
-
-
 	const [event, setEvent] = useState(currentTask && currentTask[0].name);
-
 
 	useEffect(() => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -43,11 +39,9 @@ export const ScheduleTable = (props: any) => {
 
 	const input = currentTask !== null ? <input onChange={onDataChange} value={event ? event : ''} /> : null
 
-
-
 	const content = currentTask ? (
 		<> {input}
-			<Table dataSource={currentTask}>
+			<Table dataSource={currentTask} >
 				<Column key="dateTime" title="Data" dataIndex="dateTime" />
 				<Column key="name" title="Name" dataIndex="name" />
 				<Column
