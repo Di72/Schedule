@@ -1,13 +1,13 @@
 import React from 'react';
 import { Table, Tag } from 'antd';
-import moment from 'moment-timezone';
 import './ScheduleTable.less';
+import { timeRenderer } from '../TimeZone/TimeZone';
 
 const { Column } = Table;
 
 export const ScheduleTable = (props: any) => {
   const { events } = props.data;
-  
+
   const eventsWithKey = events.map((item: { key: any; id: any }) => {
     item.key = item.id;
     return item;
@@ -50,14 +50,7 @@ export const ScheduleTable = (props: any) => {
   //       .format('YYYY-MM-DD')
   //     : '';
 
-  const timeRenderer = (timeZone: string) => (value: string) => {
-    // console.log('timeZone: ', timeZone, '\nvalue:', value);
-    return value
-      ? moment(value, 'YYYY-MM-DD HH:mmZ')
-        .tz(timeZone)
-        .format('HH:mm')
-      : '';
-  }
+  
 
   return (
     <Table dataSource={eventsWithFormattedTime} >
