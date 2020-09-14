@@ -11,6 +11,7 @@ import { Layout } from 'antd';
 import { Header } from '../Header/Header';
 import { DUMMY_DATA } from '../TaskCard/TaskCard';
 import TaskPage from '../TaskPage/TaskPage';
+import CreateEventPage from '../CreateEventPage/CreateEventPage';
 
 
 export const ScheduleView = (props: any) => {
@@ -29,6 +30,7 @@ export const ScheduleView = (props: any) => {
 		<Router>
 			<Layout style={{ margin: "16px", backgroundColor: "transparent" }}>
 				<Header data={props.data} timeZone={props.timeZone} editStatus={props.editStatus} />
+				<CreateEventPage />
 				<Switch>
 					<Route path='/' exact={true}
 						render={() => <ScheduleTable data={props.data} />} />
