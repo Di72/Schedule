@@ -68,8 +68,6 @@ export default function TaskCard({ event }: { event: EventsType }) {
     )
   }
 
-  // const descriptionTSX = description && cardRow('Description', description, descriptionUrl)
-  // const commentTSX = comment && cardRow('Notate', comment)
   const placeTSX = place && cardRow('Place', place)
   const dateTimeTSX = dateTime && cardRow('Time start', dateTime)
   const deadlineTSX = deadline && cardRow('Deadline', deadline)

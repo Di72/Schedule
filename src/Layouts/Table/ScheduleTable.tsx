@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
 import { Table, Tag } from 'antd';
 import { EventsType } from '../../types/types';
-const { Column } = Table;
 
 
 export const ScheduleTable = (props: any) => {
   console.log(props.data.editStatus, 'Права редактирования');
 	const [currentEvents, setCurrentEvents] = useState(props.data.events as Array<EventsType>);
-  const [event, setEvent] = useState(currentEvents && currentEvents[0].name);
-  const [ editEvent, setEditEvent] = useState(false)
-  const toggle = () => setEditEvent(!editEvent);
+  // const [event, setEvent] = useState(currentEvents && currentEvents[0].name);
+  // const [ editEvent, setEditEvent] = useState(false)
+  // const toggle = () => setEditEvent(!editEvent);
 
 
 	const { events } = props.data;
@@ -19,21 +18,21 @@ export const ScheduleTable = (props: any) => {
 	});
 
   
-  const disableEditEvent = () => {
-    toggle();
-    if(currentEvents && event) setCurrentEvents([ ...props.data.events, events[0].name = event])
-    props.putEvent(currentEvents[0], currentEvents[0].id)
+  const disableEditEvent = (index: any) => {
+    console.log(currentEvents[index])
+    props.putEvent(currentEvents[index], currentEvents[index].id)
     props.requestEvents()
+    // if(currentEvents && event) setCurrentEvents([ ...props.data.events, events[0].name = event])
   }
-  const enableEditEvent = () => {
-    toggle()
-  }
+  // const enableEditEvent = () => {
+  //   toggle()
+  // }
 
-	const onDataChange = (e: React.FormEvent<HTMLInputElement>) => {
-		console.log(e.currentTarget.value)
-		const newState = e.currentTarget.value
-		setEvent(newState);
-  }
+	// const onDataChange = (e: React.FormEvent<HTMLInputElement>) => {
+	// 	console.log(e.currentTarget.value)
+	// 	const newState = e.currentTarget.value
+	// 	setEvent(newState);
+  // }
   
   const renderTags = (value: any, index: any) => {
     const color = value.type === 'deadline' ? 'red' : 'green';
@@ -67,7 +66,8 @@ export const ScheduleTable = (props: any) => {
       data: "Data",
       key: "dateTime",
       render: (value: any, record: any, index: any) => {
-        return <input onChange={onDataChangeHandler} style={inputCSS} data-key={"dateTime"} data-index={index} type="text" disabled={!props.data.editStatus} value={value.dateTime}/>;
+        return <input onChange={onDataChangeHandler} style={inputCSS} data-key={"dateTime"} data-index={index} type="text" disabled={!props.data.editStatus}
+         value={value.dateTime} onBlur={()=>disableEditEvent(index)} onKeyPress={k => {if (k.key === 'Enter') disableEditEvent(index)}}/>;
       }
     },
     {
@@ -75,7 +75,8 @@ export const ScheduleTable = (props: any) => {
       data: "Name",
       key: "name",
       render: (value: any, record: any, index: any) => {
-        return <input onChange={onDataChangeHandler} style={inputCSS} data-key={"name"} data-index={index} type="text" disabled={!props.data.editStatus} value={value.name}/>;
+        return <input onChange={onDataChangeHandler} style={inputCSS} data-key={"name"} data-index={index} type="text" disabled={!props.data.editStatus} 
+        value={value.name} onBlur={()=>disableEditEvent(index)} onKeyPress={k => {if (k.key === 'Enter') disableEditEvent(index)}}/>;
       }
     },
     {
@@ -90,7 +91,8 @@ export const ScheduleTable = (props: any) => {
       title: "TimeZone",
       data: "timeZone",
       render: (value: any,  record: any, index: any) => {
-        return <input onChange={onDataChangeHandler} style={inputCSS} data-key={"timeZone"} data-index={index} type="text" disabled={!props.data.editStatus} value={value.timeZone}/>;
+        return <input onChange={onDataChangeHandler} style={inputCSS} data-key={"timeZone"} data-index={index} type="text" disabled={!props.data.editStatus}
+         value={value.timeZone} onBlur={()=>disableEditEvent(index)} onKeyPress={k => {if (k.key === 'Enter') disableEditEvent(index)}}/>;
       }
     },
     {
@@ -98,7 +100,8 @@ export const ScheduleTable = (props: any) => {
       title: "Description",
       data: "description",
       render: (value: any,  record: any, index: any) => {
-        return <input onChange={onDataChangeHandler} style={inputCSS} data-key={"description"} data-index={index} type="text" disabled={!props.data.editStatus} value={value.description}/>;
+        return <input onChange={onDataChangeHandler} style={inputCSS} data-key={"description"} data-index={index} type="text" disabled={!props.data.editStatus}
+         value={value.description} onBlur={()=>disableEditEvent(index)} onKeyPress={k => {if (k.key === 'Enter') disableEditEvent(index)}}/>;
       }
     },
     {
@@ -106,29 +109,27 @@ export const ScheduleTable = (props: any) => {
       title: "Place",
       data: "place",
       render: (value: any,  record: any, index: any) => {
-        return <input onChange={onDataChangeHandler} style={inputCSS} data-key={"place"} data-index={index} type="text" disabled={!props.data.editStatus} value={value.place}/>;
+        return <input onChange={onDataChangeHandler} style={inputCSS} data-key={"place"} data-index={index} type="text" disabled={!props.data.editStatus}
+         value={value.place} onBlur={()=>disableEditEvent(index)} onKeyPress={k => {if (k.key === 'Enter') disableEditEvent(index)}}/>;
       }
     }
   ]
 
 
-	const input = currentEvents !== null ?  <div>
-  {!editEvent &&
-          <span onDoubleClick={enableEditEvent}>{event ? event : ''}</span>
-  }
-  {editEvent &&
-          <input onChange={onDataChange} autoFocus={true} onBlur={disableEditEvent} value={event ? event : ''} onKeyPress={k => {
-                if (k.key === 'Enter') disableEditEvent()
-              }}/>
-  }
-</div> : null
+// 	const input = currentEvents !== null ?  <div>
+//   {!editEvent &&
+//           <span onDoubleClick={enableEditEvent}>{event ? event : ''}</span>
+//   }
+//   {editEvent &&
+//           <input  autoFocus={true}  value={event ? event : ''} onBlur={disableEditEvent} onKeyPress={k => {if (k.key === 'Enter') disableEditEvent()}}/>
+//   }
+// </div> : null
 
 	const content = currentEvents ? (
 		<> 
 			<Table dataSource={currentEvents} columns={columnsData}/>
 		</>
 	) : (<h6>Loading...</h6>)
-	console.log('event', event);
 
 	return (
 		<>{content}</>
