@@ -58,15 +58,8 @@ export const ScheduleTable = (props: any) => {
     setCurrentEvents(newState)
   }
 
-  const formatTableData = (data: EventsType[]) => {
-    const newData = data.map((event: EventsType, index: number) => {
-      const newEvent = event as any;
-      newEvent.num = index;
-      return newEvent;
-    })
-
-    console.log(newData, 'formatedData')
-  }
+  const inputCSS = {
+    border: "none", "box-shadow": `${!props.data.editStatus ? "none" : "0px 0px 3px 3px lightblue" }`, padding: 0, backgroundColor: 'transparent', width: "100%", "box-sizing":  "border-box" };
 
   const columnsData = [
     {
@@ -74,7 +67,7 @@ export const ScheduleTable = (props: any) => {
       data: "Data",
       key: "dateTime",
       render: (value: any, record: any, index: any) => {
-        return <input onChange={onDataChangeHandler} style={{border: !props.data.editStatus ? "none" : '1px solid red', padding: 0, backgroundColor: 'transparent'}} data-key={"dateTime"} data-index={index} type="text" disabled={!props.data.editStatus} value={value.dateTime}/>;
+        return <input onChange={onDataChangeHandler} style={inputCSS} data-key={"dateTime"} data-index={index} type="text" disabled={!props.data.editStatus} value={value.dateTime}/>;
       }
     },
     {
@@ -82,7 +75,7 @@ export const ScheduleTable = (props: any) => {
       data: "Name",
       key: "name",
       render: (value: any, record: any, index: any) => {
-        return <input onChange={onDataChangeHandler} data-key={"name"} data-index={index} type="text" disabled={!props.data.editStatus} value={value.name}/>;
+        return <input onChange={onDataChangeHandler} style={inputCSS} data-key={"name"} data-index={index} type="text" disabled={!props.data.editStatus} value={value.name}/>;
       }
     },
     {
@@ -97,7 +90,7 @@ export const ScheduleTable = (props: any) => {
       title: "TimeZone",
       data: "timeZone",
       render: (value: any,  record: any, index: any) => {
-        return <input onChange={onDataChangeHandler} data-key={"timeZone"} data-index={index} type="text" disabled={!props.data.editStatus} value={value.timeZone}/>;
+        return <input onChange={onDataChangeHandler} style={inputCSS} data-key={"timeZone"} data-index={index} type="text" disabled={!props.data.editStatus} value={value.timeZone}/>;
       }
     },
     {
@@ -105,7 +98,7 @@ export const ScheduleTable = (props: any) => {
       title: "Description",
       data: "description",
       render: (value: any,  record: any, index: any) => {
-        return <input onChange={onDataChangeHandler} data-key={"description"} data-index={index} type="text" disabled={!props.data.editStatus} value={value.description}/>;
+        return <input onChange={onDataChangeHandler} style={inputCSS} data-key={"description"} data-index={index} type="text" disabled={!props.data.editStatus} value={value.description}/>;
       }
     },
     {
@@ -113,7 +106,7 @@ export const ScheduleTable = (props: any) => {
       title: "Place",
       data: "place",
       render: (value: any,  record: any, index: any) => {
-        return <input onChange={onDataChangeHandler} data-key={"place"} data-index={index} type="text" disabled={!props.data.editStatus} value={value.place}/>;
+        return <input onChange={onDataChangeHandler} style={inputCSS} data-key={"place"} data-index={index} type="text" disabled={!props.data.editStatus} value={value.place}/>;
       }
     }
   ]
@@ -131,21 +124,8 @@ export const ScheduleTable = (props: any) => {
 </div> : null
 
 	const content = currentEvents ? (
-		<> {input}
-
-			<Table dataSource={currentEvents} columns={columnsData}>
-				{/* <Column key="dateTime" title="Data" dataIndex="dateTime" render={value => <input onChange={onDataChangeHandler} data-key={"dateTime"} type="text" value={value}/>} />
-				<Column key="name" title="Name" dataIndex="name" render={value => <input onChange={onDataChangeHandler} data-key={"name"} type="text" defaultValue={value}/>}/>
-				<Column
-					key="type"
-					title="Type"
-          dataIndex="type"
-					render={(type: string, id: string) => renderTags(type, id)}
-				/>
-				<Column key="timeZone" title="TimeZone" dataIndex="timeZone" render={value => <input onChange={onDataChangeHandler} data-key={"timeZone"} type="text" defaultValue={value}/>}/>
-				<Column key="description" title="Description" dataIndex="description" render={value => <input onChange={onDataChangeHandler} data-key={"description"} type="text" defaultValue={value}/>}/>
-				<Column key="place" title="Place" dataIndex="place" render={value => <input onChange={onDataChangeHandler} data-key={"place"} type="text" defaultValue={value}/>}/> */}
-			</Table>
+		<> 
+			<Table dataSource={currentEvents} columns={columnsData}/>
 		</>
 	) : (<h6>Loading...</h6>)
 	console.log('event', event);
