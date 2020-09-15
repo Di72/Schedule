@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
 import { Table, Tag } from 'antd';
 import { EventsType } from '../../types/types';
-import { stringify } from 'querystring';
-import { NONAME } from 'dns';
-
 const { Column } = Table;
 
 
@@ -38,11 +35,11 @@ export const ScheduleTable = (props: any) => {
 		setEvent(newState);
   }
   
-  const renderTags = (type: string, id: string) => {
-  const color = type === 'deadline' ? 'red' : 'green';
+  const renderTags = (value: any, index: any) => {
+    const color = value.type === 'deadline' ? 'red' : 'green';
 		return (
-			<Tag color={color} key={id}>
-				{type}
+			<Tag color={color} key={index}>
+				{value.type}
 			</Tag>
 		);
   };
@@ -92,6 +89,7 @@ export const ScheduleTable = (props: any) => {
       key: "type",
       title: "Type",
       data: "type",
+      render: (value: any, record: any, index: any) => renderTags(value, index)
       
     },
     {
