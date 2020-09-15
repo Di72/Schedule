@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { AppStateType } from 'src/redux/store';
 import { setEventsAndOrganizerSelector } from '../../redux/selectors';
-import { getEvent } from 'src/redux/events-reducer';
+import { getEvent } from 'src/redux/requests';
 
 const Teacher = styled.div`
 display: flex;

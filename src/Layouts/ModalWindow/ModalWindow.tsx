@@ -24,16 +24,16 @@ const ModalWindow = (props: ModalProps) => {
   const { description, goal, agenda, teachers } = props.data;
 
   return (
-    <Modal onOk={okClickHandler} onCancel={cancelClickHandler } visible={visible}>
+    <Modal onOk={okClickHandler} onCancel={cancelClickHandler} visible={visible}>
       <h5> Description </h5>
       <p> {description} </p>
-      
+
       <h5> Course Goal </h5>
       <p> {goal} </p>
-      
+
       <h5> Agenda </h5>
-      <ul> 
-        { agenda.map(theme => {return <li> { theme } </li>}) }
+      <ul>
+        {agenda.map(theme => { return <li> {theme} </li> })}
       </ul>
       <h5> Course Team </h5>
       <div>
@@ -41,16 +41,16 @@ const ModalWindow = (props: ModalProps) => {
           teachers.map(teacher => {
             return (
               <Teacher>
-                <Photo src={teacher.photo}/>
+                <Photo src={teacher.photo} />
                 <div>
-                  <p> { teacher.firstName }  {teacher.secondName} </p>
-                  <p> { teacher.company } </p>
+                  <p> {teacher.firstName}  {teacher.secondName} </p>
+                  <p> {teacher.company} </p>
                 </div>
               </Teacher>
             )
           })
         }
-        </div>
+      </div>
     </Modal>
   )
 }

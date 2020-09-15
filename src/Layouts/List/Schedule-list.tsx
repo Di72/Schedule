@@ -5,7 +5,7 @@ import TaskCard from '../TaskCard/TaskCard';
 
 export const ScheduleList = ({ data }: { data: IInitialState }) => {
   const cards = data.events.map((event) => {
-    return <TaskCard key={event.id} event={event}  />
+    return <TaskCard key={event.id} event={event} />
   })
 
   return (
