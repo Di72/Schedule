@@ -179,4 +179,4 @@ const mapStateToProps = (state: AppStateType) => {
   };
 };
 
-export default connect(mapStateToProps, { postEvent: postEvent })(CreateEventPage);
+export default connect(mapStateToProps, { postEvent })(CreateEventPage);
