@@ -92,9 +92,7 @@ export const ScheduleTable = (props: any) => {
       key: "type",
       title: "Type",
       data: "type",
-      render: (value: any,  record: any, index: any) => {
-        return <input onChange={onDataChangeHandler} data-key={"type"} data-index={index} type="text" disabled={!props.data.editStatus} value={value.type}/>;
-      }
+      
     },
     {
       key: "timeZone",
