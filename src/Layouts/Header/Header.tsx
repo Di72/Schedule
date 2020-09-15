@@ -77,7 +77,7 @@ export const Header = ({ data, editStatus, timeZone }: { [x: string]: any }) => 
       <Select defaultValue="Europe/Moscow" style={{ width: 200, margin: 15 }} onChange={onTimezoneChange}>
         {options}
       </Select>
-      <Button style={{width: 150, margin: 15}} onClick={handleClick}>create Event</Button>
+      <Button style={{ width: 150, margin: 15 }} onClick={handleClick}>create Event</Button>
       {data.editStatus ? <Button type="primary" danger onClick={() => editStatus()}>Mentor</Button> : <Button type="primary" onClick={() => editStatus()}>Student</Button>}
     </div>
   );

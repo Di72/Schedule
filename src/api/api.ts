@@ -24,7 +24,7 @@ export const httpRequests = {
   postEvent: (data: any) => {
     return instance
       .post("event", data)
-      .then((res) => res.data.data)
+      .then((res) => res.data)
       .catch(function (error) {
         console.log(error);
       });

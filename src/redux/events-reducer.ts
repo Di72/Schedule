@@ -1,5 +1,4 @@
-import { EventsType } from "../types/types";
-import { InitialStateType } from '../types/types';
+import { EventsType, InitialStateType } from "../types/types";
 import { ActionsTypes } from './actions';
 
 let initialState:InitialStateType  = {
