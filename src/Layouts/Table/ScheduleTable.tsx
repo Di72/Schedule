@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Table, Tag } from 'antd';
 import { EventsType } from '../../types/types';
-import { httpRequests } from '../../api/api';
 
 const { Column } = Table;
 

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { AppStateType } from '../../redux/store';
-import { getEvents, getOrganizers, actions, updateEvent, getEvent, putEvent } from '../../redux/events-reducer';
+import { getEvents, getOrganizers, actions } from '../../redux/events-reducer';
 import { ScheduleTable } from '../Table/ScheduleTable';
 import { setEventsAndOrganizerSelector } from '../../redux/selectors';
 import { ScheduleList } from '../List';
@@ -11,6 +11,7 @@ import { Layout } from 'antd';
 import { Header } from '../Header/Header';
 import { DUMMY_DATA } from '../TaskCard/TaskCard';
 import TaskPage from '../TaskPage/TaskPage';
+import { httpRequests } from '../../api/api';
 
 export const ScheduleView = (props: any) => {
 	useEffect(() => {
@@ -32,7 +33,13 @@ export const ScheduleView = (props: any) => {
 					<Route
 						path="/"
 						exact={true}
-						render={() => <ScheduleTable data={props.data} requestEvents={props.requestEvents} />}
+						render={() => (
+							<ScheduleTable
+								data={props.data}
+								requestEvents={props.requestEvents}
+								putEvent={httpRequests.putEvent}
+							/>
+						)}
 					/>
 					<Route path="/list/" exact={true} render={() => <ScheduleList data={props.data} />} />
 					<Route path="/calendar" render={() => <CalendarContainer data={props.data} />} />
@@ -67,6 +74,5 @@ export default connect(mapStateToProps, {
 	requestEvents: getEvents,
 	requestOrganizers: getOrganizers,
 	editStatus: actions.editStatus,
-	timeZone: actions.setTimeZone,
-	putEvent
+	timeZone: actions.setTimeZone
 })(ScheduleView);

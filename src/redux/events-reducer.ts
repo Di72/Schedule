@@ -77,12 +77,6 @@ export const getEvent = (id: string): ThunkType => async (dispatch) => {
 
 
 
-
-
-export const putEvent = (data: any, eventId: string) => {
-   httpRequests.putEvent(data, eventId);
-};
-
 type InitialStateType = typeof initialState;
 type ActionsTypes = InferActionsTypes<typeof actions>;
 type ThunkType = BaseThunkType<ActionsTypes>;
