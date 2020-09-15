@@ -48,18 +48,18 @@ export const ScheduleTable = (props: any) => {
     const index = e.currentTarget.dataset.index;
     const oldState = [...currentEvents];
     const newEvent = {...currentEvents[index]};
-    // type some = "name" & "description" & "descriptionUrl" & "comment" & "place" & "type" & "timeZone" & "dateTime" & "deadline" & "id";
     type gay = "name" | "description" | "descriptionUrl" | "comment" | "place" | "type" | "timeZone" | "dateTime" | "deadline" | "id";
     const propertyName: gay = e.currentTarget.dataset.key;
     newEvent[propertyName] = e.currentTarget.value;
     const newState = [...oldState];
     newState[index] = newEvent
     console.log(oldState[index][propertyName], newState[index][propertyName], 'old and new');
-    setCurrentEvents(newState)
+    setCurrentEvents(newState);
+
   }
 
   const inputCSS = {
-    border: "none", "box-shadow": `${!props.data.editStatus ? "none" : "0px 0px 3px 3px lightblue" }`, padding: 0, backgroundColor: 'transparent', width: "100%", "box-sizing":  "border-box" };
+    border: "none", boxShadow: `${!props.data.editStatus ? "none" : "0px 0px 3px 3px lightblue" }`, padding: 0, backgroundColor: 'transparent', width: "100%", boxsizing:  "border-box" };
 
   const columnsData = [
     {
