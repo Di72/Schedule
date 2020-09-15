@@ -1,8 +1,9 @@
 import React, { CSSProperties } from 'react';
 import './TaskCard.less';
 import { EventsType } from "src/types/types"
-import { Card, Tag } from 'antd';
+import { Card } from 'antd';
 import { Link, useRouteMatch } from 'react-router-dom';
+import { renderTags } from '../Tags/Tags';
 
 
 export default function TaskCard({ event }: { event: EventsType }) {
@@ -12,13 +13,6 @@ export default function TaskCard({ event }: { event: EventsType }) {
     return (field &&
       <span style={style} ><b>{title}:</b> {field}</span>
     )
-  }
-
-  const renderTags = (type: string, id: string) => {
-    const color = type === 'deadline' ? 'red' : 'green';
-    return <Tag color={color} key={id}>
-      {type}
-    </Tag>
   }
 
   const time = timeZone && cardTitle(timeZone, 'Time', { fontWeight: "normal" });

@@ -11,30 +11,6 @@ import { Layout } from 'antd';
 import { Header } from '../Header/Header';
 // import { DUMMY_DATA } from '../TaskCard/TaskCard';
 import TaskPage from '../TaskPage/TaskPage';
-const DUMMY_DATA = {
-  description: `
-  Курс состоит из нескольких крупных модулей, 
-  каждый из которых содержит короткие видео и тесты. 
-  Задача тестов - проверить, насколько хорошо стала понятна тема. 
-  Тесты можно проходить неограниченное количество раз, более того,
-  во многих из них есть пояснения к неправильным ответам.
-  Этот курс максимально гибкий: нет дедлайнов, 
-  нет возможности "завалить" тест, 
-  можно проходить обучение в удобное время в удобном месте.`,
-  goal: "Цель курса - ознакомиться с основными технологиями и инструментами, используемыми в инженерной работе.",
-  agenda: ['Железо компьютера',
-    'Двоичная система счисления',
-    'Операционные системы',
-    'Типы данных и алгоритмы',
-    'Компьютерные сети',
-    'Инструменты повышения производительности'],
-  teachers: [{
-    firstName: 'Ricardo',
-    secondName: 'Milos',
-    company: 'Hot guys GMBH',
-    photo: 'https://24smi.org/public/media/celebrity/2020/03/17/ndyuq11dpxep-rikardo-milos.jpg'
-  }],
-}
 
 
 export const ScheduleView = (props: any) => {
@@ -63,7 +39,7 @@ export const ScheduleView = (props: any) => {
 					<Route path='/list/:id' render={({ match }) => {
 						const { id } = match.params;
 						return (
-							<TaskPage {...DUMMY_DATA} id={id} />
+							<TaskPage id={id} />
 						)
 					}}></Route>
 				</Switch>

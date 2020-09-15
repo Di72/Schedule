@@ -4,7 +4,7 @@ import { InferActionsTypes, BaseThunkType } from "./store";
 
 let initialState = {
   events: [] as Array<EventsType>,
-  event: {} as EventsType,
+  event: null as null | EventsType,
   organizers: [] as Array<OrganizersType>,
   editStatus: false as boolean,
   timeZone: "Europe/Moscow" as string,
