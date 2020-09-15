@@ -52,6 +52,6 @@ export type InitialStateType = {
   organizers: Array<OrganizersType>,
   editStatus: boolean,
   timeZone: string,
-  createEvent: boolean,
+  postEvent: boolean
 }
 

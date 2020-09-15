@@ -7,7 +7,7 @@ let initialState:InitialStateType  = {
   organizers: [],
   editStatus: false,
   timeZone: "Europe/Moscow",
-  createEvent: false,
+  postEvent: false,
 };
 
 const eventsReducer = (
@@ -38,8 +38,8 @@ const eventsReducer = (
     case "SN/SET_EVENT": {
       return { ...state, event: action.response };
     }
-    case "SN/CREATE_EVENT": {
-      return {...state, createEvent: !state.createEvent}
+    case "SN/POST_EVENT" : {
+      return {...state, postEvent: !state.postEvent}
     }
     default:
       return state;

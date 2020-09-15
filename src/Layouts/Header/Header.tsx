@@ -5,8 +5,7 @@ import styled from 'styled-components';
 import { Button, Menu, Dropdown, Select } from 'antd';
 import Logo from '../../assets/img/logo-rsschool3.png';
 import { NavLink } from "react-router-dom";
-import { useDispatch } from 'react-redux';
-import { actions } from '../../redux/actions';
+import CreateEventPage from '../CreateEventPage/CreateEventPage';
 
 const { Option } = Select;
 
@@ -46,7 +45,6 @@ const menu = (
 );
 
 export const Header = ({ data, editStatus, timeZone }: { [x: string]: any }) => {
-  const dispatch = useDispatch();
   const onTimezoneChange = (timezone: string) => {
     timeZone(timezone)
   }
@@ -54,10 +52,6 @@ export const Header = ({ data, editStatus, timeZone }: { [x: string]: any }) => 
   const options = timezones.map((timeZone: string) => {
     return <Option key={timeZone} style={{ paddingLeft: 15, paddingRight: 15 }} value={timeZone}> {timeZone}</Option>
   })
-
-  const handleClick = () => {
-    dispatch(actions.createEvent());
-  }
 
   return (
     <div className='headerContainer'>
@@ -77,7 +71,7 @@ export const Header = ({ data, editStatus, timeZone }: { [x: string]: any }) => 
       <Select defaultValue="Europe/Moscow" style={{ width: 200, margin: 15 }} onChange={onTimezoneChange}>
         {options}
       </Select>
-      <Button style={{ width: 150, margin: 15 }} onClick={handleClick}>create Event</Button>
+      <CreateEventPage />
       {data.editStatus ? <Button type="primary" danger onClick={() => editStatus()}>Mentor</Button> : <Button type="primary" onClick={() => editStatus()}>Student</Button>}
     </div>
   );

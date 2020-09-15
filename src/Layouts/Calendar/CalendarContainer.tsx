@@ -1,10 +1,11 @@
 import React from 'react';
 
 import { Calendar, momentLocalizer } from 'react-big-calendar';
-import 'react-big-calendar/lib/css/react-big-calendar.css';
-import moment from 'moment';
-import './style.less';
 import { dataModification, addOneDay } from '../../units';
+
+import moment from 'moment';
+import 'react-big-calendar/lib/css/react-big-calendar.css';
+import './style.less';
 
 const localizer = momentLocalizer(moment);
 

@@ -1,17 +1,26 @@
-import React from 'react';
-import { Form, Input, Select, DatePicker, InputNumber, Button, Row } from 'antd';
+import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import {
+  Form,
+  Input,
+  Select,
+  DatePicker,
+  InputNumber,
+  Button,
+  Row,
+  Collapse,
+} from 'antd';
 import 'antd/dist/antd.css';
 import './style.less';
 
+import { postEvent } from '../../redux/requests';
+import { AppStateType } from '../../redux/store';
 import { modificationDateForPost } from '../../units';
-import { useSelector, useDispatch } from 'react-redux';
-import { createEventReducer } from '../../redux/selectors';
-import { actions } from '../../redux/actions';
-import { httpRequests } from '../../api/api';
+import { isNewTaskPostedSelector } from '../../redux/selectors';
 
-const CreateEventPage = () => {
-  const dispatch = useDispatch();
-  const isCreatingEvent = useSelector(createEventReducer);
+const CreateEventPage = (props: any) => {
+  const [openedPanel, setOpenedPanel] = useState('');
+  const { Panel } = Collapse;
   const [form] = Form.useForm();
 
   const onFinish = (values: any) => {
@@ -23,13 +32,7 @@ const CreateEventPage = () => {
     if (startDate > deadlineDate) {
       console.log('task ended before start');
     } else {
-      httpRequests.postEvent({
-        ...task,
-        dateTime: modificationDateForPost(startDate),
-        deadline: modificationDateForPost(deadlineDate),
-        timeZone,
-      })
-      console.log({
+      props.postEvent({
         ...task,
         dateTime: modificationDateForPost(startDate),
         deadline: modificationDateForPost(deadlineDate),
@@ -40,16 +43,31 @@ const CreateEventPage = () => {
   }
 
   const onCancel = () => {
+    if(openedPanel) {
+      setOpenedPanel('');
+    } else {
+      setOpenedPanel('1');
+    }
     form.resetFields();
-    dispatch(actions.createEvent());
   }
 
   return (
-    isCreatingEvent ?
-      <div className='createEventPageContainer'>
-        <Form labelCol={{
-          span: 4,
-        }}
+    <Collapse 
+      activeKey={openedPanel} 
+      className='createEventPageContainer' 
+      accordion={true}
+      onChange={onCancel}
+    >
+      <Panel
+        header="Create Event" key="1"
+        style={{ textAlign: 'center' }}
+        showArrow={false}
+      >
+        <Form 
+          className='createEventForm'
+          labelCol={{
+            span: 4,
+          }}
           wrapperCol={{
             span: 14,
           }}
@@ -132,10 +150,8 @@ const CreateEventPage = () => {
           >
             <Input.TextArea />
           </Form.Item>
-          <Row style={{
-            justifyContent: 'space-around',
-          }}>
-            <div style={{ display: 'flex' }}>
+          <Row className='row'>
+            <div className='btn-container'>
               <Form.Item wrapperCol={{ span: 16, offset: 8 }}>
                 <Button type="primary" htmlType="submit">
                   Submit
@@ -145,7 +161,7 @@ const CreateEventPage = () => {
                 <Button >Preview</Button>
               </Form.Item>
             </div>
-            <div style={{ display: 'flex' }}>
+            <div className='btn-container'>
               <Form.Item wrapperCol={{ span: 16, offset: 8 }}>
                 <Button onClick={() => form.resetFields()} danger>Clear</Button>
               </Form.Item>
@@ -155,9 +171,16 @@ const CreateEventPage = () => {
             </div>
           </Row>
         </Form>
-      </div>
-      : null
+      </Panel>
+    </Collapse>
   )
 }
 
-export default CreateEventPage;
+const mapStateToProps = (state: AppStateType) => {
+  return {
+    data: isNewTaskPostedSelector(state)
+  };
+};
+
+
+export default connect(mapStateToProps, { postEvent: postEvent })(CreateEventPage);
