@@ -6,7 +6,7 @@ import './style.less';
 import { modificateDateForPost, uuidv4 } from '../../units';
 import { useSelector, useDispatch } from 'react-redux';
 import { createEventReduser } from '../../redux/selectors';
-import { actions } from '../../redux/events-reducer';
+import { actions } from '../../redux/actions';
 
 const CreateEventPage = () => {
   const dispatch = useDispatch();
@@ -125,25 +125,26 @@ const CreateEventPage = () => {
           <Input.TextArea />
         </Form.Item>
         <Row style={{
-            justifyContent: 'center',
+            justifyContent: 'space-around',
           }}>
-          <Form.Item 
-            wrapperCol={ {span: 16, offset: 8 }}
-          >
-            <Button type="primary" htmlType="submit">
-              Submit
-            </Button>
-          </Form.Item>
-          <Form.Item 
-            wrapperCol={ {span: 16, offset: 8 }}
-          >
-            <Button onClick={()=> form.resetFields()}>Clear</Button>
-          </Form.Item>
-          <Form.Item 
-            wrapperCol={ {span: 16, offset: 8 }}
-          >
-            <Button onClick={onCancel} danger>Cancel</Button>
-          </Form.Item>
+          <div style={{display: 'flex'}}>
+            <Form.Item wrapperCol={{span: 16, offset: 8 }}>
+              <Button type="primary" htmlType="submit">
+                Submit
+              </Button>
+            </Form.Item>
+            <Form.Item wrapperCol={{span: 16, offset: 8 }}>
+              <Button >Preview</Button>
+            </Form.Item>
+          </div>
+          <div style={{display: 'flex'}}>
+            <Form.Item wrapperCol={{span: 16, offset: 8 }}>
+              <Button onClick={()=> form.resetFields()} danger>Clear</Button>
+            </Form.Item>
+            <Form.Item wrapperCol={{span: 16, offset: 8 }}>
+              <Button type="primary" onClick={onCancel} danger>Cancel</Button>
+            </Form.Item>
+          </div>
         </Row>
       </Form>
     </div>

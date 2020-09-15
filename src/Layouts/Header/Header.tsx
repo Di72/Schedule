@@ -6,7 +6,7 @@ import { Button, Menu, Dropdown, Select } from 'antd';
 import Logo from '../../assets/img/logo-rsschool3.png';
 import { NavLink } from "react-router-dom";
 import { useDispatch } from 'react-redux';
-import { actions } from '../../redux/events-reducer';
+import { actions } from '../../redux/actions';
 
 const { Option } = Select;
 

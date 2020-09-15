@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { AppStateType } from '../../redux/store';
-import { getEvents, getOrganizers, actions } from '../../redux/events-reducer';
+import { getEvents, getOrganizers } from '../../redux/requests';
+import { actions } from '../../redux/actions';
 import { ScheduleTable } from '../Table/ScheduleTable';
 import { setEventsAndOrganizerSelector } from '../../redux/selectors';
 import { ScheduleList } from '../List';
