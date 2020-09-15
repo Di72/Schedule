@@ -1,11 +1,13 @@
 import React from 'react';
-import './Header.less';
-import { EyeOutlined } from '@ant-design/icons';
-import styled from 'styled-components';
-import { Button, Menu, Dropdown, Select } from 'antd';
-import Logo from '../../assets/img/logo-rsschool3.png';
 import { NavLink } from "react-router-dom";
+
+import { EyeOutlined } from '@ant-design/icons';
+import { Button, Menu, Dropdown, Select } from 'antd';
+
 import CreateEventPage from '../CreateEventPage/CreateEventPage';
+import styled from 'styled-components';
+import Logo from '../../assets/img/logo-rsschool3.png';
+import './Header.less';
 
 const { Option } = Select;
 
@@ -67,7 +69,6 @@ export const Header = ({ data, editStatus, timeZone }: { [x: string]: any }) => 
         <Option value="list"><NavLink className='navlink' to="/list" >list</NavLink></Option>
         <Option value="calendar"><NavLink className='navlink' to="/calendar" >calendar</NavLink></Option>
       </Select>
-
       <Select defaultValue="Europe/Moscow" style={{ width: 200, margin: 15 }} onChange={onTimezoneChange}>
         {options}
       </Select>

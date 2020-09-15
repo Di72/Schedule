@@ -3,12 +3,10 @@ import eventsReducer from "./events-reducer";
 import reducerTwo from "./reducerTwo";
 import thunkMiddleware from "redux-thunk";
 
-
 let rootReducer = combineReducers({
     eventsReducer,
     reducerTwo
 })
-
 
 export type RootReducerType = typeof rootReducer;
 

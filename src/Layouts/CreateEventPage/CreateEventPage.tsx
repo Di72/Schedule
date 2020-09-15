@@ -20,8 +20,8 @@ import { isNewTaskPostedSelector } from '../../redux/selectors';
 
 const CreateEventPage = (props: any) => {
   const [openedPanel, setOpenedPanel] = useState('');
-  const { Panel } = Collapse;
   const [form] = Form.useForm();
+  const { Panel } = Collapse;
 
   const onFinish = (values: any) => {
     const task = values.task;
@@ -43,18 +43,15 @@ const CreateEventPage = (props: any) => {
   }
 
   const onCancel = () => {
-    if(openedPanel) {
-      setOpenedPanel('');
-    } else {
-      setOpenedPanel('1');
-    }
+    if (openedPanel) setOpenedPanel('');
+    else setOpenedPanel('1');
     form.resetFields();
   }
 
   return (
-    <Collapse 
-      activeKey={openedPanel} 
-      className='createEventPageContainer' 
+    <Collapse
+      activeKey={openedPanel}
+      className='createEventPageContainer'
       accordion={true}
       onChange={onCancel}
     >
@@ -63,7 +60,7 @@ const CreateEventPage = (props: any) => {
         style={{ textAlign: 'center' }}
         showArrow={false}
       >
-        <Form 
+        <Form
           className='createEventForm'
           labelCol={{
             span: 4,
@@ -181,6 +178,5 @@ const mapStateToProps = (state: AppStateType) => {
     data: isNewTaskPostedSelector(state)
   };
 };
-
 
 export default connect(mapStateToProps, { postEvent: postEvent })(CreateEventPage);
