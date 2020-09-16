@@ -1,24 +1,30 @@
 import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
-import { AppStateType } from '../../redux/store';
-import { getEvents, getOrganizers, actions } from '../../redux/events-reducer';
-import { ScheduleTable } from '../Table/ScheduleTable';
-import { setEventsAndOrganizerSelector } from '../../redux/selectors';
-import { ScheduleList } from '../List';
-import CalendarContainer from '../Calendar/CalendarContainer';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { Layout } from 'antd';
+import { connect, useSelector } from 'react-redux';
+
+import { AppStateType } from '../../redux/store';
+import { getEvents, getOrganizers } from '../../redux/requests';
+import { actions } from '../../redux/actions';
+import { setEventsAndOrganizerSelector, isNewTaskPostedSelector } from '../../redux/selectors';
+
+import { ScheduleTable } from '../Table/ScheduleTable';
 import { Header } from '../Header/Header';
 import { DUMMY_DATA } from '../TaskCard/TaskCard';
 import TaskPage from '../TaskPage/TaskPage';
 import { httpRequests } from '../../api/api';
+import { ScheduleList } from '../List';
+import CalendarContainer from '../Calendar/CalendarContainer';
+import { Layout } from 'antd';
+
 
 export const ScheduleView = (props: any) => {
+	const isNewTaskCreated = useSelector(isNewTaskPostedSelector);
+
 	useEffect(() => {
 		props.requestOrganizers();
 		props.requestEvents();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	}, [isNewTaskCreated]);
 	if (!props.data.events[0])
 		return (
 			<Layout style={{ display: 'flex', alignItems: 'center', backgroundColor: 'transparent' }}>
@@ -62,17 +68,11 @@ const mapStateToProps = (state: AppStateType) => {
 	};
 };
 
-// export default connect(mapStateToProps, {
-// 	requestEvents: getEvents,
-// 	requestEvent: getEvent,
-// 	requestOrganizers: getOrganizers,
-// 	updateEvent,
-// 	getEvent,
-// 	editStatus: actions.editStatus
-// })(ScheduleView);
-export default connect(mapStateToProps, {
+const mapDispatchToProps = {
 	requestEvents: getEvents,
 	requestOrganizers: getOrganizers,
 	editStatus: actions.editStatus,
 	timeZone: actions.setTimeZone
-})(ScheduleView);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ScheduleView);

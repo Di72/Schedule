@@ -1,3 +1,7 @@
+import { AppStateType } from "../redux/store";
+import { ThunkAction } from "redux-thunk";
+import { Action } from "redux";
+
 export type EventsType = {
   name: string;
   description: string;
@@ -40,3 +44,17 @@ export interface ITaskPage extends ICourseOverview {
   requestEvent: Function;
   id: string;
 }
+
+export type BaseThunkType<
+  A extends Action = Action,
+  R = Promise<void>
+> = ThunkAction<R, AppStateType, unknown, A>;
+
+export type InitialStateType = {
+  events: EventsType[];
+  event: EventsType;
+  organizers: OrganizersType[];
+  editStatus: boolean;
+  timeZone: string;
+  postEvent: boolean;
+};
