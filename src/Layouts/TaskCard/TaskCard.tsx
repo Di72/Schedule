@@ -31,7 +31,7 @@ export const DUMMY_DATA = {
 }
 
 export default function TaskCard({ event }: { event: EventsType }) {
-  const { dateTime, id, name, place, timeZone, type } = event;
+  const { dateTime, id, name, place, timeZone, type, deadline } = event;
 
   const cardTitle = (field: string, title: string, style: CSSProperties) => {
     return (field &&
@@ -70,11 +70,13 @@ export default function TaskCard({ event }: { event: EventsType }) {
 
   const placeTSX = place && cardRow('Place', place)
   const dateTimeTSX = dateTime && cardRow('Time start', dateTime)
+  const deadlineTSX = deadline && cardRow('Deadline', deadline)
 
   return (
     <Card className="schedule-list__card" key={id} title={title} style={{ marginBottom: '16px' }} >
       {placeTSX}
       {dateTimeTSX}
+      {deadlineTSX}
     </Card>
   )
 }

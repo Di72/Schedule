@@ -1,76 +1,107 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Table, Tag } from 'antd';
-import moment from 'moment-timezone';
-
-const { Column } = Table;
+import { EventsType } from '../../types/types';
+import { CSSProperties } from 'styled-components';
 
 export const ScheduleTable = (props: any) => {
-  // const { events } = props.data;
+  const { events } = props.data;
+  const [currentEvents, setCurrentEvents] = useState(events as Array<EventsType>);
 
-  // const eventsWithKey = events.map((item: { key: any; id: any }) => {
-  //   item.key = item.id;
-  //   return item;
-  // });
+  const disableEditEvent = (index: any) => {
+    props.putEvent(currentEvents[index], currentEvents[index].id)
+    props.requestEvents()
+  }
 
-  const renderTags = (type: string, id: string) => {
-    const color = type === 'deadline' ? 'red' : 'green';
+  const renderTags = (value: any, index: any) => {
+    const color = value.type === 'deadline' ? 'red' : 'green';
     return (
-      <Tag color={color} key={id}>
-        {type}
+      <Tag color={color} key={index}>
+        {value.type}
       </Tag>
     );
   };
 
-  const mockEvent = [{
-    comment: "Установить Git. Создать github-аккаунт",
-    dateTime: "12/11/20",
-    formattedTime: new Date(),
-    deadline: "12/12/20",
-    description: "Регистрация на Гитхабе",
-    descriptionUrl: "https://htmlacademy.ru/blog/boost/tools/register-on-github-work-with-console",
-    id: "M3gTaSE0GGVrSZmQGabQ",
-    key: "M3gTaSE0GGVrSZmQGabQ",
-    name: "Git & GitHub",
-    place: "online",
-    timeZone: "8h",
-    type: "git task",
-  }];
-
-  // const dateRenderer = (timeZone: string) => (value: string) =>
-  //   value
-  //     ? moment(value, 'YYYY-MM-DD HH:mmZ')
-  //       .tz(timeZone)
-  //       .format('YYYY-MM-DD')
-  //     : '';
-
-  const timeRenderer = (timeZone: string) => (value: string) => {
-    console.log(timeZone, value, 'timerendered');
-    return value
-      ? moment(value, 'YYYY-MM-DD HH:mmZ')
-        .tz(timeZone)
-        .format('HH:mm')
-      : '';
+  const onDataChangeHandler = (e: any) => {
+    const index = e.currentTarget.dataset.index;
+    const oldState = [...currentEvents];
+    const newEvent = { ...currentEvents[index] };
+    type gay = "name" | "description" | "descriptionUrl" | "comment" | "place" | "type" | "timeZone" | "dateTime" | "deadline" | "id";
+    const propertyName: gay = e.currentTarget.dataset.key;
+    newEvent[propertyName] = e.currentTarget.value;
+    const newState = [...oldState];
+    newState[index] = newEvent
+    setCurrentEvents(newState);
   }
 
-  return (
-    <Table dataSource={mockEvent}>
-      <Column key="dateTime" title="Data" dataIndex="dateTime" />
-      <Column key="name" title="Name" dataIndex="name" />
-      <Column
-        key="type"
-        title="Type"
-        dataIndex="type"
-        render={(type: string, id: string) => renderTags(type, id)}
-      />
-      <Column key="timeZone" title="TimeZone" dataIndex="timeZone" />
-      <Column
-        key="formattedTime"
-        title="formattedTime"
-        dataIndex="formattedTime"
-        render={timeRenderer(props.data.timeZone)}
-      />
-      <Column key="description" title="Description" dataIndex="description" />
-      <Column key="place" title="Place" dataIndex="place" />
-    </Table>
-  );
+  const onKeyPress = (k: React.KeyboardEvent<HTMLInputElement>, index: any): void => {
+    if (k.key === 'Enter') {
+      const currentEl = k.target as HTMLElement;
+      disableEditEvent(index);
+      currentEl.blur();
+    }
+  }
+
+  const inputCSS: CSSProperties = {
+    border: "none", boxShadow: `${!props.data.editStatus ? "none" : "0px 0px 3px 3px lightblue"}`, padding: 0, backgroundColor: 'transparent', width: "100%", boxSizing: "border-box"
+  };
+
+  const columnsData = [
+    {
+      title: "dateTime",
+      data: "Data",
+      key: "dateTime",
+      render: (value: any, record: any, index: any) => {
+        return <input onChange={onDataChangeHandler} style={inputCSS} data-key={"dateTime"} data-index={index} type="text" disabled={!props.data.editStatus}
+          value={value.dateTime} onBlur={() => disableEditEvent(index)} onKeyPress={k => onKeyPress(k, index)} />;
+      }
+    },
+    {
+      title: "name",
+      data: "Name",
+      key: "name",
+      render: (value: any, record: any, index: any) => {
+        return <input onChange={onDataChangeHandler} style={inputCSS} data-key={"name"} data-index={index} type="text" disabled={!props.data.editStatus}
+          value={value.name} onBlur={() => disableEditEvent(index)} onKeyPress={k => onKeyPress(k, index)} />;
+      }
+    },
+    {
+      key: "type",
+      title: "Type",
+      data: "type",
+      render: (value: any, record: any, index: any) => renderTags(value, index)
+    },
+    {
+      key: "timeZone",
+      title: "TimeZone",
+      data: "timeZone",
+      render: (value: any, record: any, index: any) => {
+        return <input onChange={onDataChangeHandler} style={inputCSS} data-key={"timeZone"} data-index={index} type="text" disabled={!props.data.editStatus}
+          value={value.timeZone} onBlur={() => disableEditEvent(index)} onKeyPress={k => onKeyPress(k, index)} />;
+      }
+    },
+    {
+      key: "description",
+      title: "Description",
+      data: "description",
+      render: (value: any, record: any, index: any) => {
+        return <input onChange={onDataChangeHandler} style={inputCSS} data-key={"description"} data-index={index} type="text" disabled={!props.data.editStatus}
+          value={value.description} onBlur={() => disableEditEvent(index)} onKeyPress={k => onKeyPress(k, index)} />;
+      }
+    },
+    {
+      key: "place",
+      title: "Place",
+      data: "place",
+      render: (value: any, record: any, index: any) => {
+        return <input onChange={onDataChangeHandler} style={inputCSS} data-key={"place"} data-index={index} type="text" disabled={!props.data.editStatus}
+          value={value.place} onBlur={() => disableEditEvent(index)} onKeyPress={k => onKeyPress(k, index)} />;
+      }
+    }
+  ]
+
+  const content = currentEvents ? (
+    <Table dataSource={currentEvents} columns={columnsData} rowKey={(item) => item.id} />
+  ) : (<h6>Loading...</h6>)
+
+  return (<>{content}</>);
 };

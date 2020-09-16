@@ -65,9 +65,9 @@ export const Header = ({ data, editStatus, timeZone }: { [x: string]: any }) => 
         </Dropdown>
       </HeaderSC>
       <Select defaultValue="table" style={{ width: 120, margin: 15 }} >
-        <Option value="table"><NavLink className='navlink' to="/" >table</NavLink></Option>
-        <Option value="list"><NavLink className='navlink' to="/list" >list</NavLink></Option>
-        <Option value="calendar"><NavLink className='navlink' to="/calendar" >calendar</NavLink></Option>
+        <Option value="table"><NavLink className='nav-link' to="/" >table</NavLink></Option>
+        <Option value="list"><NavLink className='nav-link' to="/list" >list</NavLink></Option>
+        <Option value="calendar"><NavLink className='nav-link' to="/calendar" >calendar</NavLink></Option>
       </Select>
       <Select defaultValue="Europe/Moscow" style={{ width: 200, margin: 15 }} onChange={onTimezoneChange}>
         {options}

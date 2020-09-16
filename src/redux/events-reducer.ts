@@ -1,7 +1,7 @@
 import { EventsType, InitialStateType } from "../types/types";
-import { ActionsTypes } from './actions';
+import { ActionsTypes } from "./actions";
 
-let initialState:InitialStateType  = {
+let initialState: InitialStateType = {
   events: [],
   event: {} as EventsType,
   organizers: [],
@@ -32,14 +32,14 @@ const eventsReducer = (
         };
       }
     }
-    case "SN/SET_TIMEZONE": {
-      return { ...state, timeZone: action.timeZone };
-    }
     case "SN/SET_EVENT": {
       return { ...state, event: action.response };
     }
-    case "SN/POST_EVENT" : {
-      return {...state, postEvent: !state.postEvent}
+    case "SN/SET_TIMEZONE": {
+      return { ...state, timeZone: action.timeZone };
+    }
+    case "SN/POST_EVENT": {
+      return { ...state, postEvent: !state.postEvent };
     }
     default:
       return state;
