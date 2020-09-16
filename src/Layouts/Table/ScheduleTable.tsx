@@ -13,7 +13,18 @@ export const ScheduleTable = (props: any) => {
   }
 
   const renderTags = (value: any, index: any) => {
-    const color = value.type === 'deadline' ? 'red' : 'green';
+    const color = value.type === 'deadline' ? '#d4380d' : 
+    value.type ==='basic task' ? '#52c41a' :
+    value.type ==='html/css task' ? '#13c2c2' :
+    value.type ==='js task' ? '#1890ff' :
+    value.type ==='git task' ? '#722ed1' :
+  'uuuu';
+  //   const color = value.type === 'deadline' ? '#d4380d' : 
+  //   'basic task' ? '#52c41a' :
+  //   'html/css task' ? '#13c2c2' :
+  //   'js task' ? '#1890ff' :
+  //   'git task' ? '#722ed1' :
+  // 'uuuu';
     return (
       <Tag color={color} key={index}>
         {value.type}
@@ -50,6 +61,7 @@ export const ScheduleTable = (props: any) => {
       title: "dateTime",
       data: "Data",
       key: "dateTime",
+      
       render: (value: any, record: any, index: any) => {
         return <input onChange={onDataChangeHandler} style={inputCSS} data-key={"dateTime"} data-index={index} type="text" disabled={!props.data.editStatus}
           value={value.dateTime} onBlur={() => disableEditEvent(index)} onKeyPress={k => onKeyPress(k, index)} />;
