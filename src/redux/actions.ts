@@ -10,7 +10,8 @@ export const actions = {
     ({ type: "SN/SET_TIMEZONE", timeZone } as const),
   setEvent: (response: EventsType) =>
     ({ type: "SN/SET_EVENT", response } as const),
-  postEvent: () => ({type: "SN/POST_EVENT"} as const)
+  postEvent: () => ({type: "SN/POST_EVENT"} as const),
+  putEvent: () => ({type: "SN/SET_MOCK"} as const)
 };
 
 export type InferActionsTypes<T> = T extends { [keys: string]: (...args: any[]) => infer U } ? U : never

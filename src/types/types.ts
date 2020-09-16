@@ -57,4 +57,5 @@ export type InitialStateType = {
   editStatus: boolean;
   timeZone: string;
   postEvent: boolean;
+  mock: boolean
 };
