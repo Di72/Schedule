@@ -18,14 +18,12 @@ import { Layout } from 'antd';
 export const ScheduleView = (props: any) => {
 	const isNewTaskCreated = useSelector(isNewTaskPostedSelector);
 
-	useEffect(
-		() => {
-			props.requestOrganizers();
-			props.requestEvents();
-			// eslint-disable-next-line react-hooks/exhaustive-deps
-		},
-		[ isNewTaskCreated ]
-	);
+	useEffect(() => {
+		props.requestOrganizers();
+		props.requestEvents();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [isNewTaskCreated]);
+	
 	if (!props.data.events[0])
 		return (
 			<Layout style={{ display: 'flex', alignItems: 'center', backgroundColor: 'transparent' }}>

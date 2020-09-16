@@ -8,7 +8,6 @@ let initialState: InitialStateType = {
   editStatus: false,
   timeZone: "Europe/Moscow",
   postEvent: false,
-  mock: false
 };
 
 const eventsReducer = (
@@ -21,9 +20,6 @@ const eventsReducer = (
     }
     case "SN/SET_ORGANIZERS": {
       return { ...state, organizers: action.response };
-    }
-    case "SN/SET_MOCK": {
-      return { ...state, mock: true };
     }
     case "SN/EDIT_TOGGLE": {
       if (state.editStatus === false) {
