@@ -1,7 +1,7 @@
 import { EventsType, InitialStateType, OrganizersType } from "../types/types";
-import { ActionsTypes } from './actions';
+import { ActionsTypes } from "./actions";
 
-let initialState:InitialStateType  = {
+let initialState: InitialStateType = {
   events: [],
   editStatus: false,
   timeZone: "Europe/Moscow",
@@ -16,16 +16,9 @@ const eventsReducer = (
 ): InitialStateType => {
   switch (action.type) {
     case "SN/SET_EVENTS": {
-      const response = action.response.map((item) => {
-        const time = item.dateTime.split("/");
-        const newTime = new Date(`${time[1]}-${time[0]}-${time[2]}`);
-        item.dateTime = `${newTime.getFullYear()}-${('0' + (newTime.getMonth() + 1)).slice(-2)}-${newTime.getDate()}`;
-        return item;
-      });
-
       return {
         ...state,
-        events: response.sort(
+        events: action.response.sort(
           (a, b) =>
             new Date(a.dateTime).getTime() - new Date(b.dateTime).getTime()
         ),
@@ -51,8 +44,8 @@ const eventsReducer = (
     case "SN/SET_EVENT": {
       return { ...state, event: action.response };
     }
-    case "SN/POST_EVENT" : {
-      return {...state, postEvent: !state.postEvent}
+    case "SN/POST_EVENT": {
+      return { ...state, postEvent: !state.postEvent };
     }
     default:
       return state;
