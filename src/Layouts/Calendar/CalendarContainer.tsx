@@ -37,6 +37,7 @@ const CalendarContainer = (props: any) => {
         step={60}
         views={{
           month: true,
+          day: true,
         }}
         localizer={localizer}
         events={modifiedEventsData}
