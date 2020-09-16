@@ -1,75 +1,71 @@
-import React, { useEffect, useState } from 'react';
-import { ITaskPage } from "src/types/types"
-import styled from 'styled-components';
+import React, { useEffect, useRef, useState } from 'react';
+import { EventsType } from "src/types/types"
 import { connect } from 'react-redux';
 import { AppStateType } from 'src/redux/store';
 import { setEventsAndOrganizerSelector } from '../../redux/selectors';
+import { renderTags } from '../Tags/Tags';
 import { getEvent } from 'src/redux/requests';
 
-const Teacher = styled.div`
-display: flex;
-justify-content: space-between;
-align-items: center;`;
+function TaskPage({ id, data: { event }, requestEvent }: { id: string, data: { event: null | EventsType }, requestEvent: any }) {
+  const [currentTask, setCurrentTask] = useState(event as null | EventsType);
+  const prevIdRef = useRef(null) as React.MutableRefObject<null | string>;
 
-const Photo = styled.img`
-max-width: 150px;
-height: auto;`;
-
-function TaskPage(props: ITaskPage) {
-  const [currentTask, setCurrentTask] = useState(null as null | ITaskPage);
   useEffect(() => {
-    const { id } = props;
-    props.requestEvent(id);
+    requestEvent(id);
+  }, [id, requestEvent]);
+
+  useEffect(() => {
+    if (prevIdRef.current !== id) {
+      prevIdRef.current = id;
+      setCurrentTask(event);
+    }
+    return () => {
+      prevIdRef.current = null
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    setCurrentTask(props);
-  }, [props.id])
+  }, [event, id])
 
   useEffect(() => {
-    console.log(currentTask)
-  }, [currentTask]);
+    setCurrentTask(null);
+  }, [id])
 
-  const list = currentTask && currentTask.agenda.map(theme => { return <li key={theme}> {theme} </li> })
-  const content = currentTask ? (
-    <>
-      <h5> Description </h5>
-      <p> {currentTask.description} </p>
+  function getContent(task: EventsType) {
+    const { comment, dateTime, description, descriptionUrl, name, place, timeZone, type } = task;
+    return (
+      <>
+        <h3>Name</h3>
+        <p>{name}</p>
 
-      <h5> Course Goal </h5>
-      <p> {currentTask.goal} </p>
+        <h5>Type</h5>
+        <p>{renderTags(type, id)}</p>
 
-      <h5> Agenda </h5>
-      <ul>
-        {list}
-      </ul>
-      <h5> Course Team </h5>
-      <div>
-        {
-          currentTask.teachers.map(teacher => {
-            return (
-              <Teacher key={`${teacher.firstName} ${teacher.secondName}`} >
-                <Photo src={teacher.photo} />
-                <div>
-                  <p> {teacher.firstName}  {teacher.secondName} </p>
-                  <p> {teacher.company} </p>
-                </div>
-              </Teacher>
-            )
-          })
-        }
-      </div>
-    </>
-  ) : (
-      <h6>Loading...</h6>
+        <h5>Datetime</h5>
+        <p>{dateTime}</p>
+
+        <h5>Description</h5>
+        <p><a href={descriptionUrl}>{description}</a></p>
+
+        <h5>Comment</h5>
+        <p>{comment}</p>
+
+        <h5>Place</h5>
+        <p>{place}</p>
+
+        <h5>Time zone</h5>
+        <p>{timeZone}</p>
+      </>
     )
+  }
 
+  const content = currentTask ? getContent(currentTask) : (
+    <h6>Loading...</h6>
+  )
   return (<>{content}</>);
 }
 
 
-const mapStateToProps = (state: AppStateType) => {
-  return {
-    data: setEventsAndOrganizerSelector(state)
-  };
-};
+const mapStateToProps = (state: AppStateType) => ({ data: setEventsAndOrganizerSelector(state) });
 
-export default connect(mapStateToProps, { requestEvent: getEvent })(TaskPage);
+const mapDispatchToProps = { requestEvent: getEvent }
+
+export default connect(mapStateToProps, mapDispatchToProps)(TaskPage);

@@ -1,34 +1,10 @@
 import React, { CSSProperties } from 'react';
 import './TaskCard.less';
 import { EventsType } from "src/types/types"
-import { Card, Tag } from 'antd';
+import { Card } from 'antd';
 import { Link, useRouteMatch } from 'react-router-dom';
+import { renderTags } from '../Tags/Tags';
 
-
-export const DUMMY_DATA = {
-  description: `
-  Курс состоит из нескольких крупных модулей, 
-  каждый из которых содержит короткие видео и тесты. 
-  Задача тестов - проверить, насколько хорошо стала понятна тема. 
-  Тесты можно проходить неограниченное количество раз, более того,
-  во многих из них есть пояснения к неправильным ответам.
-  Этот курс максимально гибкий: нет дедлайнов, 
-  нет возможности "завалить" тест, 
-  можно проходить обучение в удобное время в удобном месте.`,
-  goal: "Цель курса - ознакомиться с основными технологиями и инструментами, используемыми в инженерной работе.",
-  agenda: ['Железо компьютера',
-    'Двоичная система счисления',
-    'Операционные системы',
-    'Типы данных и алгоритмы',
-    'Компьютерные сети',
-    'Инструменты повышения производительности'],
-  teachers: [{
-    firstName: 'Ricardo',
-    secondName: 'Milos',
-    company: 'Hot guys GMBH',
-    photo: 'https://24smi.org/public/media/celebrity/2020/03/17/ndyuq11dpxep-rikardo-milos.jpg'
-  }],
-}
 
 export default function TaskCard({ event }: { event: EventsType }) {
   const { dateTime, id, name, place, timeZone, type } = event;
@@ -37,13 +13,6 @@ export default function TaskCard({ event }: { event: EventsType }) {
     return (field &&
       <span style={style} ><b>{title}:</b> {field}</span>
     )
-  }
-
-  const renderTags = (type: string, id: string) => {
-    const color = type === 'deadline' ? 'red' : 'green';
-    return <Tag color={color} key={id}>
-      {type}
-    </Tag>
   }
 
   const time = timeZone && cardTitle(timeZone, 'Time', { fontWeight: "normal" });

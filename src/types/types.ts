@@ -48,7 +48,7 @@ export type BaseThunkType<A extends Action = Action, R = Promise<void>> = ThunkA
 
 export type InitialStateType = {
   events: Array<EventsType>,
-  event: EventsType,
+  event: null | EventsType,
   organizers: Array<OrganizersType>,
   editStatus: boolean,
   timeZone: string,
