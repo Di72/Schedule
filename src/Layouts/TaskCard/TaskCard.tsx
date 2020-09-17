@@ -49,14 +49,14 @@ export default function TaskCard({ event, currentTimeZone }: { event: EventsType
     }
   }, [event, currentTimeZone, deadline, dateTime]);
 
-  const cardTitle = (field: string, title: string, style: CSSProperties) => {
-    console.log("cardTitle -> timeLeft", timeLeft)
+  const cardTitle = (title: string) => {
+    const style: CSSProperties = { fontWeight: "normal" }
     return (timeLeft && (timeLeft.hours > 0 && timeLeft.days > 0 && timeLeft.minutes > 0) &&
       <span style={style} ><b>{title}:</b> {timeLeft.days} days, {timeLeft.hours}:{('00' + timeLeft.minutes).slice(-2)}</span>
     )
   }
 
-  const time = deadline && cardTitle(deadline, 'Time left', { fontWeight: "normal" });
+  const time = deadline && cardTitle('Time left');
   const typeTSX = type && renderTags(type, id);
   const match = useRouteMatch();
 
