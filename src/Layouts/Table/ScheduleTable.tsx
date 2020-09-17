@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Table, Tag } from 'antd';
 import { EventsType } from '../../types/types';
 import { CSSProperties } from 'styled-components';
+import './ScheduleTable.less';
 
 export const ScheduleTable = (props: any) => {
   const { events } = props.data;

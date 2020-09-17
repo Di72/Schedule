@@ -9,7 +9,6 @@ import { setEventsAndOrganizerSelector, isNewTaskPostedSelector } from '../../re
 
 import { ScheduleTable } from '../Table/ScheduleTable';
 import { Header } from '../Header/Header';
-// import { DUMMY_DATA } from '../TaskCard/TaskCard';
 import TaskPage from '../TaskPage/TaskPage';
 import { ScheduleList } from '../List';
 import CalendarContainer from '../Calendar/CalendarContainer';
@@ -23,7 +22,7 @@ export const ScheduleView = (props: any) => {
 		props.requestEvents();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [isNewTaskCreated]);
-	
+
 	if (!props.data.events[0])
 		return (
 			<Layout style={{ display: 'flex', alignItems: 'center', backgroundColor: 'transparent' }}>

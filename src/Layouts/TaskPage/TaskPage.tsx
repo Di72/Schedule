@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { EventsType } from "src/types/types"
 import { connect } from 'react-redux';
 import { AppStateType } from 'src/redux/store';
@@ -8,22 +8,19 @@ import { getEvent } from 'src/redux/requests';
 
 function TaskPage({ id, data: { event }, requestEvent }: { id: string, data: { event: null | EventsType }, requestEvent: any }) {
   const [currentTask, setCurrentTask] = useState(event as null | EventsType);
-  const prevIdRef = useRef(null) as React.MutableRefObject<null | string>;
 
   useEffect(() => {
     requestEvent(id);
   }, [id, requestEvent]);
 
   useEffect(() => {
-    if (prevIdRef.current !== id) {
-      prevIdRef.current = id;
-      setCurrentTask(event);
-    }
-    return () => {
-      prevIdRef.current = null
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [event, id])
+    setCurrentTask(prevEvent => {
+      if (JSON.stringify(prevEvent) !== JSON.stringify(event)) {
+        return event
+      }
+      return prevEvent
+    });
+  }, [event])
 
   useEffect(() => {
     setCurrentTask(null);
