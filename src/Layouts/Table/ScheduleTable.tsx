@@ -71,7 +71,6 @@ export const ScheduleTable = (props: any) => {
       title: "name",
       data: "Name",
       key: "name",
-      sorter: (a: any, b: any) => a.name.length - b.name.length,
       render: (value: any, record: any, index: any) => {
         return <input onChange={onDataChangeHandler} style={inputCSS} data-key={"name"} data-index={index} type="text" disabled={!props.data.editStatus}
           value={value.name} onBlur={() => disableEditEvent(index)} onKeyPress={k => onKeyPress(k, index)} />;
@@ -81,6 +80,30 @@ export const ScheduleTable = (props: any) => {
       key: "type",
       title: "Type",
       data: "type",
+      filters: [
+        {
+          text: 'basic task',
+          value: 'basic task',
+        },
+        {
+          text: 'html/css task',
+          value: 'html/css task',
+        },
+        {
+          text: 'js task',
+          value: 'js task',
+        },
+        {
+          text: 'git task',
+          value: 'git task',
+        },
+        {
+          text: 'deadline',
+          value: 'deadline',
+        },
+      ],
+      filterMultiple: false,
+      onFilter: (value: any, record: any) => record.type.indexOf(value) === 0,
       render: (value: any, record: any, index: any) => renderTags(value, index)
     },
     {
