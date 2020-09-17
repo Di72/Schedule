@@ -38,7 +38,7 @@ export const ScheduleView = (props: any) => {
 					<Route path='/' exact={true}
 						render={() => <ScheduleTable data={props.data} />} />
 					<Route path='/list/' exact={true}
-						render={() => <ScheduleList data={props.data} />} />
+						render={() => <ScheduleList data={props.data} timeZone={props.data.timeZone} />} />
 					<Route path='/calendar'
 						render={() => <CalendarContainer data={props.data} />} />
 					<Route path='/list/:id' render={({ match }) => {
