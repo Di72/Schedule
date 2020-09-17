@@ -51,9 +51,9 @@ export type BaseThunkType<
 > = ThunkAction<R, AppStateType, unknown, A>;
 
 export type InitialStateType = {
-  events: Array<EventsType>;
+  events: EventsType[];
   event: null | EventsType;
-  organizers: Array<OrganizersType>;
+  organizers: OrganizersType[];
   editStatus: boolean;
   timeZone: string;
   postEvent: boolean;

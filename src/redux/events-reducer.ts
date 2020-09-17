@@ -38,11 +38,11 @@ const eventsReducer = (
         };
       }
     }
-    case "SN/SET_TIMEZONE": {
-      return { ...state, timeZone: action.timeZone };
-    }
     case "SN/SET_EVENT": {
       return { ...state, event: action.response };
+    }
+    case "SN/SET_TIMEZONE": {
+      return { ...state, timeZone: action.timeZone };
     }
     case "SN/POST_EVENT": {
       return { ...state, postEvent: !state.postEvent };

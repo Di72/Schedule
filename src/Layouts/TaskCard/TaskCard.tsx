@@ -8,7 +8,7 @@ import moment from 'moment-timezone';
 
 
 export default function TaskCard({ event, currentTimeZone }: { event: EventsType, currentTimeZone: string }) {
-  const { dateTime, id, name, place, timeZone, type, deadline } = event;
+  const { dateTime, id, name, place, type, deadline } = event;
   const [timeLeft, setTimeLeft] = useState(null as null | { [x: string]: number, days: number, hours: number, minutes: number });
 
   const getTimeLeft = (date: moment.Moment, now: moment.Moment) => {
@@ -20,7 +20,7 @@ export default function TaskCard({ event, currentTimeZone }: { event: EventsType
 
     setTimeLeft(prevData => {
       if (JSON.stringify(prevData) !== JSON.stringify(data)) {
-        return { ...data }
+        return data
       };
       return prevData;
     })
@@ -47,7 +47,7 @@ export default function TaskCard({ event, currentTimeZone }: { event: EventsType
         clearInterval(timer);
       }
     }
-  }, [event, currentTimeZone]);
+  }, [event, currentTimeZone, deadline, dateTime]);
 
   const cardTitle = (field: string, title: string, style: CSSProperties) => {
     console.log("cardTitle -> timeLeft", timeLeft)

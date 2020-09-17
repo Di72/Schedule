@@ -5,7 +5,6 @@ import {
   Input,
   Select,
   DatePicker,
-  InputNumber,
   Button,
   Row,
   Collapse,
@@ -15,29 +14,51 @@ import './style.less';
 
 import { postEvent } from '../../redux/requests';
 import { AppStateType } from '../../redux/store';
-import { modificationDateForPost } from '../../units';
 import { isNewTaskPostedSelector } from '../../redux/selectors';
+
+const timezones = [
+  "Europe/London",
+  "Europe/Kaliningrad",
+  "Europe/Moscow",
+  "Europe/Volgograd"
+];
+
+const taskType = [
+  "Js Task",
+  "basic task",
+  "html/css task",
+  "git task"
+]
 
 const CreateEventPage = (props: any) => {
   const [openedPanel, setOpenedPanel] = useState('');
   const [form] = Form.useForm();
   const { Panel } = Collapse;
+  const { Option } = Select;
+
+  const optionsTimeZone = timezones.map((timeZone: string) => {
+    return <Option key={timeZone} style={{ paddingLeft: 15 }} value={timeZone}>{timeZone}</Option>
+  })
+
+  const optionsTaskType = taskType.map((type: string) => {
+    return <Option key={type} style={{ paddingLeft: 15 }} value={type}>{type}</Option>
+  })
 
   const onFinish = (values: any) => {
     const task = values.task;
-    const startDate = new Date(task.dateTime.toDate());
-    const deadlineDate = new Date(task.deadline.toDate());
-    const timeZone = task.timeZone.toString();
+    const startDate = new Date(task.dateTime.toDate()).getTime();
+    const deadlineDate = new Date(task.deadline.toDate()).getTime();
+    const timeZone = task.timeZone;
 
     if (startDate > deadlineDate) {
       console.log('task ended before start');
     } else {
       props.postEvent({
         ...task,
-        dateTime: modificationDateForPost(startDate),
-        deadline: modificationDateForPost(deadlineDate),
+        dateTime:startDate,
+        deadline: deadlineDate,
         timeZone,
-      })
+      });
     }
     form.resetFields()
   }
@@ -88,10 +109,7 @@ const CreateEventPage = (props: any) => {
             rules={[{ required: true }]}
           >
             <Select>
-              <Select.Option value="Js Task">Js Task</Select.Option>
-              <Select.Option value="basic task">Basic task</Select.Option>
-              <Select.Option value="html/css task">html/css task</Select.Option>
-              <Select.Option value="git task">git task</Select.Option>
+              {optionsTaskType}
             </Select>
           </Form.Item>
           <Form.Item
@@ -113,7 +131,9 @@ const CreateEventPage = (props: any) => {
             rules={[{ required: true, }]}
             name={['task', 'timeZone']}
           >
-            <InputNumber />
+            <Select>
+              {optionsTimeZone}
+            </Select>
           </Form.Item>
           <Form.Item
             label="Place"
@@ -121,8 +141,8 @@ const CreateEventPage = (props: any) => {
             rules={[{ required: true, }]}
           >
             <Select>
-              <Select.Option value="online">Online</Select.Option>
-              <Select.Option value="offline">Offline</Select.Option>
+              <Option value="online" style={{ paddingLeft: 15 }}>Online</Option>
+              <Option value="offline" style={{ paddingLeft: 15 }}>Offline</Option>
             </Select>
           </Form.Item>
           <Form.Item
