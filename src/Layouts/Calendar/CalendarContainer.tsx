@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Calendar, momentLocalizer } from 'react-big-calendar';
-import { dataModification, addOneDay } from '../../units';
+import { addOneDay } from '../../units';
 
 import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
@@ -15,8 +15,8 @@ const CalendarContainer = (props: any) => {
   const modifiedEventsData = events.map((el: any) => {
     if (!el.deadline) return {};
 
-    const startDate = dataModification(el.dateTime);
-    const deadlineDate = addOneDay(dataModification(el.deadline));
+    const startDate = new Date(Number(el.dateTime));
+    const deadlineDate = addOneDay(new Date(Number(el.deadline)));
 
     return {
       title: el.description,
