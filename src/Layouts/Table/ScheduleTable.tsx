@@ -71,6 +71,7 @@ export const ScheduleTable = (props: any) => {
       title: "name",
       data: "Name",
       key: "name",
+      sorter: (a: any, b: any) => a.name.length - b.name.length,
       render: (value: any, record: any, index: any) => {
         return <input onChange={onDataChangeHandler} style={inputCSS} data-key={"name"} data-index={index} type="text" disabled={!props.data.editStatus}
           value={value.name} onBlur={() => disableEditEvent(index)} onKeyPress={k => onKeyPress(k, index)} />;
