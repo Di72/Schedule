@@ -14,12 +14,27 @@ export const ScheduleTable = (props: any) => {
   }
 
   const renderTags = (value: any, index: any) => {
-    const color = value.type === 'deadline' ? '#d4380d' :
-      value.type === 'basic task' ? '#52c41a' :
-        value.type === 'html/css task' ? '#13c2c2' :
-          value.type === 'js task' ? '#1890ff' :
-            value.type === 'git task' ? '#722ed1' :
-              'uuuu';
+    let color = '';
+    switch (value.type) {
+      case 'deadline':
+        color = '#d4380d';
+        break;
+      case 'basic task':
+        color = '#52c41a';
+        break;
+      case 'html/css task':
+        color = '#13c2c2';
+        break;
+      case 'js task':
+        color = '#1890ff';
+        break;
+      case 'git task':
+        color = '#722ed1';
+        break;
+      default:
+        color = 'uuuu';
+        break;
+    }
 
     return (
       <Tag color={color} key={index}>
