@@ -57,4 +57,11 @@ export type InitialStateType = {
   editStatus: boolean;
   timeZone: string;
   postEvent: boolean;
-};
+}
+
+export interface Itime {
+  [x: string]: number;
+  days: number;
+  hours: number;
+  minutes: number;
+}
