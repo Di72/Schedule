@@ -1,13 +1,13 @@
-import { EventsType, InitialStateType } from "../types/types";
+import { EventsType, InitialStateType, OrganizersType } from "../types/types";
 import { ActionsTypes } from "./actions";
 
 let initialState: InitialStateType = {
   events: [],
-  event: {} as EventsType,
-  organizers: [],
   editStatus: false,
   timeZone: "Europe/Moscow",
   postEvent: false,
+  event: null as null | EventsType,
+  organizers: [] as Array<OrganizersType>,
 };
 
 const eventsReducer = (
@@ -16,7 +16,13 @@ const eventsReducer = (
 ): InitialStateType => {
   switch (action.type) {
     case "SN/SET_EVENTS": {
-      return { ...state, events: action.response };
+      return {
+        ...state,
+        events: action.response.sort(
+          (a, b) =>
+            new Date(+a.dateTime).getTime() - new Date(+b.dateTime).getTime()
+        ),
+      };
     }
     case "SN/SET_ORGANIZERS": {
       return { ...state, organizers: action.response };
