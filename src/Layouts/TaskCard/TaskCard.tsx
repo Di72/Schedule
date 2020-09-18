@@ -1,52 +1,82 @@
-import React, { CSSProperties } from 'react';
+import React, { CSSProperties, useEffect, useState } from 'react';
 import './TaskCard.less';
-import { EventsType } from "src/types/types"
-import { Card, Tag } from 'antd';
+import { EventsType, Itime } from "src/types/types"
+import { Card } from 'antd';
 import { Link, useRouteMatch } from 'react-router-dom';
+import { renderTags } from '../Tags/Tags';
+import moment from 'moment-timezone';
 
+export default function TaskCard({ event, currentTimeZone }: { event: EventsType, currentTimeZone: string }) {
+  const { dateTime, id, name, place, type, deadline, timeZone } = event;
+  const [timeLeft, setTimeLeft] = useState(null as null | Itime);
+  const [startsIn, setStartsIn] = useState(null as null | Itime);
 
-export const DUMMY_DATA = {
-  description: `
-  Курс состоит из нескольких крупных модулей, 
-  каждый из которых содержит короткие видео и тесты. 
-  Задача тестов - проверить, насколько хорошо стала понятна тема. 
-  Тесты можно проходить неограниченное количество раз, более того,
-  во многих из них есть пояснения к неправильным ответам.
-  Этот курс максимально гибкий: нет дедлайнов, 
-  нет возможности "завалить" тест, 
-  можно проходить обучение в удобное время в удобном месте.`,
-  goal: "Цель курса - ознакомиться с основными технологиями и инструментами, используемыми в инженерной работе.",
-  agenda: ['Железо компьютера',
-    'Двоичная система счисления',
-    'Операционные системы',
-    'Типы данных и алгоритмы',
-    'Компьютерные сети',
-    'Инструменты повышения производительности'],
-  teachers: [{
-    firstName: 'Ricardo',
-    secondName: 'Milos',
-    company: 'Hot guys GMBH',
-    photo: 'https://24smi.org/public/media/celebrity/2020/03/17/ndyuq11dpxep-rikardo-milos.jpg'
-  }],
-}
+  const setDateToEnd = (date: moment.Moment, now: moment.Moment, state: React.Dispatch<React.SetStateAction<Itime | null>>) => {
+    const data = {
+      days: date.diff(now, 'days'),
+      hours: date.diff(now, 'hours') % 24,
+      minutes: date.diff(now, 'minutes') % 60
+    }
 
-export default function TaskCard({ event }: { event: EventsType }) {
-  const { dateTime, id, name, place, timeZone, type, deadline } = event;
+    state((prevState: Itime | null) => {
+      if (JSON.stringify(prevState) !== JSON.stringify(data)) {
+        return data
+      };
+      return prevState;
+    })
+  }
 
-  const cardTitle = (field: string, title: string, style: CSSProperties) => {
-    return (field &&
-      <span style={style} ><b>{title}:</b> {field}</span>
+  useEffect(() => {
+    if (deadline) {
+      const deadlineTime = moment(+deadline);
+      const dateTimeStartsIn = moment(+dateTime);
+      const timer = setInterval(() => {
+        const now = moment().tz(currentTimeZone, true);
+        const showTimeLeft = +moment(+dateTime).format('x') < +now.format('x')
+        const showStartsIn = +moment(+dateTime).format('x') > +now.format('x')
+
+        if (deadlineTime && showTimeLeft) {
+          setDateToEnd(deadlineTime, now, setTimeLeft);
+          if (deadlineTime.diff(now) < 0) {
+            setTimeLeft(null);
+            clearInterval(timer);
+          }
+        }
+        if (dateTimeStartsIn && showStartsIn) {
+          setDateToEnd(dateTimeStartsIn, now, setStartsIn);
+          if (dateTimeStartsIn.diff(now) < 0) {
+            setTimeLeft(null);
+            clearInterval(timer);
+          }
+        }
+      }, 1e3)
+
+      return () => {
+        clearInterval(timer);
+      }
+    }
+  }, [event, currentTimeZone, deadline, dateTime]);
+
+  const cardTitle = () => {
+    const style: CSSProperties = { fontWeight: "normal" }
+    let title = '';
+    let dateToEnd = null;
+    if (timeLeft) {
+      dateToEnd = timeLeft;
+      title = 'Time left';
+    }
+    if (startsIn) {
+      dateToEnd = startsIn;
+      title = 'Starts in';
+    }
+    const days = dateToEnd && dateToEnd.days ? `${dateToEnd.days} days, ` : null;
+    if (!dateToEnd) return (<span style={style} ><b>Too late</b></span>)
+    return dateToEnd && (
+      <span style={style} ><b>{title}:</b> {days}{dateToEnd.hours}:{('00' + dateToEnd.minutes).slice(-2)}</span>
     )
   }
 
-  const renderTags = (type: string, id: string) => {
-    const color = type === 'deadline' ? 'red' : 'green';
-    return <Tag color={color} key={id}>
-      {type}
-    </Tag>
-  }
-
-  const time = timeZone && cardTitle(timeZone, 'Time', { fontWeight: "normal" });
+  const time = deadline && cardTitle();
   const typeTSX = type && renderTags(type, id);
   const match = useRouteMatch();
 
@@ -69,8 +99,8 @@ export default function TaskCard({ event }: { event: EventsType }) {
   }
 
   const placeTSX = place && cardRow('Place', place)
-  const dateTimeTSX = dateTime && cardRow('Time start', dateTime)
-  const deadlineTSX = deadline && cardRow('Deadline', deadline)
+  const dateTimeTSX = dateTime && cardRow('Time start', moment(+dateTime).tz(currentTimeZone).format('YYYY-MM-DD HH:mm'))
+  const deadlineTSX = deadline && cardRow('Deadline', moment(+deadline).tz(currentTimeZone).format('YYYY-MM-DD HH:mm'))
 
   return (
     <Card className="schedule-list__card" key={id} title={title} style={{ marginBottom: '16px' }} >

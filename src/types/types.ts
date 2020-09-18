@@ -52,9 +52,16 @@ export type BaseThunkType<
 
 export type InitialStateType = {
   events: EventsType[];
-  event: EventsType;
+  event: null | EventsType;
   organizers: OrganizersType[];
   editStatus: boolean;
   timeZone: string;
   postEvent: boolean;
-};
+}
+
+export interface Itime {
+  [x: string]: number;
+  days: number;
+  hours: number;
+  minutes: number;
+}
