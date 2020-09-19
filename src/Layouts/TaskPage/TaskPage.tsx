@@ -31,13 +31,21 @@ function TaskPage({ id, data, requestEvent }: { id: string, data: InitialStateTy
   }, [event])
 
   useEffect(() => {
+    let timerResult: { (): void; };
     if (event) {
       const { dateTime, deadline } = event;
-      timer(timeZone, dateTime, deadline, { setTimeLeft, setStartsIn });
+      timerResult = timer(timeZone, dateTime, deadline, { setTimeLeft, setStartsIn });
       setTimeout(() => {
         setCalculating(() => false);
       }, 1e3);
     }
+    return () => {
+      if (event) {
+        timerResult();
+        setStartsIn(null);
+        setTimeLeft(null);
+      }
+    };
   }, [event, timeZone])
 
   useEffect(() => {
