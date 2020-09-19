@@ -15,7 +15,28 @@ export const ScheduleTable = (props: any) => {
   }
 
   const renderTags = (value: any, index: any) => {
-    const color = value.type === 'deadline' ? 'red' : 'green';
+    let color = '';
+    switch (value.type) {
+      case 'deadline':
+        color = '#d4380d';
+        break;
+      case 'basic task':
+        color = '#52c41a';
+        break;
+      case 'html/css task':
+        color = '#13c2c2';
+        break;
+      case 'js task':
+        color = '#1890ff';
+        break;
+      case 'git task':
+        color = '#722ed1';
+        break;
+      default:
+        color = 'uuuu';
+        break;
+    }
+
     return (
       <Tag color={color} key={index}>
         {value.type}
@@ -106,6 +127,30 @@ export const ScheduleTable = (props: any) => {
     {
       title: "Type",
       data: "type",
+      filters: [
+        {
+          text: 'basic task',
+          value: 'basic task',
+        },
+        {
+          text: 'html/css task',
+          value: 'html/css task',
+        },
+        {
+          text: 'js task',
+          value: 'js task',
+        },
+        {
+          text: 'git task',
+          value: 'git task',
+        },
+        {
+          text: 'deadline',
+          value: 'deadline',
+        },
+      ],
+      filterMultiple: false,
+      onFilter: (value: any, record: any) => record.type.indexOf(value) === 0,
       key: "type",
       width: 100,
       render: (value: any, record: any, index: any) => renderTags(value, index)
