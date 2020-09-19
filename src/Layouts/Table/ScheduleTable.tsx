@@ -3,9 +3,10 @@ import { Table, Tag } from 'antd';
 import { EventsType } from '../../types/types';
 import { CSSProperties } from 'styled-components';
 import './ScheduleTable.less';
+import moment from 'moment-timezone';
 
 export const ScheduleTable = (props: any) => {
-  const { events } = props.data;
+  const { events, timeZone } = props.data;
   const [currentEvents, setCurrentEvents] = useState(events as Array<EventsType>);
 
   const disableEditEvent = (index: any) => {
@@ -69,26 +70,61 @@ export const ScheduleTable = (props: any) => {
 
   const columnsData = [
     {
-      title: "dateTime",
-      data: "Data",
+      title: "Date",
+      data: "dateTime",
       key: "dateTime",
-
+      width: 140,
       render: (value: any, record: any, index: any) => {
-        return <input onChange={onDataChangeHandler} style={inputCSS} data-key={"dateTime"} data-index={index} type="text" disabled={!props.data.editStatus}
-          value={value.dateTime} onBlur={() => disableEditEvent(index)} onKeyPress={k => onKeyPress(k, index)} />;
+        return <input
+          onChange={onDataChangeHandler}
+          style={inputCSS}
+          data-key={"dateTime"}
+          data-index={index}
+          type="text"
+          disabled={!props.data.editStatus}
+          value={moment(+value.dateTime).tz(timeZone).format('YYYY-MM-DD HH:mm')}
+          onBlur={() => disableEditEvent(index)}
+          onKeyPress={k => onKeyPress(k, index)} />;
       }
     },
     {
-      title: "name",
-      data: "Name",
+      title: "Deadline",
+      data: "deadline",
+      key: "deadline",
+      width: 140,
+      render: (value: any, record: any, index: any) => {
+        return value.deadline && <input
+          onChange={onDataChangeHandler}
+          style={inputCSS}
+          data-key={"timeZone"}
+          data-index={index}
+          type="text"
+          disabled={!props.data.editStatus}
+          value={moment(+value.deadline).tz(timeZone).format('YYYY-MM-DD HH:mm')}
+          onBlur={() => disableEditEvent(index)}
+          onKeyPress={k => onKeyPress(k, index)}
+        />;
+      }
+    },
+    {
+      title: "Name",
+      data: "name",
       key: "name",
+      width: 180,
       render: (value: any, record: any, index: any) => {
-        return <input onChange={onDataChangeHandler} style={inputCSS} data-key={"name"} data-index={index} type="text" disabled={!props.data.editStatus}
-          value={value.name} onBlur={() => disableEditEvent(index)} onKeyPress={k => onKeyPress(k, index)} />;
+        return <input
+          onChange={onDataChangeHandler}
+          style={inputCSS}
+          data-key={"name"}
+          data-index={index}
+          type="text"
+          disabled={!props.data.editStatus}
+          value={value.name}
+          onBlur={() => disableEditEvent(index)}
+          onKeyPress={k => onKeyPress(k, index)} />;
       }
     },
     {
-      key: "type",
       title: "Type",
       data: "type",
       filters: [
@@ -115,33 +151,43 @@ export const ScheduleTable = (props: any) => {
       ],
       filterMultiple: false,
       onFilter: (value: any, record: any) => record.type.indexOf(value) === 0,
+      key: "type",
+      width: 100,
       render: (value: any, record: any, index: any) => renderTags(value, index)
     },
     {
-      key: "timeZone",
-      title: "TimeZone",
-      data: "timeZone",
-      render: (value: any, record: any, index: any) => {
-        return <input onChange={onDataChangeHandler} style={inputCSS} data-key={"timeZone"} data-index={index} type="text" disabled={!props.data.editStatus}
-          value={value.timeZone} onBlur={() => disableEditEvent(index)} onKeyPress={k => onKeyPress(k, index)} />;
-      }
-    },
-    {
-      key: "description",
       title: "Description",
       data: "description",
+      key: "description",
       render: (value: any, record: any, index: any) => {
-        return <input onChange={onDataChangeHandler} style={inputCSS} data-key={"description"} data-index={index} type="text" disabled={!props.data.editStatus}
-          value={value.description} onBlur={() => disableEditEvent(index)} onKeyPress={k => onKeyPress(k, index)} />;
+        return <input
+          onChange={onDataChangeHandler}
+          style={inputCSS}
+          data-key={"description"}
+          data-index={index}
+          type="text"
+          disabled={!props.data.editStatus}
+          value={value.description}
+          onBlur={() => disableEditEvent(index)}
+          onKeyPress={k => onKeyPress(k, index)} />;
       }
     },
     {
       key: "place",
       title: "Place",
       data: "place",
+      width: 80,
       render: (value: any, record: any, index: any) => {
-        return <input onChange={onDataChangeHandler} style={inputCSS} data-key={"place"} data-index={index} type="text" disabled={!props.data.editStatus}
-          value={value.place} onBlur={() => disableEditEvent(index)} onKeyPress={k => onKeyPress(k, index)} />;
+        return <input
+          onChange={onDataChangeHandler}
+          style={inputCSS}
+          data-key={"place"}
+          data-index={index}
+          type="text"
+          disabled={!props.data.editStatus}
+          value={value.place}
+          onBlur={() => disableEditEvent(index)}
+          onKeyPress={k => onKeyPress(k, index)} />;
       }
     }
   ]
