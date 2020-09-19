@@ -43,4 +43,23 @@
       margin-bottom: 0;
     }
   }
+
+  .show-time {
+    animation: showTime 1s forwards;
+  }
+
+  @keyframes showTime {
+    0% {
+      opacity: 0;
+      background-color: lightskyblue;
+    }
+
+    25% {
+      opacity: 1;
+    }
+
+    100% {
+      background-color: transparent;
+    }
+  }
 }
