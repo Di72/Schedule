@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { connect, useSelector } from 'react-redux';
 
 import { AppStateType } from '../../redux/store';
-import { getEvents, getOrganizers, putEvent } from '../../redux/requests';
+import { getEvents, getOrganizers, putEvent, deleteEvent } from '../../redux/requests';
 import { actions } from '../../redux/actions';
 import { setEventsAndOrganizerSelector, isNewTaskPostedSelector } from '../../redux/selectors';
 
@@ -45,6 +45,7 @@ export const ScheduleView = (props: any) => {
 								data={props.data}
 								requestEvents={props.requestEvents}
 								putEvent={props.putEvent}
+								deleteEvent={props.deleteEvent}
 							/>
 						)}
 					/>
@@ -75,6 +76,7 @@ const mapStateToProps = (state: AppStateType) => {
 
 const mapDispatchToProps = {
 	putEvent,
+	deleteEvent,
 	requestEvents: getEvents,
 	requestOrganizers: getOrganizers,
 	editStatus: actions.editStatus,

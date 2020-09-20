@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Select, Spin, Table, Tag } from 'antd';
+import { Button, Select, Spin, Table, Tag } from 'antd';
 import { EventsType } from '../../types/types';
 import { CSSProperties } from 'styled-components';
 import './ScheduleTable.less';
@@ -14,6 +14,12 @@ export const ScheduleTable = (props: any) => {
     props.putEvent(currentEvents[index], currentEvents[index].id)
     props.requestEvents()
   }
+  const deleteEvent = (value: any, index: any) => {
+    const new_state = currentEvents.filter(item => item.id !== value.id)
+    setCurrentEvents(new_state)
+    props.deleteEvent(currentEvents[index].id)
+    props.requestEvents()
+  }
 
   const taskType = [
     "js task",
@@ -24,6 +30,7 @@ export const ScheduleTable = (props: any) => {
   const optionsTaskType = taskType.map((type: string) => {
     return <Option style={{ paddingLeft: 15 }} value={type}>{type}</Option>
   })  
+
   const placeType = [
     "online",
     "offline"
@@ -230,6 +237,15 @@ export const ScheduleTable = (props: any) => {
       render: (value: any, record: any, index: any) => renderPlace(value, index)
     }
   ]
+
+  props.data.editStatus && columnsData.push({
+    key: "id",
+    title: "Delete Event",
+    data: "id",
+    width: 80,
+    render: (value: any, record: any, index: any) => <Button type="primary" danger onClick={()=>deleteEvent(value, index)}>Delete</Button>
+  })
+
 
   const content = currentEvents ? (
     <Table dataSource={currentEvents} columns={columnsData} rowKey={(item) => item.id} />
