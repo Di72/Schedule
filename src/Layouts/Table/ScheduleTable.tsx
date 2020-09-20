@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { Table, Tag } from 'antd';
+import { Select, Table, Tag } from 'antd';
 import { EventsType } from '../../types/types';
 import { CSSProperties } from 'styled-components';
 import './ScheduleTable.less';
 import moment from 'moment-timezone';
+import { Option } from 'antd/lib/mentions';
 
 export const ScheduleTable = (props: any) => {
   const { events, timeZone } = props.data;
@@ -13,6 +14,43 @@ export const ScheduleTable = (props: any) => {
     props.putEvent(currentEvents[index], currentEvents[index].id)
     props.requestEvents()
   }
+
+  const taskType = [
+    "js task",
+    "basic task",
+    "html/css task",
+    "git task"
+  ]
+  const optionsTaskType = taskType.map((type: string) => {
+    return <Option style={{ paddingLeft: 15 }} value={type}>{type}</Option>
+  })  
+  const placeType = [
+    "online",
+    "offline"
+  ]
+  const optionsPlaceType = placeType.map((place: string) => {
+    return <Option style={{ paddingLeft: 15 }} value={place}>{place}</Option>
+  })  
+
+
+  const renderPlace = (value: any, index: any) => {
+
+
+    return (<>
+   {!props.data.editStatus ? (<input
+          onChange={onDataChangeHandler}
+          style={inputCSS}
+          data-key={"place"}
+          data-index={index}
+          type="text"
+          disabled={!props.data.editStatus}
+          value={value.place}
+          onBlur={() => disableEditEvent(index)}
+          onKeyPress={k => onKeyPress(k, index)} />) : (<Select defaultValue={value.place} onChange={(e)=>onDataChangePlace(index, e)}>
+                  {optionsPlaceType}
+                </Select>)}
+    </>);
+  };
 
   const renderTags = (value: any, index: any) => {
     let color = '';
@@ -37,11 +75,13 @@ export const ScheduleTable = (props: any) => {
         break;
     }
 
-    return (
-      <Tag color={color} key={index}>
+    return (<>
+   {!props.data.editStatus ? (<Tag color={color} key={index}>
         {value.type}
-      </Tag>
-    );
+      </Tag>) : (<Select defaultValue={value.type} onChange={(e)=>onDataChangeType(index, e)}>
+                  {optionsTaskType}
+                </Select>)}
+    </>);
   };
 
   const onDataChangeHandler = (e: any) => {
@@ -54,6 +94,16 @@ export const ScheduleTable = (props: any) => {
     const newState = [...oldState];
     newState[index] = newEvent
     setCurrentEvents(newState);
+  }
+
+  const onDataChangeType = (index: number, e: any) => {
+  setCurrentEvents([...currentEvents, currentEvents[index].type = e]);
+  disableEditEvent(index)
+  }
+
+  const onDataChangePlace = (index: number, e: any) => {
+  setCurrentEvents([...currentEvents, currentEvents[index].place = e]);
+  disableEditEvent(index)
   }
 
   const onKeyPress = (k: React.KeyboardEvent<HTMLInputElement>, index: any): void => {
@@ -150,7 +200,7 @@ export const ScheduleTable = (props: any) => {
         },
       ],
       filterMultiple: false,
-      onFilter: (value: any, record: any) => record.type.indexOf(value) === 0,
+      onFilter: (value: any, record: any) => !props.data.editStatus && record.type.indexOf(value) === 0,
       key: "type",
       width: 100,
       render: (value: any, record: any, index: any) => renderTags(value, index)
@@ -177,18 +227,7 @@ export const ScheduleTable = (props: any) => {
       title: "Place",
       data: "place",
       width: 80,
-      render: (value: any, record: any, index: any) => {
-        return <input
-          onChange={onDataChangeHandler}
-          style={inputCSS}
-          data-key={"place"}
-          data-index={index}
-          type="text"
-          disabled={!props.data.editStatus}
-          value={value.place}
-          onBlur={() => disableEditEvent(index)}
-          onKeyPress={k => onKeyPress(k, index)} />;
-      }
+      render: (value: any, record: any, index: any) => renderPlace(value, index)
     }
   ]
 
