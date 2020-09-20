@@ -12,21 +12,24 @@ import { Header } from '../Header/Header';
 import TaskPage from '../TaskPage/TaskPage';
 import { ScheduleList } from '../List';
 import CalendarContainer from '../Calendar/CalendarContainer';
-import { Layout } from 'antd';
+import { Layout, Spin } from 'antd';
 
 export const ScheduleView = (props: any) => {
 	const isNewTaskCreated = useSelector(isNewTaskPostedSelector);
 
-	useEffect(() => {
-		props.requestOrganizers();
-		props.requestEvents();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [isNewTaskCreated]);
+	useEffect(
+		() => {
+			props.requestOrganizers();
+			props.requestEvents();
+			// eslint-disable-next-line react-hooks/exhaustive-deps
+		},
+		[ isNewTaskCreated ]
+	);
 
 	if (!props.data.events[0])
 		return (
 			<Layout style={{ display: 'flex', alignItems: 'center', backgroundColor: 'transparent' }}>
-				<h3>Loading...</h3>
+				<Spin size="large" tip="Loading..." />
 			</Layout>
 		);
 	return (
@@ -45,7 +48,11 @@ export const ScheduleView = (props: any) => {
 							/>
 						)}
 					/>
-					<Route path="/list/" exact={true} render={() => <ScheduleList data={props.data} timeZone={props.data.timeZone} />} />
+					<Route
+						path="/list/"
+						exact={true}
+						render={() => <ScheduleList data={props.data} timeZone={props.data.timeZone} />}
+					/>
 					<Route path="/calendar" render={() => <CalendarContainer data={props.data} />} />
 					<Route
 						path="/list/:id"

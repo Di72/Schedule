@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Select, Table, Tag } from 'antd';
+import { Select, Spin, Table, Tag } from 'antd';
 import { EventsType } from '../../types/types';
 import { CSSProperties } from 'styled-components';
 import './ScheduleTable.less';
@@ -46,7 +46,7 @@ export const ScheduleTable = (props: any) => {
           disabled={!props.data.editStatus}
           value={value.place}
           onBlur={() => disableEditEvent(index)}
-          onKeyPress={k => onKeyPress(k, index)} />) : (<Select defaultValue={value.place} onChange={(e)=>onDataChangePlace(index, e)}>
+          onKeyPress={k => onKeyPress(k, index)} />) : (<Select className='selectStyle' defaultValue={value.place} onChange={(e)=>onDataChangePlace(index, e)}>
                   {optionsPlaceType}
                 </Select>)}
     </>);
@@ -78,7 +78,7 @@ export const ScheduleTable = (props: any) => {
     return (<>
    {!props.data.editStatus ? (<Tag color={color} key={index}>
         {value.type}
-      </Tag>) : (<Select defaultValue={value.type} onChange={(e)=>onDataChangeType(index, e)}>
+      </Tag>) : (<Select className='selectStyle' defaultValue={value.type} onChange={(e)=>onDataChangeType(index, e)}>
                   {optionsTaskType}
                 </Select>)}
     </>);
@@ -233,7 +233,7 @@ export const ScheduleTable = (props: any) => {
 
   const content = currentEvents ? (
     <Table dataSource={currentEvents} columns={columnsData} rowKey={(item) => item.id} />
-  ) : (<h6>Loading...</h6>)
+  ) : (<Spin size="large" tip="Loading..." />)
 
   return (<>{content}</>);
 };
