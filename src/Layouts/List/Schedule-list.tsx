@@ -1,6 +1,6 @@
 import React from 'react';
 import { IInitialState } from 'src/types/types';
-import TaskCard from '../TaskCard/TaskCard';
+import { TaskCard } from '../TaskCard/TaskCard';
 
 export const ScheduleList = ({
   data,
