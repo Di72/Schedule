@@ -6,7 +6,8 @@ export const timer = (
   dateTime: string,
   deadline: string,
   handleTime: {
-    [x: string]: React.Dispatch<React.SetStateAction<ITime | null>>;
+    setTimeLeft: React.Dispatch<React.SetStateAction<ITime | null>>;
+    setStartsIn: React.Dispatch<React.SetStateAction<ITime | null>>;
   }
 ) => {
   const { setTimeLeft, setStartsIn } = handleTime;

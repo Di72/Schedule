@@ -3,22 +3,14 @@ import React, { useEffect } from 'react';
 import { connect, useSelector } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { actions } from '../../redux/actions';
-import {
-  deleteEvent,
-  getEvents,
-  getOrganizers,
-  putEvent
-} from '../../redux/requests';
-import {
-  isNewTaskPostedSelector,
-  setEventsAndOrganizerSelector
-} from '../../redux/selectors';
+import { deleteEvent, getEvents, getOrganizers, putEvent } from '../../redux/requests';
+import { isNewTaskPostedSelector, setEventsAndOrganizerSelector } from '../../redux/selectors';
 import { AppStateType } from '../../redux/store';
 import CalendarContainer from '../Calendar/CalendarContainer';
 import { Header } from '../Header/Header';
 import { ScheduleList } from '../List';
 import { ScheduleTable } from '../Table/ScheduleTable';
-import TaskPage from '../TaskPage/TaskPage';
+import TaskPage from '../TaskPage';
 
 const ScheduleView = (props: any) => {
   const isNewTaskCreated = useSelector(isNewTaskPostedSelector);
@@ -45,11 +37,7 @@ const ScheduleView = (props: any) => {
   return (
     <Router>
       <Layout style={{ margin: '16px', backgroundColor: 'transparent' }}>
-        <Header
-          data={props.data}
-          timeZone={props.timeZone}
-          editStatus={props.editStatus}
-        />
+        <Header data={props.data} timeZone={props.timeZone} editStatus={props.editStatus} />
         <Switch>
           <Route path="/" exact={true}>
             <ScheduleTable

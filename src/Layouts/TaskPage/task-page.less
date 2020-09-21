@@ -1,0 +1,65 @@
+.task-page {
+  padding-top: 96px;
+
+  &__header {
+    text-align: center;
+    position: relative;
+  }
+
+  &__place {
+    position: absolute;
+    left: 0;
+    top: 0;
+    line-height: 33px;
+  }
+
+  &__date,
+  &__description,
+  &__comment {
+    display: flex;
+  }
+
+  &__date {
+    align-items: center;
+    justify-content: center;
+
+    h4 {
+      &:not(:last-child) {
+        margin-right: 24px;
+      }
+    }
+  }
+
+  &__description,
+  &__comment {
+    margin-bottom: 12px;
+
+    h4 {
+      min-width: 120px;
+      margin-bottom: 0;
+    }
+
+    p {
+      margin-bottom: 0;
+    }
+  }
+
+  .show-time {
+    animation: showTime 1s forwards;
+  }
+
+  @keyframes showTime {
+    0% {
+      opacity: 0;
+      background-color: lightskyblue;
+    }
+
+    25% {
+      opacity: 1;
+    }
+
+    100% {
+      background-color: transparent;
+    }
+  }
+}
