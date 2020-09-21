@@ -8,13 +8,13 @@ import { postEvent } from '../../redux/requests';
 import { AppStateType } from '../../redux/store';
 import { isNewTaskPostedSelector } from '../../redux/selectors';
 
-const timezones = [ 'Europe/London', 'Europe/Kaliningrad', 'Europe/Moscow', 'Europe/Volgograd' ];
+const timezones = ['Europe/London', 'Europe/Kaliningrad', 'Europe/Moscow', 'Europe/Volgograd'];
 
-const taskType = [ 'js task', 'basic task', 'html/css task', 'git task' ];
+const taskType = ['js task', 'basic task', 'html/css task', 'git task'];
 
 const CreateEventPage = (props: any) => {
-	const [ openedPanel, setOpenedPanel ] = useState('');
-	const [ form ] = Form.useForm();
+	const [openedPanel, setOpenedPanel] = useState('');
+	const [form] = Form.useForm();
 	const { Panel } = Collapse;
 	const { Option } = Select;
 
@@ -77,22 +77,22 @@ const CreateEventPage = (props: any) => {
 					onFinish={onFinish}
 					form={form}
 				>
-					<Form.Item name={[ 'task', 'name' ]} label="Task name" rules={[ { required: true } ]}>
+					<Form.Item name={['task', 'name']} label="Task name" rules={[{ required: true }]}>
 						<Input />
 					</Form.Item>
-					<Form.Item name={[ 'task', 'type' ]} label="Task type" rules={[ { required: true } ]}>
+					<Form.Item name={['task', 'type']} label="Task type" rules={[{ required: true }]}>
 						<Select>{optionsTaskType}</Select>
 					</Form.Item>
-					<Form.Item label="Start task" rules={[ { required: true } ]} name={[ 'task', 'dateTime' ]}>
+					<Form.Item label="Start task" rules={[{ required: true }]} name={['task', 'dateTime']}>
 						<DatePicker />
 					</Form.Item>
-					<Form.Item label="Deadline" rules={[ { required: true } ]} name={[ 'task', 'deadline' ]}>
+					<Form.Item label="Deadline" rules={[{ required: true }]} name={['task', 'deadline']}>
 						<DatePicker />
 					</Form.Item>
-					<Form.Item label="TimeZone" rules={[ { required: true } ]} name={[ 'task', 'timeZone' ]}>
+					<Form.Item label="TimeZone" rules={[{ required: true }]} name={['task', 'timeZone']}>
 						<Select>{optionsTimeZone}</Select>
 					</Form.Item>
-					<Form.Item label="Place" name={[ 'task', 'place' ]} rules={[ { required: true } ]}>
+					<Form.Item label="Place" name={['task', 'place']} rules={[{ required: true }]}>
 						<Select>
 							<Option value="online" style={{ paddingLeft: 15 }}>
 								Online
@@ -103,20 +103,20 @@ const CreateEventPage = (props: any) => {
 						</Select>
 					</Form.Item>
 					<Form.Item
-						name={[ 'task', 'description' ]}
+						name={['task', 'description']}
 						label="Short description"
-						rules={[ { required: true } ]}
+						rules={[{ required: true }]}
 					>
 						<Input.TextArea />
 					</Form.Item>
 					<Form.Item
-						name={[ 'task', 'descriptionUrl' ]}
+						name={['task', 'descriptionUrl']}
 						label="descriptionUrl"
-						rules={[ { required: true } ]}
+						rules={[{ required: true }]}
 					>
 						<Input />
 					</Form.Item>
-					<Form.Item name={[ 'task', 'comment' ]} label="Comment" rules={[ { required: true } ]}>
+					<Form.Item name={['task', 'comment']} label="Comment" rules={[{ required: true }]}>
 						<Input.TextArea />
 					</Form.Item>
 					<Row className="row">

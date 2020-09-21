@@ -7,7 +7,7 @@ import { renderTags } from '../Tags/Tags';
 import moment from 'moment-timezone';
 
 export default function TaskCard({ event, currentTimeZone }: { event: EventsType, currentTimeZone: string }) {
-  const { dateTime, id, name, place, type, deadline, timeZone } = event;
+  const { dateTime, id, name, place, type, deadline } = event;
   const [timeLeft, setTimeLeft] = useState(null as null | Itime);
   const [startsIn, setStartsIn] = useState(null as null | Itime);
 
@@ -99,8 +99,10 @@ export default function TaskCard({ event, currentTimeZone }: { event: EventsType
   }
 
   const placeTSX = place && cardRow('Place', place)
-  const dateTimeTSX = dateTime && cardRow('Time start', moment(+dateTime).tz(currentTimeZone).format('YYYY-MM-DD HH:mm'))
-  const deadlineTSX = deadline && cardRow('Deadline', moment(+deadline).tz(currentTimeZone).format('YYYY-MM-DD HH:mm'))
+  const dateTimeTSX = dateTime &&
+    cardRow('Time start', moment(+dateTime).tz(currentTimeZone).format('YYYY-MM-DD HH:mm'))
+  const deadlineTSX = deadline &&
+    cardRow('Deadline', moment(+deadline).tz(currentTimeZone).format('YYYY-MM-DD HH:mm'))
 
   return (
     <Card className="schedule-list__card" key={id} title={title} style={{ marginBottom: '16px' }} >

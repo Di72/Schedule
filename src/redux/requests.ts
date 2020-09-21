@@ -1,6 +1,6 @@
 import { httpRequests } from "./../api/api";
-import { BaseThunkType, EventsType } from '../types/types';
-import { actions, ActionsTypes } from './actions';
+import { BaseThunkType, EventsType } from "../types/types";
+import { actions, ActionsTypes } from "./actions";
 
 export const getEvents = (): ThunkType => async (dispatch) => {
   const response = await httpRequests.getEvents();
@@ -24,9 +24,9 @@ export const deleteEvent = (id: string): ThunkType => async () => {
   await httpRequests.deleteEvent(id);
 };
 
-export const postEvent = (data:EventsType):ThunkType => async (dispatch) => {
+export const postEvent = (data: EventsType): ThunkType => async (dispatch) => {
   await httpRequests.postEvent(data);
   dispatch(actions.postEvent());
-}
+};
 
 export type ThunkType = BaseThunkType<ActionsTypes>;
