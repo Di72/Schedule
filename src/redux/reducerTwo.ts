@@ -1,5 +1,4 @@
-let initialState = {};
-type InitialStateType = typeof initialState;
+const initialState = {};
 const reducerTwo = (state = initialState, action: any) => {
   return state;
 };

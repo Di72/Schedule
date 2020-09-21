@@ -1,5 +1,5 @@
-import React from 'react'
-import { Table, Tag, Space, Select } from 'antd';
+import { Select, Space, Table, Tag } from 'antd';
+import React from 'react';
 
 const { Column } = Table;
 
@@ -30,51 +30,51 @@ const data = [
   },
 ];
 
-
 const { Option } = Select;
 
-
 export const Schedule = () => {
-  return <>
-    <Select defaultValue="lucy" style={{ width: 120, margin: 15 }} >
-      <Option value="jack">Jack</Option>
-      <Option value="lucy">Lucy</Option>
-      <Option value="Yiminghe">yiminghe</Option>
-    </Select>
-    <Table dataSource={data} style={{ margin: 15 }}>
-      <Column title="Data" dataIndex="firstName" key="firstName" />
-      <Column title="Time" dataIndex="lastName" key="lastName" />
-      <Column title="Type" dataIndex="age" key="age" />
-      <Column title="Place" dataIndex="address" key="address" />
-      <Column title="Name" dataIndex="address" key="address" />
-      <Column title="Broadcast Url" dataIndex="address" key="address" />
-      <Column title="Organizer" dataIndex="address" key="address" />
-      <Column title="Details Url" dataIndex="address" key="address" />
-      <Column title="Comment" dataIndex="address" key="address" />
-      <Column
-        title="Tags"
-        dataIndex="tags"
-        key="tags"
-        render={(tags: any) => (
-          <>
-            {tags.map((tag: any) => (
-              <Tag color="blue" key={tag}>
-                {tag}
-              </Tag>
-            ))}
-          </>
-        )}
-      />
-      <Column
-        title="Action"
-        key="action"
-        render={(text: any, record: any) => (
-          <Space size="middle">
-            <a href='/'>Invite {record.lastName}</a>
-            <a href='/'>Delete</a>
-          </Space>
-        )}
-      />
-    </Table>
-  </>
+  return (
+    <>
+      <Select defaultValue="lucy" style={{ width: 120, margin: 15 }}>
+        <Option value="jack">Jack</Option>
+        <Option value="lucy">Lucy</Option>
+        <Option value="Yiminghe">yiminghe</Option>
+      </Select>
+      <Table dataSource={data} style={{ margin: 15 }}>
+        <Column title="Data" dataIndex="firstName" key="firstName" />
+        <Column title="Time" dataIndex="lastName" key="lastName" />
+        <Column title="Type" dataIndex="age" key="age" />
+        <Column title="Place" dataIndex="address" key="address" />
+        <Column title="Name" dataIndex="address" key="address" />
+        <Column title="Broadcast Url" dataIndex="address" key="address" />
+        <Column title="Organizer" dataIndex="address" key="address" />
+        <Column title="Details Url" dataIndex="address" key="address" />
+        <Column title="Comment" dataIndex="address" key="address" />
+        <Column
+          title="Tags"
+          dataIndex="tags"
+          key="tags"
+          render={(tags: any) => (
+            <>
+              {tags.map((tag: any) => (
+                <Tag color="blue" key={tag}>
+                  {tag}
+                </Tag>
+              ))}
+            </>
+          )}
+        />
+        <Column
+          title="Action"
+          key="action"
+          render={(text: any, record: any) => (
+            <Space size="middle">
+              <a href="/">Invite {record.lastName}</a>
+              <a href="/">Delete</a>
+            </Space>
+          )}
+        />
+      </Table>
+    </>
+  );
 };

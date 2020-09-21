@@ -1,13 +1,13 @@
-import axios from "axios";
+import axios from 'axios';
 
 export const instance = axios.create({
-  baseURL: "https://rs-react-schedule.firebaseapp.com/api/team/53/",
+  baseURL: 'https://rs-react-schedule.firebaseapp.com/api/team/53/',
 });
 
 export const httpRequests = {
   getEvents: () => {
     return instance
-      .get("events")
+      .get('events')
       .then((res) => res.data.data)
       .catch(function (error) {
         console.log(error);
@@ -23,7 +23,7 @@ export const httpRequests = {
   },
   postEvent: (data: any) => {
     return instance
-      .post("event", data)
+      .post('event', data)
       .then((res) => res.data)
       .catch(function (error) {
         console.log(error);
@@ -41,7 +41,7 @@ export const httpRequests = {
     return instance
       .delete(`event/${id}`)
       .then(function (response) {
-        console.log(response, "delete status");
+        console.log(response, 'delete status');
       })
       .catch(function (error) {
         console.log(error);
@@ -50,7 +50,7 @@ export const httpRequests = {
 
   getOrganizers: () => {
     return instance
-      .get("organizers")
+      .get('organizers')
       .then((res) => res.data.data)
       .catch(function (error) {
         console.log(error);
@@ -66,7 +66,7 @@ export const httpRequests = {
   },
   postOrganizer: (data: any) => {
     return instance
-      .post("organizer", data)
+      .post('organizer', data)
       .then((res) => res.data.data)
       .catch(function (error) {
         console.log(error);

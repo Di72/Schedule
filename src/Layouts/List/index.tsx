@@ -1,3 +1,3 @@
 import { ScheduleList } from './Schedule-list';
 
-export { ScheduleList }
+export { ScheduleList };

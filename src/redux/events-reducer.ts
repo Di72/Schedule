@@ -1,10 +1,10 @@
-import { EventsType, InitialStateType, OrganizersType } from "../types/types";
-import { ActionsTypes } from "./actions";
+import { InitialStateType, EventsType, OrganizersType } from 'src/types/types';
+import { ActionsTypes } from './actions';
 
-let initialState: InitialStateType = {
+const initialState: InitialStateType = {
   events: [],
   editStatus: false,
-  timeZone: "Europe/Moscow",
+  timeZone: 'Europe/Moscow',
   postEvent: false,
   event: null as null | EventsType,
   organizers: [] as Array<OrganizersType>,
@@ -15,7 +15,7 @@ const eventsReducer = (
   action: ActionsTypes
 ): InitialStateType => {
   switch (action.type) {
-    case "SN/SET_EVENTS": {
+    case 'SN/SET_EVENTS': {
       return {
         ...state,
         events: action.response.sort(
@@ -24,27 +24,27 @@ const eventsReducer = (
         ),
       };
     }
-    case "SN/SET_ORGANIZERS": {
+    case 'SN/SET_ORGANIZERS': {
       return { ...state, organizers: action.response };
     }
-    case "SN/EDIT_TOGGLE": {
+    case 'SN/EDIT_TOGGLE': {
       if (state.editStatus === false) {
         return { ...state, editStatus: true };
-      } else if (state.editStatus === true) {
-        return { ...state, editStatus: false };
-      } else {
-        return {
-          ...state,
-        };
       }
+      if (state.editStatus === true) {
+        return { ...state, editStatus: false };
+      }
+      return {
+        ...state,
+      };
     }
-    case "SN/SET_EVENT": {
+    case 'SN/SET_EVENT': {
       return { ...state, event: action.response };
     }
-    case "SN/SET_TIMEZONE": {
+    case 'SN/SET_TIMEZONE': {
       return { ...state, timeZone: action.timeZone };
     }
-    case "SN/POST_EVENT": {
+    case 'SN/POST_EVENT': {
       return { ...state, postEvent: !state.postEvent };
     }
     default:

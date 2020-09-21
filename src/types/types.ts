@@ -1,7 +1,3 @@
-import { AppStateType } from "../redux/store";
-import { ThunkAction } from "redux-thunk";
-import { Action } from "redux";
-
 export type EventsType = {
   name: string;
   description: string;
@@ -45,11 +41,6 @@ export interface ITaskPage extends ICourseOverview {
   id: string;
 }
 
-export type BaseThunkType<
-  A extends Action = Action,
-  R = Promise<void>
-> = ThunkAction<R, AppStateType, unknown, A>;
-
 export type InitialStateType = {
   events: EventsType[];
   event: null | EventsType;
@@ -57,11 +48,30 @@ export type InitialStateType = {
   editStatus: boolean;
   timeZone: string;
   postEvent: boolean;
-}
+};
 
-export interface Itime {
+export interface ITime {
   [x: string]: number;
   days: number;
   hours: number;
   minutes: number;
 }
+
+export interface IModalProps {
+  data: ICourseOverview;
+  okClickHandler: (event: React.MouseEvent<HTMLElement>) => void;
+  cancelClickHandler: (event: React.MouseEvent<HTMLElement>) => void;
+  visible: boolean;
+}
+
+export type IFieldOfEventsType =
+  | 'name'
+  | 'description'
+  | 'descriptionUrl'
+  | 'comment'
+  | 'place'
+  | 'type'
+  | 'timeZone'
+  | 'dateTime'
+  | 'deadline'
+  | 'id';
