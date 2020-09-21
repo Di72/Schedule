@@ -1,30 +1,29 @@
-import React from 'react';
-import { ICourseOverview } from "../../types/types";
 import { Modal } from 'antd';
+import React from 'react';
+import { IModalProps } from 'src/types/types';
 import styled from 'styled-components';
 
 const Teacher = styled.div`
-display: flex;
-justify-content: space-between;
-align-items: center;`;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
 
 const Photo = styled.img`
-max-width: 150px;
-height: auto;`;
+  max-width: 150px;
+  height: auto;
+`;
 
-interface ModalProps {
-  data: ICourseOverview;
-  okClickHandler: (event: React.MouseEvent<HTMLElement>) => void;
-  cancelClickHandler: (event: React.MouseEvent<HTMLElement>) => void;
-  visible: boolean;
-}
-
-const ModalWindow = (props: ModalProps) => {
+const ModalWindow = (props: IModalProps) => {
   const { okClickHandler, cancelClickHandler, visible } = props;
   const { description, goal, agenda, teachers } = props.data;
 
   return (
-    <Modal onOk={okClickHandler} onCancel={cancelClickHandler} visible={visible}>
+    <Modal
+      onOk={okClickHandler}
+      onCancel={cancelClickHandler}
+      visible={visible}
+    >
       <h5> Description </h5>
       <p> {description} </p>
 
@@ -33,26 +32,31 @@ const ModalWindow = (props: ModalProps) => {
 
       <h5> Agenda </h5>
       <ul>
-        {agenda.map(theme => { return <li> {theme} </li> })}
+        {agenda.map((theme) => {
+          return <li key={theme}> {theme} </li>;
+        })}
       </ul>
       <h5> Course Team </h5>
       <div>
-        {
-          teachers.map(teacher => {
-            return (
-              <Teacher>
-                <Photo src={teacher.photo} />
-                <div>
-                  <p> {teacher.firstName}  {teacher.secondName} </p>
-                  <p> {teacher.company} </p>
-                </div>
-              </Teacher>
-            )
-          })
-        }
+        {teachers.map((teacher) => {
+          const { firstName, secondName } = teacher;
+          const fullName = `${firstName} ${secondName}`;
+          return (
+            <Teacher key={fullName}>
+              <Photo src={teacher.photo} />
+              <div>
+                <p>
+                  {' '}
+                  {teacher.firstName} {teacher.secondName}{' '}
+                </p>
+                <p> {teacher.company} </p>
+              </div>
+            </Teacher>
+          );
+        })}
       </div>
     </Modal>
-  )
-}
+  );
+};
 
 export default ModalWindow;

@@ -1,104 +1,104 @@
 {
-	"dataNew": [
-		{
-			"name": "Computer Science Basics",
-			"description": "Пройти этот курс рекомендует EPAM. Из описания: Данный тренинг может быть хорошим стартом для дальнейшего изучения программирования и инженерной работы в IT сфере.",
-			"descriptionUrl": "http://epa.ms/upskill-start",
-			"comment": "Курс проходится за полчаса кликами по кнопке Next и перебором вариантов ответа в тестах. На странице курса все темы отмечены галочками.Студент может пояснить решение алгоритмов раздела Data Types and Algoritms задание Test - operators",
-			"place": "online",
-			"type": "basic task",
-			"timeZone": "16h",
-			"dateTime": "12/12/20"
-		},
-		{
-			"name": "Computer Science Basics",
-			"description": "Пройти этот курс рекомендует EPAM. Из описания: Данный тренинг может быть хорошим стартом для дальнейшего изучения программирования и инженерной работы в IT сфере.",
-			"descriptionUrl": "http://epa.ms/upskill-start",
-			"comment": "Курс проходится за полчаса кликами по кнопке Next и перебором вариантов ответа в тестах. На странице курса все темы отмечены галочками.Студент может пояснить решение алгоритмов раздела Data Types and Algoritms задание Test - operators",
-			"place": "online",
-			"type": "deadline",
-			"timeZone": "16h",
-			"dateTime": "22/12/20"
-		},
-		{
-			"name": "HTML/Css online resource",
-			"description": "Базовый курс по html / css",
-			"descriptionUrl": "https://ru.code-basics.com/languages/htmlhttps://ru.code-basics.com/languages/css",
-			"comment": "Решения всех заданий доступны после 20-минутной паузы. Для проверки самостоятельности решения заданий нужно посмотреть и послушать как студент решает пройденные им таски. На странице курса все темы отмечены галочками. Студент может пояснить решение некоторых заданий (на выбор ментора)",
-			"place": "online",
-			"type": "html/css task",
-			"timeZone": "16h",
-			"dateTime": "12/9/20"
-		},
-		{
-			"name": "HTML/Css online resource",
-			"description": "Базовый курс по html / css",
-			"descriptionUrl": "https://ru.code-basics.com/languages/htmlhttps://ru.code-basics.com/languages/css",
-			"comment": "Решения всех заданий доступны после 20-минутной паузы. Для проверки самостоятельности решения заданий нужно посмотреть и послушать как студент решает пройденные им таски. На странице курса все темы отмечены галочками. Студент может пояснить решение некоторых заданий (на выбор ментора)",
-			"place": "online",
-			"type": "deadline",
-			"timeZone": "16h",
-			"dateTime": "22/9/20"
-		},
-		{
-			"name": "JS online resource",
-			"description": "Базовый курс JavaScript. Если проходить осмысленно, даст неплохое представление о языке и его возможностях.",
-			"descriptionUrl": "https://ru.code-basics.com/languages/javascript",
-			"comment": "Решения всех заданий доступны после 20-минутной паузы. Для проверки самостоятельности решения заданий нужно посмотреть и послушать как студент решает пройденные им таски",
-			"place": "online",
-			"type": "js task",
-			"timeZone": "12h",
-			"dateTime": "12/1/20"
-		},
-		{
-			"name": "JS online resource",
-			"description": "Базовый курс JavaScript. Если проходить осмысленно, даст неплохое представление о языке и его возможностях.",
-			"descriptionUrl": "https://ru.code-basics.com/languages/javascript",
-			"comment": "Решения всех заданий доступны после 20-минутной паузы. Для проверки самостоятельности решения заданий нужно посмотреть и послушать как студент решает пройденные им таски",
-			"place": "online",
-			"type": "deadline",
-			"timeZone": "12h",
-			"dateTime": "22/1/20"
-		},
-		{
-			"name": "Git & GitHub",
-			"description": "Регистрация на Гитхабе",
-			"descriptionUrl": "https://htmlacademy.ru/blog/boost/tools/register-on-github-work-with-console",
-			"comment": "Установить Git. Создать github-аккаунт",
-			"place": "online",
-			"type": "git task",
-			"timeZone": "8h",
-			"dateTime": "12/11/20"
-		},
-		{
-			"name": "Git & GitHub",
-			"description": "Регистрация на Гитхабе",
-			"descriptionUrl": "https://htmlacademy.ru/blog/boost/tools/register-on-github-work-with-console",
-			"comment": "Установить Git. Создать github-аккаунт",
-			"place": "online",
-			"type": "deadline",
-			"timeZone": "8h",
-			"dateTime": "12/12/20"
-		},
-		{
-			"name": "Commands Git",
-			"description": "Полезные команды для работы с Git",
-			"descriptionUrl": "https://htmlacademy.ru/blog/boost/tools/useful-commands-for-working-with-git",
-			"comment": "Создан репозиторий на гитхабе, создана ветка, добавлены файлы",
-			"place": "online",
-			"type": "git task",
-			"timeZone": "0.5h",
-			"dateTime": "12/02/20"
-		},
-		{
-			"name": "Commands Git",
-			"description": "Полезные команды для работы с Git",
-			"descriptionUrl": "https://htmlacademy.ru/blog/boost/tools/useful-commands-for-working-with-git",
-			"comment": "Создан репозиторий на гитхабе, создана ветка, добавлены файлы",
-			"place": "online",
-			"type": "deadline",
-			"timeZone": "0.5h",
-			"dateTime": "16/02/20"
-		}
-	]
+  "dataNew": [
+    {
+      "name": "Computer Science Basics",
+      "description": "Пройти этот курс рекомендует EPAM. Из описания: Данный тренинг может быть хорошим стартом для дальнейшего изучения программирования и инженерной работы в IT сфере.",
+      "descriptionUrl": "http://epa.ms/upskill-start",
+      "comment": "Курс проходится за полчаса кликами по кнопке Next и перебором вариантов ответа в тестах. На странице курса все темы отмечены галочками.Студент может пояснить решение алгоритмов раздела Data Types and Algoritms задание Test - operators",
+      "place": "online",
+      "type": "basic task",
+      "timeZone": "16h",
+      "dateTime": "12/12/20"
+    },
+    {
+      "name": "Computer Science Basics",
+      "description": "Пройти этот курс рекомендует EPAM. Из описания: Данный тренинг может быть хорошим стартом для дальнейшего изучения программирования и инженерной работы в IT сфере.",
+      "descriptionUrl": "http://epa.ms/upskill-start",
+      "comment": "Курс проходится за полчаса кликами по кнопке Next и перебором вариантов ответа в тестах. На странице курса все темы отмечены галочками.Студент может пояснить решение алгоритмов раздела Data Types and Algoritms задание Test - operators",
+      "place": "online",
+      "type": "deadline",
+      "timeZone": "16h",
+      "dateTime": "22/12/20"
+    },
+    {
+      "name": "HTML/Css online resource",
+      "description": "Базовый курс по html / css",
+      "descriptionUrl": "https://ru.code-basics.com/languages/htmlhttps://ru.code-basics.com/languages/css",
+      "comment": "Решения всех заданий доступны после 20-минутной паузы. Для проверки самостоятельности решения заданий нужно посмотреть и послушать как студент решает пройденные им таски. На странице курса все темы отмечены галочками. Студент может пояснить решение некоторых заданий (на выбор ментора)",
+      "place": "online",
+      "type": "html/css task",
+      "timeZone": "16h",
+      "dateTime": "12/9/20"
+    },
+    {
+      "name": "HTML/Css online resource",
+      "description": "Базовый курс по html / css",
+      "descriptionUrl": "https://ru.code-basics.com/languages/htmlhttps://ru.code-basics.com/languages/css",
+      "comment": "Решения всех заданий доступны после 20-минутной паузы. Для проверки самостоятельности решения заданий нужно посмотреть и послушать как студент решает пройденные им таски. На странице курса все темы отмечены галочками. Студент может пояснить решение некоторых заданий (на выбор ментора)",
+      "place": "online",
+      "type": "deadline",
+      "timeZone": "16h",
+      "dateTime": "22/9/20"
+    },
+    {
+      "name": "JS online resource",
+      "description": "Базовый курс JavaScript. Если проходить осмысленно, даст неплохое представление о языке и его возможностях.",
+      "descriptionUrl": "https://ru.code-basics.com/languages/javascript",
+      "comment": "Решения всех заданий доступны после 20-минутной паузы. Для проверки самостоятельности решения заданий нужно посмотреть и послушать как студент решает пройденные им таски",
+      "place": "online",
+      "type": "js task",
+      "timeZone": "12h",
+      "dateTime": "12/1/20"
+    },
+    {
+      "name": "JS online resource",
+      "description": "Базовый курс JavaScript. Если проходить осмысленно, даст неплохое представление о языке и его возможностях.",
+      "descriptionUrl": "https://ru.code-basics.com/languages/javascript",
+      "comment": "Решения всех заданий доступны после 20-минутной паузы. Для проверки самостоятельности решения заданий нужно посмотреть и послушать как студент решает пройденные им таски",
+      "place": "online",
+      "type": "deadline",
+      "timeZone": "12h",
+      "dateTime": "22/1/20"
+    },
+    {
+      "name": "Git & GitHub",
+      "description": "Регистрация на Гитхабе",
+      "descriptionUrl": "https://htmlacademy.ru/blog/boost/tools/register-on-github-work-with-console",
+      "comment": "Установить Git. Создать github-аккаунт",
+      "place": "online",
+      "type": "git task",
+      "timeZone": "8h",
+      "dateTime": "12/11/20"
+    },
+    {
+      "name": "Git & GitHub",
+      "description": "Регистрация на Гитхабе",
+      "descriptionUrl": "https://htmlacademy.ru/blog/boost/tools/register-on-github-work-with-console",
+      "comment": "Установить Git. Создать github-аккаунт",
+      "place": "online",
+      "type": "deadline",
+      "timeZone": "8h",
+      "dateTime": "12/12/20"
+    },
+    {
+      "name": "Commands Git",
+      "description": "Полезные команды для работы с Git",
+      "descriptionUrl": "https://htmlacademy.ru/blog/boost/tools/useful-commands-for-working-with-git",
+      "comment": "Создан репозиторий на гитхабе, создана ветка, добавлены файлы",
+      "place": "online",
+      "type": "git task",
+      "timeZone": "0.5h",
+      "dateTime": "12/02/20"
+    },
+    {
+      "name": "Commands Git",
+      "description": "Полезные команды для работы с Git",
+      "descriptionUrl": "https://htmlacademy.ru/blog/boost/tools/useful-commands-for-working-with-git",
+      "comment": "Создан репозиторий на гитхабе, создана ветка, добавлены файлы",
+      "place": "online",
+      "type": "deadline",
+      "timeZone": "0.5h",
+      "dateTime": "16/02/20"
+    }
+  ]
 }

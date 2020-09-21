@@ -1,5 +1,5 @@
-import { CombinedState, compose, Store } from "redux";
-import { InitialStateType } from "./types";
+import { CombinedState, compose, Store } from 'redux';
+import { InitialStateType } from './types';
 
 declare global {
   interface Window {

@@ -1,17 +1,13 @@
-import React from 'react';
-
-import { Calendar, momentLocalizer } from 'react-big-calendar';
-import { addOneDay } from '../../units';
-
 import moment from 'moment';
+import React from 'react';
+import { Calendar, momentLocalizer } from 'react-big-calendar';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
+import { addOneDay } from '../../units';
 import './style.less';
 
-const localizer = momentLocalizer(moment);
-
 const CalendarContainer = (props: any) => {
-  const events = props.data.events;
-
+  const localizer = momentLocalizer(moment);
+  const { events } = props.data;
   const modifiedEventsData = events.map((el: any) => {
     if (!el.deadline) return {};
 
@@ -23,16 +19,17 @@ const CalendarContainer = (props: any) => {
       start: startDate,
       end: deadlineDate,
       allDay: true,
-      resource: el.comment
-    }
-  })
+      resource: el.comment,
+    };
+  });
 
   const onSelectEvent = (e: any) => {
+    // eslint-disable-next-line no-console
     console.log(e.resource);
-  }
+  };
 
   return (
-    <div className='calendarContainer'>
+    <div className="calendarContainer">
       <Calendar
         step={60}
         views={{
@@ -46,7 +43,7 @@ const CalendarContainer = (props: any) => {
         onSelectEvent={onSelectEvent}
       />
     </div>
-  )
-}
+  );
+};
 
 export default CalendarContainer;

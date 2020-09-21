@@ -5,11 +5,11 @@ import store from './redux/store';
 import { Provider } from 'react-redux';
 
 const App: React.FC = () => {
-	return (
-		<Provider store={store}>
-			<ScheduleView />
-		</Provider>
-	);
+  return (
+    <Provider store={store}>
+      <ScheduleView />
+    </Provider>
+  );
 };
 
 export default App;
