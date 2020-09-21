@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { connect, useSelector } from 'react-redux';
 
 import { AppStateType } from '../../redux/store';
-import { getEvents, getOrganizers, putEvent } from '../../redux/requests';
+import { getEvents, getOrganizers, putEvent, deleteEvent } from '../../redux/requests';
 import { actions } from '../../redux/actions';
 import { setEventsAndOrganizerSelector, isNewTaskPostedSelector } from '../../redux/selectors';
 
@@ -12,7 +12,7 @@ import { Header } from '../Header/Header';
 import TaskPage from '../TaskPage/TaskPage';
 import { ScheduleList } from '../List';
 import CalendarContainer from '../Calendar/CalendarContainer';
-import { Layout } from 'antd';
+import { Layout, Spin } from 'antd';
 
 export const ScheduleView = (props: any) => {
 	const isNewTaskCreated = useSelector(isNewTaskPostedSelector);
@@ -21,32 +21,35 @@ export const ScheduleView = (props: any) => {
 		props.requestOrganizers();
 		props.requestEvents();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [isNewTaskCreated]);
+	}, [isNewTaskCreated]
+	);
 
 	if (!props.data.events[0])
 		return (
 			<Layout style={{ display: 'flex', alignItems: 'center', backgroundColor: 'transparent' }}>
-				<h3>Loading...</h3>
+				<Spin size="large" tip="Loading..." />
 			</Layout>
 		);
+
 	return (
 		<Router>
 			<Layout style={{ margin: '16px', backgroundColor: 'transparent' }}>
 				<Header data={props.data} timeZone={props.timeZone} editStatus={props.editStatus} />
 				<Switch>
-					<Route
-						path="/"
-						exact={true}
-						render={() => (
-							<ScheduleTable
-								data={props.data}
-								requestEvents={props.requestEvents}
-								putEvent={props.putEvent}
-							/>
-						)}
-					/>
-					<Route path="/list/" exact={true} render={() => <ScheduleList data={props.data} timeZone={props.data.timeZone} />} />
-					<Route path="/calendar" render={() => <CalendarContainer data={props.data} />} />
+					<Route path="/" exact={true} >
+						<ScheduleTable
+							data={props.data}
+							requestEvents={props.requestEvents}
+							putEvent={props.putEvent}
+							deleteEvent={props.deleteEvent}
+						/>
+					</Route>
+					<Route path="/list/" exact={true} >
+						<ScheduleList data={props.data} timeZone={props.data.timeZone} />
+					</Route>
+					<Route path="/calendar">
+						<CalendarContainer data={props.data} />
+					</Route>
 					<Route
 						path="/list/:id"
 						render={({ match }) => {
@@ -68,6 +71,7 @@ const mapStateToProps = (state: AppStateType) => {
 
 const mapDispatchToProps = {
 	putEvent,
+	deleteEvent,
 	requestEvents: getEvents,
 	requestOrganizers: getOrganizers,
 	editStatus: actions.editStatus,

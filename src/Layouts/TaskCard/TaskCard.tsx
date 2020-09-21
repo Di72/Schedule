@@ -58,8 +58,10 @@ export const TaskCard = ({ event, currentTimeZone }: { event: EventsType, curren
   }
 
   const placeTSX = place && cardRow('Place', place)
-  const dateTimeTSX = dateTime && cardRow('Time start', moment(+dateTime).tz(currentTimeZone).format('YYYY-MM-DD HH:mm'))
-  const deadlineTSX = deadline && cardRow('Deadline', moment(+deadline).tz(currentTimeZone).format('YYYY-MM-DD HH:mm'))
+  const dateTimeTSX = dateTime &&
+    cardRow('Time start', moment(+dateTime).tz(currentTimeZone).format('YYYY-MM-DD HH:mm'))
+  const deadlineTSX = deadline &&
+    cardRow('Deadline', moment(+deadline).tz(currentTimeZone).format('YYYY-MM-DD HH:mm'))
 
   return (
     <Card className="schedule-list__card" key={id} title={title} style={{ marginBottom: '16px' }} >
