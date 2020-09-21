@@ -1,12 +1,12 @@
 import moment from 'moment-timezone';
-import { Itime } from 'src/types/types';
+import { ITime } from 'src/types/types';
 
 export const timer = (
   currentTimeZone: string,
   dateTime: string,
   deadline: string,
   handleTime: {
-    [x: string]: React.Dispatch<React.SetStateAction<Itime | null>>;
+    [x: string]: React.Dispatch<React.SetStateAction<ITime | null>>;
   }
 ) => {
   const { setTimeLeft, setStartsIn } = handleTime;
@@ -14,7 +14,7 @@ export const timer = (
   const setDateToEnd = (
     date: moment.Moment,
     now: moment.Moment,
-    state: React.Dispatch<React.SetStateAction<Itime | null>>
+    state: React.Dispatch<React.SetStateAction<ITime | null>>
   ) => {
     const data = {
       days: date.diff(now, 'days'),
@@ -22,7 +22,7 @@ export const timer = (
       minutes: date.diff(now, 'minutes') % 60,
     };
 
-    state((prevState: Itime | null) => {
+    state((prevState: ITime | null) => {
       if (JSON.stringify(prevState) !== JSON.stringify(data)) {
         return data;
       }

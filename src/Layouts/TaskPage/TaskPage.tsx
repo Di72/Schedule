@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { EventsType } from 'src/types/types';
 import { connect } from 'react-redux';
+import { getEvent } from 'src/redux/requests';
 import { AppStateType } from 'src/redux/store';
+import { EventsType } from 'src/types/types';
 import { setEventsAndOrganizerSelector } from '../../redux/selectors';
 import { renderTags } from '../Tags/Tags';
-import { getEvent } from 'src/redux/requests';
 
 function TaskPage({
   id,

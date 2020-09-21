@@ -20,6 +20,10 @@
     }
   },
   "rules": {
+    "semi": "warn",
+    "no-use-before-define": [
+      "off"
+    ],
     "object-curly-spacing": [
       "warn",
       "always"
@@ -59,8 +63,6 @@
         "allowForLoopAfterthoughts": true
       }
     ],
-    "no-shadow": "error",
-    "react/jsx-key": "error",
     "import/no-extraneous-dependencies": [
       "error",
       {
@@ -73,6 +75,8 @@
         ]
       }
     ],
+    "react/jsx-key": "error",
+    "react/jsx-curly-newline": "off",
     "react/jsx-props-no-spreading": "off",
     "import/prefer-default-export": "off",
     "react/jsx-boolean-value": "off",

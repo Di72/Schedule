@@ -1,5 +1,5 @@
+import { Select, Space, Table, Tag } from 'antd';
 import React from 'react';
-import { Table, Tag, Space, Select } from 'antd';
 
 const { Column } = Table;
 

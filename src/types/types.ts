@@ -50,7 +50,7 @@ export type InitialStateType = {
   postEvent: boolean;
 };
 
-export interface Itime {
+export interface ITime {
   [x: string]: number;
   days: number;
   hours: number;
@@ -63,3 +63,15 @@ export interface IModalProps {
   cancelClickHandler: (event: React.MouseEvent<HTMLElement>) => void;
   visible: boolean;
 }
+
+export type IFieldOfEventsType =
+  | 'name'
+  | 'description'
+  | 'descriptionUrl'
+  | 'comment'
+  | 'place'
+  | 'type'
+  | 'timeZone'
+  | 'dateTime'
+  | 'deadline'
+  | 'id';

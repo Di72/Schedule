@@ -3,7 +3,7 @@ import Column from 'antd/lib/table/Column';
 import moment from 'moment-timezone';
 import React, { useState } from 'react';
 import { CSSProperties } from 'styled-components';
-import { EventsType } from '../../types/types';
+import { EventsType, IFieldOfEventsType } from '../../types/types';
 import './ScheduleTable.less';
 
 const { Option } = Select;
@@ -130,21 +130,13 @@ export const ScheduleTable = (props: any) => {
   };
 
   const onDataChangeHandler = (e: any) => {
-    const { index } = e.currentTarget.dataset;
+    const {
+      index,
+      key,
+    }: { index: number; key: IFieldOfEventsType } = e.currentTarget.dataset;
     const oldState = [...currentEvents];
     const newEvent = { ...currentEvents[index] };
-    type gay =
-      | 'name'
-      | 'description'
-      | 'descriptionUrl'
-      | 'comment'
-      | 'place'
-      | 'type'
-      | 'timeZone'
-      | 'dateTime'
-      | 'deadline'
-      | 'id';
-    const propertyName: gay = e.currentTarget.dataset.key;
+    const propertyName: IFieldOfEventsType = key;
     newEvent[propertyName] = e.currentTarget.value;
     const newState = [...oldState];
     newState[index] = newEvent;

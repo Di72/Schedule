@@ -30,13 +30,13 @@ const eventsReducer = (
     case 'SN/EDIT_TOGGLE': {
       if (state.editStatus === false) {
         return { ...state, editStatus: true };
-      } if (state.editStatus === true) {
+      }
+      if (state.editStatus === true) {
         return { ...state, editStatus: false };
-      } 
+      }
       return {
         ...state,
       };
-      
     }
     case 'SN/SET_EVENT': {
       return { ...state, event: action.response };

@@ -2,7 +2,7 @@ import { Card } from 'antd';
 import moment from 'moment-timezone';
 import React, { CSSProperties, useEffect, useState } from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
-import { EventsType, Itime } from 'src/types/types';
+import { EventsType, ITime } from 'src/types/types';
 import { renderTags } from '../Tags/Tags';
 import { timer } from '../timer/timer';
 import './TaskCard.less';
@@ -15,8 +15,8 @@ export const TaskCard = ({
   currentTimeZone: string;
 }) => {
   const { dateTime, id, name, place, type, deadline } = event;
-  const [timeLeft, setTimeLeft] = useState(null as null | Itime);
-  const [startsIn, setStartsIn] = useState(null as null | Itime);
+  const [timeLeft, setTimeLeft] = useState(null as null | ITime);
+  const [startsIn, setStartsIn] = useState(null as null | ITime);
 
   useEffect(() => {
     timer(currentTimeZone, dateTime, deadline, { setStartsIn, setTimeLeft });
@@ -69,7 +69,7 @@ export const TaskCard = ({
     </div>
   );
 
-  const cardRow = (title: string, field: string, link?: string) => {
+  const cardRow = (titleText: string, field: string, link?: string) => {
     const content = link ? (
       <a href={link} target="_blank" rel="noopener noreferrer">
         {field}
@@ -80,7 +80,7 @@ export const TaskCard = ({
     return (
       <p style={{ display: 'flex' }}>
         {' '}
-        <b style={{ marginRight: '4px' }}>{title}:</b> {content}
+        <b style={{ marginRight: '4px' }}>{titleText}:</b> {content}
       </p>
     );
   };

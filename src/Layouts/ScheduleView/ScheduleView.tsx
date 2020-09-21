@@ -7,11 +7,11 @@ import {
   deleteEvent,
   getEvents,
   getOrganizers,
-  putEvent,
+  putEvent
 } from '../../redux/requests';
 import {
   isNewTaskPostedSelector,
-  setEventsAndOrganizerSelector,
+  setEventsAndOrganizerSelector
 } from '../../redux/selectors';
 import { AppStateType } from '../../redux/store';
 import CalendarContainer from '../Calendar/CalendarContainer';
@@ -20,7 +20,7 @@ import { ScheduleList } from '../List';
 import { ScheduleTable } from '../Table/ScheduleTable';
 import TaskPage from '../TaskPage/TaskPage';
 
-export const ScheduleView = (props: any) => {
+const ScheduleView = (props: any) => {
   const isNewTaskCreated = useSelector(isNewTaskPostedSelector);
 
   useEffect(() => {

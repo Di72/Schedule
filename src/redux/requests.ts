@@ -1,9 +1,12 @@
 import { Action } from 'redux';
 import { ThunkAction } from 'redux-thunk';
-import { EventsType } from '../types/types';
 import { httpRequests } from '../api/api';
+import { EventsType } from '../types/types';
 import { actions, ActionsTypes } from './actions';
 import { AppStateType } from './store';
+
+export type BaseThunkType<A extends Action = Action, R = Promise<void>> = ThunkAction<R, AppStateType, unknown, A>;
+export type ThunkType = BaseThunkType<ActionsTypes>;
 
 export const getEvents = (): ThunkType => async (dispatch) => {
   const response = await httpRequests.getEvents();
@@ -20,10 +23,7 @@ export const getEvent = (id: string): ThunkType => async (dispatch) => {
   dispatch(actions.setEvent(response));
 };
 
-export const putEvent = (
-  data: EventsType,
-  id: string
-): ThunkType => async () => {
+export const putEvent = (data: EventsType, id: string): ThunkType => async () => {
   await httpRequests.putEvent(data, id);
 };
 export const deleteEvent = (id: string): ThunkType => async () => {
@@ -36,10 +36,3 @@ export const postEvent = (data: EventsType): ThunkType => async (
   await httpRequests.postEvent(data);
   dispatch(actions.postEvent());
 };
-
-export type ThunkType = BaseThunkType<ActionsTypes>;
-
-export type BaseThunkType<
-  A extends Action = Action,
-  R = Promise<void>
-> = ThunkAction<R, AppStateType, unknown, A>;
