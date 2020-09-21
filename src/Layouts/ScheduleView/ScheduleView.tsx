@@ -9,7 +9,7 @@ import { setEventsAndOrganizerSelector, isNewTaskPostedSelector } from '../../re
 
 import { ScheduleTable } from '../Table/ScheduleTable';
 import { Header } from '../Header/Header';
-import TaskPage from '../TaskPage/TaskPage';
+import TaskPage from '../TaskPage';
 import { ScheduleList } from '../List';
 import CalendarContainer from '../Calendar/CalendarContainer';
 import { Layout, Spin } from 'antd';
