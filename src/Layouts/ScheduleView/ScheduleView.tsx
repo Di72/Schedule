@@ -19,7 +19,8 @@ const ScheduleView = (props: any) => {
   useEffect(() => {
     props.requestOrganizers();
     props.requestEvents();
-  }, [isNewTaskCreated, props]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isNewTaskCreated]);
 
   if (!data.events[0])
     return (
