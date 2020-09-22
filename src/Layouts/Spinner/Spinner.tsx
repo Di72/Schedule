@@ -5,9 +5,8 @@ export default function Spinner(): JSX.Element {
   const styleSpinner: CSSProperties = {
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center',
     backgroundColor: 'transparent',
-    minHeight: '100vh',
+    padding: '50px',
   };
 
   return (

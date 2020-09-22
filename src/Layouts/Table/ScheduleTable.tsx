@@ -1,9 +1,10 @@
-import { Button, Checkbox, Select, Spin, Table, Tag } from 'antd';
+import { Button, Checkbox, Select, Spin, Table } from 'antd';
 import Column from 'antd/lib/table/Column';
 import moment from 'moment-timezone';
 import React, { useState } from 'react';
 import { CSSProperties } from 'styled-components';
 import { EventsType, IFieldOfEventsType, InitialStateType } from '../../types/types';
+import { ScheduleTags } from '../Tags/Tags';
 import './ScheduleTable.less';
 
 const { Option } = Select;
@@ -19,7 +20,7 @@ export const ScheduleTable = (props: any): JSX.Element => {
     props.putEvent(currentEvents[index], currentEvents[index].id);
     props.requestEvents();
   };
-  
+
   const deleteEvent = (value: string, index: number) => {
     const newState = currentEvents.filter((item: any) => item.id !== value);
     setCurrentEvents(newState);
@@ -73,34 +74,10 @@ export const ScheduleTable = (props: any): JSX.Element => {
   };
 
   const renderTags = (value: string, index: number) => {
-    let color = '';
-    switch (value) {
-      case 'deadline':
-        color = '#d4380d';
-        break;
-      case 'basic task':
-        color = '#52c41a';
-        break;
-      case 'html/css task':
-        color = '#13c2c2';
-        break;
-      case 'js task':
-        color = '#1890ff';
-        break;
-      case 'git task':
-        color = '#722ed1';
-        break;
-      default:
-        color = 'uuuu';
-        break;
-    }
-
     return (
       <>
         {!props.data.editStatus ? (
-          <Tag color={color} key={index}>
-            {value}
-          </Tag>
+          <ScheduleTags typeTask={value} key={String(index)} />
         ) : (
           <Select className="selectStyle" defaultValue={value} onChange={(e) => onDataChangeType(index, e)}>
             {optionsTaskType}
@@ -111,7 +88,7 @@ export const ScheduleTable = (props: any): JSX.Element => {
   };
 
   const onDataChangeHandler = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    const { index, key } = e.currentTarget.dataset as unknown as { index: number, key: IFieldOfEventsType };
+    const { index, key } = (e.currentTarget.dataset as unknown) as { index: number; key: IFieldOfEventsType };
     const oldState = [...currentEvents];
     const newEvent = { ...currentEvents[index] };
     const propertyName: IFieldOfEventsType = key;

@@ -7,7 +7,8 @@ import { AppStateType } from 'src/redux/store';
 import { EventsType, InitialStateType, ITime } from 'src/types/types';
 import { CSSProperties } from 'styled-components';
 import { setEventsAndOrganizerSelector } from '../../redux/selectors';
-import { renderTags } from '../Tags/Tags';
+import Spinner from '../Spinner/Spinner';
+import { ScheduleTags } from '../Tags/Tags';
 import { timer } from '../timer/timer';
 
 function TaskPage({ id, data, requestEvent }: { id: string; data: InitialStateType; requestEvent: any }) {
@@ -128,7 +129,7 @@ function TaskPage({ id, data, requestEvent }: { id: string; data: InitialStateTy
         <Col sm={{ span: 24 }} md={{ span: 22 }} lg={{ span: 20 }} xl={{ span: 18 }}>
           <header className="task-page__header">
             <h2>
-              {name} {renderTags(type, id)}
+              {name} <ScheduleTags typeTask={type} key={id} />
             </h2>
             {placeTSX}
             {cardTitle()}
@@ -146,7 +147,7 @@ function TaskPage({ id, data, requestEvent }: { id: string; data: InitialStateTy
     );
   };
 
-  const content = currentTask ? getContent(currentTask) : <h6>Loading...</h6>;
+  const content = currentTask ? getContent(currentTask) : <Spinner />;
   return <>{content}</>;
 }
 

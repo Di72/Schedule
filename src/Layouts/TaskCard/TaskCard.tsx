@@ -4,7 +4,7 @@ import moment from 'moment-timezone';
 import React, { CSSProperties, useEffect, useState } from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
 import { EventsType, ITime } from 'src/types/types';
-import { renderTags } from '../Tags/Tags';
+import { ScheduleTags } from '../Tags/Tags';
 import { timer } from '../timer/timer';
 import './TaskCard.less';
 
@@ -56,7 +56,7 @@ export const TaskCard: ITaskCardFunc = ({ event, currentTimeZone }: ITaskCardSou
   };
 
   const time = cardTitle();
-  const typeTSX = type && renderTags(type, id);
+  const typeTSX = type && <ScheduleTags typeTask={type} key={id} />;
   const match = useRouteMatch();
 
   const title = (
