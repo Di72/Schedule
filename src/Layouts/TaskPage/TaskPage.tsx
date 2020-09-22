@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import { EventsType, InitialStateType, ITime } from 'src/types/types';
-import { connect } from 'react-redux';
-import { AppStateType } from 'src/redux/store';
-import { getEvent } from 'src/redux/requests';
 import { Col, Row } from 'antd';
 import moment from 'moment';
+import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
+import { getEvent } from 'src/redux/requests';
+import { AppStateType } from 'src/redux/store';
+import { EventsType, InitialStateType, ITime } from 'src/types/types';
 import { CSSProperties } from 'styled-components';
-import { timer } from '../timer/timer';
-import { renderTags } from '../Tags/Tags';
 import { setEventsAndOrganizerSelector } from '../../redux/selectors';
+import { renderTags } from '../Tags/Tags';
+import { timer } from '../timer/timer';
 
 function TaskPage({ id, data, requestEvent }: { id: string; data: InitialStateType; requestEvent: any }) {
   const { event, timeZone } = data;

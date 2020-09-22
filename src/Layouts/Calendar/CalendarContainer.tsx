@@ -2,12 +2,12 @@ import moment from 'moment';
 import React from 'react';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
+import { ICalendarContainer, ICalendarContainerProps } from 'src/types/types';
 import { addOneDay } from '../../units';
 import './style.less';
 
-const CalendarContainer = (props: any) => {
+const CalendarContainer: ICalendarContainer = ({ data: { events } }: ICalendarContainerProps) => {
   const localizer = momentLocalizer(moment);
-  const { events } = props.data;
   const modifiedEventsData = events.map((el: any) => {
     if (!el.deadline) return {};
 

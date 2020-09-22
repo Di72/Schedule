@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/ban-types */
 import { EyeOutlined } from '@ant-design/icons';
 import { Button, Dropdown, Menu, Select } from 'antd';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { InitialStateType } from 'src/types/types';
 import styled from 'styled-components';
 import Logo from '../../assets/img/logo-rsschool3.png';
 import CreateEventPage from '../CreateEventPage/CreateEventPage';
@@ -19,31 +21,18 @@ const ImgLogo = styled.img`
   margin-left: 15px;
 `;
 
-const timezones = [
-  'Europe/London',
-  'Europe/Kaliningrad',
-  'Europe/Moscow',
-  'Europe/Volgograd',
-];
+const timezones = ['Europe/London', 'Europe/Kaliningrad', 'Europe/Moscow', 'Europe/Volgograd'];
 
 const menu = (
   <Menu>
     <Item>
-      <a
-        target="_blank"
-        rel="noopener noreferrer"
-        href="http://www.alipay.com/"
-      >
+      <a target="_blank" rel="noopener noreferrer" href="http://www.alipay.com/">
         <EyeOutlined />
         1st menu item
       </a>
     </Item>
     <Item>
-      <a
-        target="_blank"
-        rel="noopener noreferrer"
-        href="http://www.taobao.com/"
-      >
+      <a target="_blank" rel="noopener noreferrer" href="http://www.taobao.com/">
         2nd menu item
       </a>
     </Item>
@@ -55,25 +44,19 @@ const menu = (
     </Item>
   </Menu>
 );
-
-export const Header = ({
-  data,
-  editStatus,
-  timeZone,
-}: {
-  [x: string]: any;
-}) => {
-  const onTimezoneChange = (timezone: string) => {
-    timeZone(timezone);
+export interface IHeader {
+  data: InitialStateType;
+  editStatus: Function;
+  timeZone: Function;
+}
+export const Header = ({ data, editStatus, timeZone }: IHeader): JSX.Element => {
+  const onTimezoneChange = (selected: string) => {
+    timeZone(selected);
   };
 
   const options = timezones.map((zone: string) => {
     return (
-      <Option
-        key={zone}
-        style={{ paddingLeft: 15, paddingRight: 15 }}
-        value={zone}
-      >
+      <Option key={zone} style={{ paddingLeft: 15, paddingRight: 15 }} value={zone}>
         {zone}
       </Option>
     );
@@ -105,11 +88,7 @@ export const Header = ({
           </NavLink>
         </Option>
       </Select>
-      <Select
-        defaultValue="Europe/Moscow"
-        style={{ width: 200, margin: 15 }}
-        onChange={onTimezoneChange}
-      >
+      <Select defaultValue="Europe/Moscow" style={{ width: 200, margin: 15 }} onChange={onTimezoneChange}>
         {options}
       </Select>
       <CreateEventPage />

@@ -14,16 +14,12 @@ const Photo = styled.img`
   height: auto;
 `;
 
-const ModalWindow = (props: IModalProps) => {
-  const { okClickHandler, cancelClickHandler, visible } = props;
-  const { description, goal, agenda, teachers } = props.data;
+const ModalWindow = (props: IModalProps): JSX.Element => {
+  const { okClickHandler, cancelClickHandler, visible, data } = props;
+  const { description, goal, agenda, teachers } = data;
 
   return (
-    <Modal
-      onOk={okClickHandler}
-      onCancel={cancelClickHandler}
-      visible={visible}
-    >
+    <Modal onOk={okClickHandler} onCancel={cancelClickHandler} visible={visible}>
       <h5> Description </h5>
       <p> {description} </p>
 

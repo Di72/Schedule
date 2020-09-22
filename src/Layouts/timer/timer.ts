@@ -9,7 +9,7 @@ export const timer = (
     setTimeLeft: React.Dispatch<React.SetStateAction<ITime | null>>;
     setStartsIn: React.Dispatch<React.SetStateAction<ITime | null>>;
   }
-) => {
+): (() => void) => {
   const { setTimeLeft, setStartsIn } = handleTime;
 
   const setDateToEnd = (

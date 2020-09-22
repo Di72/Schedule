@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { connect, useSelector } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { actions } from '../../redux/actions';
-import { deleteEvent, getEvents, getOrganizers, putEvent } from '../../redux/requests';
+import * as requests from '../../redux/requests';
 import { isNewTaskPostedSelector, setEventsAndOrganizerSelector } from '../../redux/selectors';
 import { AppStateType } from '../../redux/store';
 import CalendarContainer from '../Calendar/CalendarContainer';
@@ -14,14 +14,14 @@ import TaskPage from '../TaskPage';
 
 const ScheduleView = (props: any) => {
   const isNewTaskCreated = useSelector(isNewTaskPostedSelector);
+  const { data, timeZone, editStatus, requestEvents, putEvent, deleteEvent } = props;
 
   useEffect(() => {
     props.requestOrganizers();
     props.requestEvents();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isNewTaskCreated]);
+  }, [isNewTaskCreated, props]);
 
-  if (!props.data.events[0])
+  if (!data.events[0])
     return (
       <Layout
         style={{
@@ -37,21 +37,16 @@ const ScheduleView = (props: any) => {
   return (
     <Router>
       <Layout style={{ margin: '16px', backgroundColor: 'transparent' }}>
-        <Header data={props.data} timeZone={props.timeZone} editStatus={props.editStatus} />
+        <Header data={data} timeZone={timeZone} editStatus={editStatus} />
         <Switch>
           <Route path="/" exact={true}>
-            <ScheduleTable
-              data={props.data}
-              requestEvents={props.requestEvents}
-              putEvent={props.putEvent}
-              deleteEvent={props.deleteEvent}
-            />
+            <ScheduleTable data={data} requestEvents={requestEvents} putEvent={putEvent} deleteEvent={deleteEvent} />
           </Route>
           <Route path="/list/" exact={true}>
-            <ScheduleList data={props.data} timeZone={props.data.timeZone} />
+            <ScheduleList data={data} timeZone={data.timeZone} />
           </Route>
           <Route path="/calendar">
-            <CalendarContainer data={props.data} />
+            <CalendarContainer data={data} />
           </Route>
           <Route
             path="/list/:id"
@@ -73,10 +68,10 @@ const mapStateToProps = (state: AppStateType) => {
 };
 
 const mapDispatchToProps = {
-  putEvent,
-  deleteEvent,
-  requestEvents: getEvents,
-  requestOrganizers: getOrganizers,
+  putEvent: requests.putEvent,
+  deleteEvent: requests.deleteEvent,
+  requestEvents: requests.getEvents,
+  requestOrganizers: requests.getOrganizers,
   editStatus: actions.editStatus,
   timeZone: actions.setTimeZone,
 };

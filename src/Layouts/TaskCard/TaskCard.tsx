@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { Card } from 'antd';
 import moment from 'moment-timezone';
 import React, { CSSProperties, useEffect, useState } from 'react';
@@ -7,13 +8,15 @@ import { renderTags } from '../Tags/Tags';
 import { timer } from '../timer/timer';
 import './TaskCard.less';
 
-export const TaskCard = ({
-  event,
-  currentTimeZone,
-}: {
+interface ITaskCardSource {
   event: EventsType;
   currentTimeZone: string;
-}) => {
+}
+interface ITaskCardFunc {
+  (props: ITaskCardSource): JSX.Element;
+}
+
+export const TaskCard: ITaskCardFunc = ({ event, currentTimeZone }: ITaskCardSource) => {
   const { dateTime, id, name, place, type, deadline } = event;
   const [timeLeft, setTimeLeft] = useState(null as null | ITime);
   const [startsIn, setStartsIn] = useState(null as null | ITime);
@@ -34,8 +37,7 @@ export const TaskCard = ({
       dateToEnd = startsIn;
       title = 'Starts in';
     }
-    const days =
-      dateToEnd && dateToEnd.days ? `${dateToEnd.days} days, ` : null;
+    const days = dateToEnd && dateToEnd.days ? `${dateToEnd.days} days, ` : null;
     if (!dateToEnd)
       return (
         <span style={style}>
@@ -104,12 +106,7 @@ export const TaskCard = ({
     );
 
   return (
-    <Card
-      className="schedule-list__card"
-      key={id}
-      title={title}
-      style={{ marginBottom: '16px' }}
-    >
+    <Card className="schedule-list__card" key={id} title={title} style={{ marginBottom: '16px' }}>
       {placeTSX}
       {dateTimeTSX}
       {deadlineTSX}
