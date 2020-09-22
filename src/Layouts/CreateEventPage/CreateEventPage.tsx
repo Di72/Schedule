@@ -1,21 +1,15 @@
+/* eslint-disable no-console */
 import { Button, Collapse, DatePicker, Form, Input, Row, Select } from 'antd';
 import 'antd/dist/antd.css';
-import { Moment } from 'moment';
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { postEvent } from '../../redux/requests';
 import { isNewTaskPostedSelector } from '../../redux/selectors';
 import { AppStateType } from '../../redux/store';
-import { EventsType } from '../../types/types';
 import './style.less';
 
 const { Item } = Form;
-const timezones = [
-  'Europe/London',
-  'Europe/Kaliningrad',
-  'Europe/Moscow',
-  'Europe/Volgograd',
-];
+const timezones = ['Europe/London', 'Europe/Kaliningrad', 'Europe/Moscow', 'Europe/Volgograd'];
 
 const taskType = ['js task', 'basic task', 'html/css task', 'git task'];
 
@@ -41,13 +35,11 @@ const CreateEventPage = (props: any) => {
     );
   });
 
-  const onFinish = (values: { task: EventsType }) => {
+  const onFinish = (values: { task: any }) => {
     const { task } = values;
-    const dateTime = (task.dateTime as unknown) as Moment;
-    const deadline = (task.deadline as unknown) as Moment;
-    const startDate = new Date(dateTime.format()).getTime();
-    const deadlineDate = new Date(deadline.format()).getTime();
-    const { timeZone } = task;
+    const [dateTime, deadline] = task.date;
+    const startDate = dateTime.format('x');
+    const deadlineDate = deadline.format('x');
 
     if (startDate > deadlineDate) {
       // eslint-disable-next-line no-console
@@ -57,7 +49,6 @@ const CreateEventPage = (props: any) => {
         ...task,
         dateTime: startDate,
         deadline: deadlineDate,
-        timeZone,
       });
     }
     form.resetFields();
@@ -70,18 +61,8 @@ const CreateEventPage = (props: any) => {
   };
 
   return (
-    <Collapse
-      activeKey={openedPanel}
-      className="createEventPageContainer"
-      accordion={true}
-      onChange={onCancel}
-    >
-      <Panel
-        header="Create Event"
-        key="1"
-        style={{ textAlign: 'center' }}
-        showArrow={false}
-      >
+    <Collapse activeKey={openedPanel} className="createEventPageContainer" accordion={true} onChange={onCancel}>
+      <Panel header="Create Event" key="1" style={{ textAlign: 'center' }} showArrow={false}>
         <Form
           className="createEventForm"
           labelCol={{
@@ -97,46 +78,20 @@ const CreateEventPage = (props: any) => {
           onFinish={onFinish}
           form={form}
         >
-          <Item
-            name={['task', 'name']}
-            label="Task name"
-            rules={[{ required: true }]}
-          >
+          <Item name={['task', 'name']} label="Task name" rules={[{ required: true }]}>
             <Input />
           </Item>
-          <Item
-            name={['task', 'type']}
-            label="Task type"
-            rules={[{ required: true }]}
-          >
+          <Item name={['task', 'type']} label="Task type" rules={[{ required: true }]}>
             <Select>{optionsTaskType}</Select>
           </Item>
-          <Item
-            label="Start task"
-            rules={[{ required: true }]}
-            name={['task', 'dateTime']}
-          >
-            <DatePicker />
+          <Item label="Start task" rules={[{ required: true }]} name={['task', 'date']}>
+            <DatePicker.RangePicker showTime={true} />
+            {/* <DatePicker /> */}
           </Item>
-          <Item
-            label="Deadline"
-            rules={[{ required: true }]}
-            name={['task', 'deadline']}
-          >
-            <DatePicker />
-          </Item>
-          <Item
-            label="TimeZone"
-            rules={[{ required: true }]}
-            name={['task', 'timeZone']}
-          >
+          <Item label="TimeZone" rules={[{ required: true }]} name={['task', 'timeZone']}>
             <Select>{optionsTimeZone}</Select>
           </Item>
-          <Item
-            label="Place"
-            name={['task', 'place']}
-            rules={[{ required: true }]}
-          >
+          <Item label="Place" name={['task', 'place']} rules={[{ required: true }]}>
             <Select>
               <Option value="online" style={{ paddingLeft: 15 }}>
                 Online
@@ -146,25 +101,13 @@ const CreateEventPage = (props: any) => {
               </Option>
             </Select>
           </Item>
-          <Item
-            name={['task', 'description']}
-            label="Short description"
-            rules={[{ required: true }]}
-          >
+          <Item name={['task', 'description']} label="Short description" rules={[{ required: true }]}>
             <Input.TextArea />
           </Item>
-          <Item
-            name={['task', 'descriptionUrl']}
-            label="descriptionUrl"
-            rules={[{ required: true }]}
-          >
+          <Item name={['task', 'descriptionUrl']} label="descriptionUrl" rules={[{ required: true }]}>
             <Input />
           </Item>
-          <Item
-            name={['task', 'comment']}
-            label="Comment"
-            rules={[{ required: true }]}
-          >
+          <Item name={['task', 'comment']} label="Comment" rules={[{ required: true }]}>
             <Input.TextArea />
           </Item>
           <Row className="row">

@@ -1,4 +1,4 @@
-import { Layout, Spin } from 'antd';
+import { Layout } from 'antd';
 import React, { useEffect } from 'react';
 import { connect, useSelector } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
@@ -9,6 +9,7 @@ import { AppStateType } from '../../redux/store';
 import CalendarContainer from '../Calendar/CalendarContainer';
 import { Header } from '../Header/Header';
 import { ScheduleList } from '../List';
+import Spinner from '../Spinner/Spinner';
 import { ScheduleTable } from '../Table/ScheduleTable';
 import TaskPage from '../TaskPage';
 
@@ -19,20 +20,10 @@ const ScheduleView = (props: any) => {
   useEffect(() => {
     props.requestOrganizers();
     props.requestEvents();
-  }, [isNewTaskCreated, props]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isNewTaskCreated]);
 
-  if (!data.events[0])
-    return (
-      <Layout
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          backgroundColor: 'transparent',
-        }}
-      >
-        <Spin size="large" tip="Loading..." />
-      </Layout>
-    );
+  if (!data.events[0]) return <Spinner />;
 
   return (
     <Router>

@@ -8,6 +8,7 @@ import './ScheduleTable.less';
 
 const { Option } = Select;
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const ScheduleTable = (props: any): JSX.Element => {
   const { data } = props;
   const { events, timeZone } = data as InitialStateType;
@@ -18,6 +19,7 @@ export const ScheduleTable = (props: any): JSX.Element => {
     props.putEvent(currentEvents[index], currentEvents[index].id);
     props.requestEvents();
   };
+  
   const deleteEvent = (value: string, index: number) => {
     const newState = currentEvents.filter((item: any) => item.id !== value);
     setCurrentEvents(newState);
