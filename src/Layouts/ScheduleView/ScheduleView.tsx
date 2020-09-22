@@ -20,7 +20,7 @@ const ScheduleView = (props: any) => {
   useEffect(() => {
     props.requestOrganizers();
     props.requestEvents();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isNewTaskCreated]);
 
   if (!data.events[0]) return <Spinner />;
