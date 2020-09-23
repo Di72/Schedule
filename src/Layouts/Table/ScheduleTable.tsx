@@ -92,10 +92,10 @@ export const ScheduleTable = (props: any): JSX.Element => {
   };
 
   const onDataChangeHandler = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    const { index, key } = (e.currentTarget.dataset as unknown) as { index: number; key: IFieldOfEventsType };
+    const { index, key } = (e.currentTarget.dataset as any);
     const oldState = [...currentEvents];
     const newEvent = { ...currentEvents[index] };
-    const propertyName: IFieldOfEventsType = key;
+    const propertyName = key as IFieldOfEventsType;
     newEvent[propertyName] = e.currentTarget.value;
     const newState = [...oldState];
     newState[index] = newEvent;
