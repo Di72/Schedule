@@ -64,11 +64,11 @@ export const ScheduleTable = (props: any): JSX.Element => {
             type="text"
             disabled={!props.data.editStatus}
             value={value}
-            onBlur={() => disableEditEvent(index)}
+            // onBlur={() => disableEditEvent(index)}
             onKeyPress={(k) => onKeyPress(k, index)}
           />
         ) : (
-          <Select className="selectStyle" defaultValue={value} onChange={(e) => onDataChangePlace(index, e)}>
+          <Select className="selectStyle" defaultValue={value} onChange={(e) => onDataChangeSelect(index, e, 'place')}>
             {optionsPlaceType}
           </Select>
         )}
@@ -82,7 +82,7 @@ export const ScheduleTable = (props: any): JSX.Element => {
         {!props.data.editStatus ? (
           <ScheduleTags typeTask={value} key={String(index)} />
         ) : (
-          <Select className="selectStyle" defaultValue={value} onChange={(e) => onDataChangeType(index, e)}>
+          <Select className="selectStyle" defaultValue={value} onChange={(e) => onDataChangeSelect(index, e, 'type')}>
             {optionsTaskType}
           </Select>
         )}
@@ -91,7 +91,7 @@ export const ScheduleTable = (props: any): JSX.Element => {
   };
 
   const onDataChangeHandler = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    const { index, key } = (e.currentTarget.dataset as any);
+    const { index, key } = e.currentTarget.dataset as any;
     const oldState = [...currentEvents];
     const newEvent = { ...currentEvents[index] };
     const propertyName = key as IFieldOfEventsType;
@@ -101,14 +101,13 @@ export const ScheduleTable = (props: any): JSX.Element => {
     setCurrentEvents(newState);
   };
 
-  const onDataChangeType = (index: number, e: any) => {
-    setCurrentEvents([...currentEvents, (currentEvents[index].type = e)]);
-    disableEditEvent(index);
-  };
-
-  const onDataChangePlace = (index: number, e: any) => {
-    setCurrentEvents([...currentEvents, (currentEvents[index].place = e)]);
-    disableEditEvent(index);
+  const onDataChangeSelect = (index: number, e: any, field: 'type' | 'place') => {
+    const changedEvent = { ...currentEvents[index] };
+    changedEvent[field] = e;
+    const newState = [...currentEvents];
+    newState[index] = changedEvent;
+    setCurrentEvents(() => newState);
+    props.putEvent(changedEvent);
   };
 
   const onKeyPress = (k: React.KeyboardEvent<HTMLInputElement>, index: any): void => {
