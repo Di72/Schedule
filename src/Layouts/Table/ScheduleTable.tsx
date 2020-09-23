@@ -1,7 +1,7 @@
 import { Button, Checkbox, Select, Spin, Table } from 'antd';
 import Column from 'antd/lib/table/Column';
 import moment from 'moment-timezone';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { CSSProperties } from 'styled-components';
 import { EventsType, IFieldOfEventsType, InitialStateType } from '../../types/types';
 import { ScheduleTags } from '../Tags/Tags';
@@ -15,6 +15,10 @@ export const ScheduleTable = (props: any): JSX.Element => {
   const { events, timeZone } = data as InitialStateType;
   const [currentEvents, setCurrentEvents] = useState(events as Array<EventsType>);
   const [checkboxColumns, setCheckboxColumns] = useState(['Date', 'Deadline', 'Type', 'Description', 'Place']);
+
+  useEffect(() => {
+    setCurrentEvents(events);
+  }, [events]);
 
   const disableEditEvent = (index: number) => {
     props.putEvent(currentEvents[index], currentEvents[index].id);

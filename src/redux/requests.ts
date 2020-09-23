@@ -35,4 +35,5 @@ export const postEvent = (data: EventsType): ThunkType => async (
 ) => {
   await httpRequests.postEvent(data);
   dispatch(actions.postEvent());
+  getEvents();
 };

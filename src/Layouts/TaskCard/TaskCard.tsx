@@ -1,28 +1,25 @@
-/* eslint-disable react/prop-types */
 import { Card } from 'antd';
 import moment from 'moment-timezone';
 import React, { CSSProperties, useEffect, useState } from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
-import { EventsType, ITime } from 'src/types/types';
+import { ITaskCardProps, ITime } from 'src/types/types';
 import { ScheduleTags } from '../Tags/Tags';
 import { timer } from '../timer/timer';
 import './TaskCard.less';
 
-interface ITaskCardSource {
-  event: EventsType;
-  currentTimeZone: string;
-}
-interface ITaskCardFunc {
-  (props: ITaskCardSource): JSX.Element;
-}
-
-export const TaskCard: ITaskCardFunc = ({ event, currentTimeZone }: ITaskCardSource) => {
+export const TaskCard = ({ event, currentTimeZone }: ITaskCardProps): JSX.Element => {
   const { dateTime, id, name, place, type, deadline } = event;
   const [timeLeft, setTimeLeft] = useState(null as null | ITime);
   const [startsIn, setStartsIn] = useState(null as null | ITime);
+  const [calculating, setCalculating] = useState(true);
 
   useEffect(() => {
-    timer(currentTimeZone, dateTime, deadline, { setStartsIn, setTimeLeft });
+    if (event) {
+      timer(currentTimeZone, dateTime, deadline, { setStartsIn, setTimeLeft });
+      setTimeout(() => {
+        setCalculating((prevState) => prevState && false);
+      }, 1e3);
+    }
   }, [event, currentTimeZone, deadline, dateTime]);
 
   const cardTitle = () => {
@@ -38,16 +35,18 @@ export const TaskCard: ITaskCardFunc = ({ event, currentTimeZone }: ITaskCardSou
       title = 'Starts in';
     }
     const days = dateToEnd && dateToEnd.days ? `${dateToEnd.days} days, ` : null;
+
+    if (calculating) return <b>Calculating...</b>;
     if (!dateToEnd)
       return (
-        <span style={style}>
+        <span className="too-late" style={style}>
           <b>Too late</b>
         </span>
       );
 
     return (
       dateToEnd && (
-        <span style={style}>
+        <span className="show-time" style={style}>
           <b>{title}:</b> {days}
           {dateToEnd.hours}:{`00${dateToEnd.minutes}`.slice(-2)}
         </span>
@@ -106,7 +105,7 @@ export const TaskCard: ITaskCardFunc = ({ event, currentTimeZone }: ITaskCardSou
     );
 
   return (
-    <Card className="schedule-list__card" key={id} title={title} style={{ marginBottom: '16px' }}>
+    <Card className="schedule-list__card" key={id} title={title}>
       {placeTSX}
       {dateTimeTSX}
       {deadlineTSX}

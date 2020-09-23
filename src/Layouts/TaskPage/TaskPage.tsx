@@ -37,7 +37,7 @@ function TaskPage({ id, data, requestEvent }: { id: string; data: InitialStateTy
       const { dateTime, deadline } = event;
       timerResult = timer(timeZone, dateTime, deadline, { setTimeLeft, setStartsIn });
       setTimeout(() => {
-        setCalculating(() => false);
+        setCalculating((prevState) => prevState && false);
       }, 1e3);
     }
     return () => {

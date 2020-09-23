@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-types */
 export interface EventsType {
   name: string;
   description: string;
@@ -83,4 +84,15 @@ export interface ICalendarContainerProps {
 
 export interface ICalendarContainer {
   ({ data: { events } }: ICalendarContainerProps): JSX.Element;
+}
+
+export interface ITaskCardProps {
+  event: EventsType;
+  currentTimeZone: string;
+}
+
+export interface IHeader {
+  data: InitialStateType;
+  editStatus: Function;
+  timeZone: Function;
 }

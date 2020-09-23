@@ -52,6 +52,7 @@ const CreateEventPage = (props: any) => {
       });
     }
     form.resetFields();
+    setOpenedPanel('');
   };
 
   const onCancel = () => {
@@ -65,16 +66,10 @@ const CreateEventPage = (props: any) => {
       <Panel header="Create Event" key="1" style={{ textAlign: 'center' }} showArrow={false}>
         <Form
           className="createEventForm"
-          labelCol={{
-            span: 4,
-          }}
-          wrapperCol={{
-            span: 14,
-          }}
+          labelCol={{ span: 4 }}
+          wrapperCol={{ span: 14 }}
           layout="horizontal"
-          initialValues={{
-            size: 'default',
-          }}
+          initialValues={{ size: 'default' }}
           onFinish={onFinish}
           form={form}
         >
