@@ -2,7 +2,7 @@ import { DownOutlined } from '@ant-design/icons';
 /* eslint-disable no-console */
 import { Button, Collapse, DatePicker, Form, Input, Row, Select } from 'antd';
 import 'antd/dist/antd.css';
-import { Moment } from 'moment';
+import moment, { Moment } from 'moment';
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { postEvent } from '../../redux/requests';
@@ -17,6 +17,7 @@ const taskType = ['js task', 'basic task', 'html/css task', 'git task'];
 
 const CreateEventPage = (props: any) => {
   const [openedPanel, setOpenedPanel] = useState(false);
+  const [dateFrom, setDateFrom] = useState(null as null | Moment);
   const [form] = Form.useForm();
   const { Panel } = Collapse;
   const { Option } = Select;
@@ -39,7 +40,7 @@ const CreateEventPage = (props: any) => {
 
   const onFinish = (values: { task: any }) => {
     const { task } = values;
-    const [dateTime, deadline] = task.date as Moment[];
+    const [dateTime, deadline] = [task.date, task.deadline] as Moment[];
     const startDate = dateTime.tz(task.timeZone, true).format('x');
     const deadlineDate = deadline.tz(task.timeZone, true).format('x');
 
@@ -51,6 +52,15 @@ const CreateEventPage = (props: any) => {
     form.resetFields();
     setOpenedPanel((prevOpenedPanel) => !prevOpenedPanel);
   };
+
+  function disabledDate(current: Moment) {
+    return current && current < moment().endOf('day');
+  }
+
+  function disabledDateTo(current: Moment, rangeDateFrom: Moment | null) {
+    if (!rangeDateFrom) return false;
+    return current && current < rangeDateFrom;
+  }
 
   const onCancel = () => {
     setOpenedPanel((prevOpenedPanel) => !prevOpenedPanel);
@@ -81,8 +91,18 @@ const CreateEventPage = (props: any) => {
             <Select>{optionsTaskType}</Select>
           </Item>
           <Item label="Start task" rules={[{ required: true }]} name={['task', 'date']}>
-            <DatePicker.RangePicker showTime={true} />
-            {/* <DatePicker /> */}
+            <DatePicker
+              showTime={{ defaultValue: moment('23:59:59', 'HH:mm:ss') }}
+              disabledDate={disabledDate}
+              onSelect={setDateFrom}
+            />
+          </Item>
+          <Item label="Deadline" name={['task', 'deadline']}>
+            <DatePicker
+              disabled={!dateFrom}
+              showTime={true}
+              disabledDate={(current) => disabledDateTo(current, dateFrom)}
+            />
           </Item>
           <Item label="TimeZone" rules={[{ required: true }]} name={['task', 'timeZone']}>
             <Select>{optionsTimeZone}</Select>
