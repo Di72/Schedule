@@ -1,6 +1,8 @@
+import { DownOutlined } from '@ant-design/icons';
 /* eslint-disable no-console */
 import { Button, Collapse, DatePicker, Form, Input, Row, Select } from 'antd';
 import 'antd/dist/antd.css';
+import { Moment } from 'moment';
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { postEvent } from '../../redux/requests';
@@ -14,7 +16,7 @@ const timezones = ['Europe/London', 'Europe/Kaliningrad', 'Europe/Moscow', 'Euro
 const taskType = ['js task', 'basic task', 'html/css task', 'git task'];
 
 const CreateEventPage = (props: any) => {
-  const [openedPanel, setOpenedPanel] = useState('');
+  const [openedPanel, setOpenedPanel] = useState(false);
   const [form] = Form.useForm();
   const { Panel } = Collapse;
   const { Option } = Select;
@@ -37,33 +39,32 @@ const CreateEventPage = (props: any) => {
 
   const onFinish = (values: { task: any }) => {
     const { task } = values;
-    const [dateTime, deadline] = task.date;
-    const startDate = dateTime.format('x');
-    const deadlineDate = deadline.format('x');
+    const [dateTime, deadline] = task.date as Moment[];
+    const startDate = dateTime.tz(task.timeZone, true).format('x');
+    const deadlineDate = deadline.tz(task.timeZone, true).format('x');
 
-    if (startDate > deadlineDate) {
-      // eslint-disable-next-line no-console
-      console.log('task ended before start');
-    } else {
-      props.postEvent({
-        ...task,
-        dateTime: startDate,
-        deadline: deadlineDate,
-      });
-    }
+    props.postEvent({
+      ...task,
+      dateTime: startDate,
+      deadline: deadlineDate,
+    });
     form.resetFields();
-    setOpenedPanel('');
+    setOpenedPanel((prevOpenedPanel) => !prevOpenedPanel);
   };
 
   const onCancel = () => {
-    if (openedPanel) setOpenedPanel('');
-    else setOpenedPanel('1');
+    setOpenedPanel((prevOpenedPanel) => !prevOpenedPanel);
     form.resetFields();
   };
+  const header = (
+    <>
+      Create Event <DownOutlined />
+    </>
+  );
 
   return (
-    <Collapse activeKey={openedPanel} className="createEventPageContainer" accordion={true} onChange={onCancel}>
-      <Panel header="Create Event" key="1" style={{ textAlign: 'center' }} showArrow={false}>
+    <Collapse activeKey={Number(openedPanel)} className="createEventPageContainer" accordion={true} onChange={onCancel}>
+      <Panel header={header} key="1" style={{ textAlign: 'center' }} showArrow={false}>
         <Form
           className="createEventForm"
           labelCol={{ span: 4 }}
