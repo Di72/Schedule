@@ -1,4 +1,5 @@
-export type EventsType = {
+/* eslint-disable @typescript-eslint/ban-types */
+export interface EventsType {
   name: string;
   description: string;
   descriptionUrl: string;
@@ -9,12 +10,12 @@ export type EventsType = {
   dateTime: string;
   deadline: string;
   id: string;
-};
+}
 
-export type OrganizersType = {
+export interface OrganizersType {
   name: string;
   id: string;
-};
+}
 
 export interface IInitialState {
   events: EventsType[];
@@ -37,6 +38,7 @@ export interface CourseTeam {
 }
 
 export interface ITaskPage extends ICourseOverview {
+  // eslint-disable-next-line @typescript-eslint/ban-types
   requestEvent: Function;
   id: string;
 }
@@ -75,3 +77,22 @@ export type IFieldOfEventsType =
   | 'dateTime'
   | 'deadline'
   | 'id';
+
+export interface ICalendarContainerProps {
+  data: { events: EventsType[] };
+}
+
+export interface ICalendarContainer {
+  ({ data: { events } }: ICalendarContainerProps): JSX.Element;
+}
+
+export interface ITaskCardProps {
+  event: EventsType;
+  currentTimeZone: string;
+}
+
+export interface IHeader {
+  data: InitialStateType;
+  editStatus: Function;
+  timeZone: Function;
+}

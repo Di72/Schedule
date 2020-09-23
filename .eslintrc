@@ -1,15 +1,37 @@
 {
   "plugins": [
     "prettier",
-    "@typescript-eslint"
+    "@typescript-eslint",
+    "react",
+    "jest"
   ],
   "extends": [
     "airbnb-typescript",
+    "airbnb/hooks",
     "react-app",
-    "prettier"
+    "prettier",
+    "airbnb/hooks",
+    "plugin:@typescript-eslint/recommended",
+    "prettier",
+    "prettier/react",
+    "prettier/@typescript-eslint"
   ],
+  "env": {
+    "browser": true,
+    "es6": true,
+    "jest": true
+  },
+  "globals": {
+    "Atomics": "readonly",
+    "SharedArrayBuffer": "readonly"
+  },
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 2018,
+    "sourceType": "module",
     "project": "./tsconfig.json"
   },
   "settings": {
@@ -20,7 +42,7 @@
     }
   },
   "rules": {
-    "semi": "warn",
+    "semi": "error",
     "no-use-before-define": [
       "off"
     ],
@@ -33,6 +55,13 @@
       {
         "vars": "all",
         "args": "none"
+      }
+    ],
+    "indent": [
+      "warn",
+      2,
+      {
+        "SwitchCase": 1
       }
     ],
     "@typescript-eslint/no-unused-vars": [
@@ -77,13 +106,14 @@
     ],
     "react/jsx-key": "error",
     "react/jsx-curly-newline": "off",
-    "react/jsx-props-no-spreading": "off",
-    "import/prefer-default-export": "off",
     "react/jsx-boolean-value": "off",
-    "react/prop-types": "off",
-    "react/no-unescaped-entities": "off",
-    "react/jsx-one-expression-per-line": "off",
-    "react/jsx-wrap-multilines": "off",
-    "react/destructuring-assignment": "off"
+    "import/prefer-default-export": "off"
+    // "linebreak-style": "off",
+    // "react/jsx-props-no-spreading": "off",
+    // "react/prop-types": "off",
+    // "react/no-unescaped-entities": "off",
+    // "react/jsx-one-expression-per-line": "off",
+    // "react/jsx-wrap-multilines": "off",
+    // "react/destructuring-assignment": "off"
   }
 }

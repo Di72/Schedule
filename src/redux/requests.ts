@@ -23,8 +23,9 @@ export const getEvent = (id: string): ThunkType => async (dispatch) => {
   dispatch(actions.setEvent(response));
 };
 
-export const putEvent = (data: EventsType, id: string): ThunkType => async () => {
-  await httpRequests.putEvent(data, id);
+export const putEvent = (data: EventsType): ThunkType => async () => {
+  await httpRequests.putEvent(data, data.id);
+  getEvents();
 };
 export const deleteEvent = (id: string): ThunkType => async () => {
   await httpRequests.deleteEvent(id);
@@ -35,4 +36,5 @@ export const postEvent = (data: EventsType): ThunkType => async (
 ) => {
   await httpRequests.postEvent(data);
   dispatch(actions.postEvent());
+  getEvents();
 };

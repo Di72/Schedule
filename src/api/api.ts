@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import axios from 'axios';
 
 export const instance = axios.create({
@@ -5,86 +6,86 @@ export const instance = axios.create({
 });
 
 export const httpRequests = {
-  getEvents: () => {
+  getEvents: (): Promise<any> => {
     return instance
       .get('events')
       .then((res) => res.data.data)
-      .catch(function (error) {
+      .catch((error) => {
         console.log(error);
       });
   },
-  getEvent: (id: string) => {
+  getEvent: (id: string): Promise<any> => {
     return instance
       .get(`event/${id}`)
       .then((res) => res.data)
-      .catch(function (error) {
+      .catch((error) => {
         console.log(error);
       });
   },
-  postEvent: (data: any) => {
+  postEvent: (data: any): Promise<any> => {
     return instance
       .post('event', data)
       .then((res) => res.data)
-      .catch(function (error) {
+      .catch((error) => {
         console.log(error);
       });
   },
-  putEvent: (data: any, eventId: string) => {
+  putEvent: (data: any, eventId: string): Promise<any> => {
     return instance
       .put(`event/${eventId}`, data)
       .then((res) => res.data.data)
-      .catch(function (error) {
+      .catch((error) => {
         console.log(error);
       });
   },
-  deleteEvent: (id: string) => {
+  deleteEvent: (id: string): Promise<any> => {
     return instance
       .delete(`event/${id}`)
-      .then(function (response) {
+      .then((response) => {
         console.log(response, 'delete status');
       })
-      .catch(function (error) {
+      .catch((error) => {
         console.log(error);
       });
   },
 
-  getOrganizers: () => {
+  getOrganizers: (): Promise<any> => {
     return instance
       .get('organizers')
       .then((res) => res.data.data)
-      .catch(function (error) {
+      .catch((error) => {
         console.log(error);
       });
   },
-  getOrganizer: (id: string) => {
+  getOrganizer: (id: string): Promise<any> => {
     return instance
       .get(`organizer/${id}`)
       .then((res) => res.data.data)
-      .catch(function (error) {
+      .catch((error) => {
         console.log(error);
       });
   },
-  postOrganizer: (data: any) => {
+  postOrganizer: (data: { name: string }): Promise<any> => {
     return instance
       .post('organizer', data)
       .then((res) => res.data.data)
-      .catch(function (error) {
+      .catch((error) => {
         console.log(error);
       });
   },
-  putOrganizer: (data: any, organizerId: string) => {
+  putOrganizer: (data: { name: string }, organizerId: string): Promise<any> => {
     return instance
       .put(`organizer/${organizerId}`, data)
       .then((res) => res.data.data)
-      .catch(function (error) {
+      .catch((error) => {
         console.log(error);
       });
   },
-  deleteOrganizer: (id: string) => {
+  deleteOrganizer: (id: string): Promise<any> => {
     return instance
       .delete(`organizer/${id}`)
       .then((res) => res.data.data)
-      .catch(function (error) {
+      .catch((error) => {
         console.log(error);
       });
   },

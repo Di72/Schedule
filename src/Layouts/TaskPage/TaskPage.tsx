@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import { EventsType, InitialStateType, ITime } from 'src/types/types';
-import { connect } from 'react-redux';
-import { AppStateType } from 'src/redux/store';
-import { getEvent } from 'src/redux/requests';
 import { Col, Row } from 'antd';
 import moment from 'moment';
+import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
+import { getEvent } from 'src/redux/requests';
+import { AppStateType } from 'src/redux/store';
+import { EventsType, InitialStateType, ITime } from 'src/types/types';
 import { CSSProperties } from 'styled-components';
-import { timer } from '../timer/timer';
-import { renderTags } from '../Tags/Tags';
 import { setEventsAndOrganizerSelector } from '../../redux/selectors';
+import Spinner from '../Spinner/Spinner';
+import { ScheduleTags } from '../Tags/Tags';
+import { timer } from '../timer/timer';
 
 function TaskPage({ id, data, requestEvent }: { id: string; data: InitialStateType; requestEvent: any }) {
   const { event, timeZone } = data;
@@ -36,7 +37,7 @@ function TaskPage({ id, data, requestEvent }: { id: string; data: InitialStateTy
       const { dateTime, deadline } = event;
       timerResult = timer(timeZone, dateTime, deadline, { setTimeLeft, setStartsIn });
       setTimeout(() => {
-        setCalculating(() => false);
+        setCalculating((prevState) => prevState && !prevState);
       }, 1e3);
     }
     return () => {
@@ -68,7 +69,7 @@ function TaskPage({ id, data, requestEvent }: { id: string; data: InitialStateTy
     if (calculating) return <b>Calculating...</b>;
     if (event && !dateToEnd)
       return (
-        <span style={style}>
+        <span className="too-late" style={style}>
           <b>Too late</b>
         </span>
       );
@@ -128,7 +129,7 @@ function TaskPage({ id, data, requestEvent }: { id: string; data: InitialStateTy
         <Col sm={{ span: 24 }} md={{ span: 22 }} lg={{ span: 20 }} xl={{ span: 18 }}>
           <header className="task-page__header">
             <h2>
-              {name} {renderTags(type, id)}
+              {name} <ScheduleTags typeTask={type} key={id} />
             </h2>
             {placeTSX}
             {cardTitle()}
@@ -146,7 +147,7 @@ function TaskPage({ id, data, requestEvent }: { id: string; data: InitialStateTy
     );
   };
 
-  const content = currentTask ? getContent(currentTask) : <h6>Loading...</h6>;
+  const content = currentTask ? getContent(currentTask) : <Spinner />;
   return <>{content}</>;
 }
 

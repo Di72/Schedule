@@ -1,6 +1,17 @@
-.headerContainer {
+.header-container {
   display: flex;
   flex-direction: column;
+  border-bottom: 1px solid lightgray;
+  margin-bottom: 24px;
+
+  .toggle-user {
+    width: 100px;
+    min-width: max-content;
+
+    &:last-child {
+      margin-right: 24px;
+    }
+  }
 }
 
 .ant-select-item {

@@ -1,31 +1,30 @@
-import { Button, Checkbox, Select, Spin, Table, Tag } from 'antd';
+import { Button, Checkbox, Select, Spin, Table } from 'antd';
 import Column from 'antd/lib/table/Column';
 import moment from 'moment-timezone';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { CSSProperties } from 'styled-components';
-import { EventsType, IFieldOfEventsType } from '../../types/types';
+import { EventsType, IFieldOfEventsType, InitialStateType } from '../../types/types';
+import { ScheduleTags } from '../Tags/Tags';
 import './ScheduleTable.less';
 
 const { Option } = Select;
 
-export const ScheduleTable = (props: any) => {
-  const { events, timeZone } = props.data;
-  const [currentEvents, setCurrentEvents] = useState(
-    events as Array<EventsType>
-  );
-  const [checkboxColumns, setCheckboxColumns] = useState([
-    'Date',
-    'Deadline',
-    'Type',
-    'Description',
-    'Place',
-  ]);
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export const ScheduleTable = (props: any): JSX.Element => {
+  const { data } = props;
+  const { events, timeZone } = data as InitialStateType;
+  const [currentEvents, setCurrentEvents] = useState(events as Array<EventsType>);
+  const [checkboxColumns, setCheckboxColumns] = useState(['Date', 'Deadline', 'Type', 'Description', 'Place']);
 
-  const disableEditEvent = (index: any) => {
+  useEffect(() => {
+    setCurrentEvents(events);
+  }, [events]);
+
+  const disableEditEvent = (index: number) => {
     props.putEvent(currentEvents[index], currentEvents[index].id);
-    props.requestEvents();
   };
-  const deleteEvent = (value: any, index: any) => {
+
+  const deleteEvent = (value: string, index: number) => {
     const newState = currentEvents.filter((item: any) => item.id !== value);
     setCurrentEvents(newState);
     props.deleteEvent(currentEvents[index].id);
@@ -33,13 +32,7 @@ export const ScheduleTable = (props: any) => {
   };
 
   const plainOptions = ['Date', 'Deadline', 'Type', 'Description', 'Place'];
-  const defaultCheckedList = [
-    'Date',
-    'Deadline',
-    'Type',
-    'Description',
-    'Place',
-  ];
+  const defaultCheckedList = ['Date', 'Deadline', 'Type', 'Description', 'Place'];
 
   const taskType = ['js task', 'basic task', 'html/css task', 'git task'];
   const optionsTaskType = taskType.map((type: string) => {
@@ -59,7 +52,7 @@ export const ScheduleTable = (props: any) => {
     );
   });
 
-  const renderPlace = (value: any, index: any) => {
+  const renderPlace = (value: string, index: number) => {
     return (
       <>
         {!props.data.editStatus ? (
@@ -71,15 +64,11 @@ export const ScheduleTable = (props: any) => {
             type="text"
             disabled={!props.data.editStatus}
             value={value}
-            onBlur={() => disableEditEvent(index)}
+            // onBlur={() => disableEditEvent(index)}
             onKeyPress={(k) => onKeyPress(k, index)}
           />
         ) : (
-          <Select
-            className="selectStyle"
-            defaultValue={value}
-            onChange={(e) => onDataChangePlace(index, e)}
-          >
+          <Select className="selectStyle" defaultValue={value} onChange={(e) => onDataChangeSelect(index, e, 'place')}>
             {optionsPlaceType}
           </Select>
         )}
@@ -87,41 +76,13 @@ export const ScheduleTable = (props: any) => {
     );
   };
 
-  const renderTags = (value: any, index: any) => {
-    let color = '';
-    switch (value) {
-      case 'deadline':
-        color = '#d4380d';
-        break;
-      case 'basic task':
-        color = '#52c41a';
-        break;
-      case 'html/css task':
-        color = '#13c2c2';
-        break;
-      case 'js task':
-        color = '#1890ff';
-        break;
-      case 'git task':
-        color = '#722ed1';
-        break;
-      default:
-        color = 'uuuu';
-        break;
-    }
-
+  const renderTags = (value: string, index: number) => {
     return (
       <>
         {!props.data.editStatus ? (
-          <Tag color={color} key={index}>
-            {value}
-          </Tag>
+          <ScheduleTags typeTask={value} key={String(index)} />
         ) : (
-          <Select
-            className="selectStyle"
-            defaultValue={value}
-            onChange={(e) => onDataChangeType(index, e)}
-          >
+          <Select className="selectStyle" defaultValue={value} onChange={(e) => onDataChangeSelect(index, e, 'type')}>
             {optionsTaskType}
           </Select>
         )}
@@ -129,34 +90,27 @@ export const ScheduleTable = (props: any) => {
     );
   };
 
-  const onDataChangeHandler = (e: any) => {
-    const {
-      index,
-      key,
-    }: { index: number; key: IFieldOfEventsType } = e.currentTarget.dataset;
+  const onDataChangeHandler = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    const { index, key } = e.currentTarget.dataset as any;
     const oldState = [...currentEvents];
     const newEvent = { ...currentEvents[index] };
-    const propertyName: IFieldOfEventsType = key;
+    const propertyName = key as IFieldOfEventsType;
     newEvent[propertyName] = e.currentTarget.value;
     const newState = [...oldState];
     newState[index] = newEvent;
     setCurrentEvents(newState);
   };
 
-  const onDataChangeType = (index: number, e: any) => {
-    setCurrentEvents([...currentEvents, (currentEvents[index].type = e)]);
-    disableEditEvent(index);
+  const onDataChangeSelect = (index: number, e: any, field: 'type' | 'place') => {
+    const changedEvent = { ...currentEvents[index] };
+    changedEvent[field] = e;
+    const newState = [...currentEvents];
+    newState[index] = changedEvent;
+    setCurrentEvents(() => newState);
+    props.putEvent(changedEvent);
   };
 
-  const onDataChangePlace = (index: number, e: any) => {
-    setCurrentEvents([...currentEvents, (currentEvents[index].place = e)]);
-    disableEditEvent(index);
-  };
-
-  const onKeyPress = (
-    k: React.KeyboardEvent<HTMLInputElement>,
-    index: any
-  ): void => {
+  const onKeyPress = (k: React.KeyboardEvent<HTMLInputElement>, index: any): void => {
     if (k.key === 'Enter') {
       const currentEl = k.target as HTMLElement;
       disableEditEvent(index);
@@ -166,9 +120,7 @@ export const ScheduleTable = (props: any) => {
 
   const inputCSS: CSSProperties = {
     border: 'none',
-    boxShadow: `${
-      !props.data.editStatus ? 'none' : '0px 0px 3px 3px lightblue'
-    }`,
+    boxShadow: `${!data.editStatus ? 'none' : '0px 0px 3px 3px lightblue'}`,
     padding: 0,
     backgroundColor: 'transparent',
     width: '100%',
@@ -181,11 +133,7 @@ export const ScheduleTable = (props: any) => {
 
   const content = currentEvents ? (
     <>
-      <Checkbox.Group
-        options={plainOptions}
-        defaultValue={defaultCheckedList}
-        onChange={changeColumns}
-      />
+      <Checkbox.Group options={plainOptions} defaultValue={defaultCheckedList} onChange={changeColumns} />
       <Table dataSource={currentEvents} rowKey={(item) => item.id}>
         {checkboxColumns.find((item) => item === 'Date') && (
           <Column
@@ -279,12 +227,8 @@ export const ScheduleTable = (props: any) => {
             ]}
             key="type"
             filterMultiple={false}
-            onFilter={(value: any, record: any) =>
-              !props.data.editStatus && record.type.indexOf(value) === 0
-            }
-            render={(value: any, record: any, index: any) =>
-              renderTags(value, index)
-            }
+            onFilter={(value: any, record: any) => !props.data.editStatus && record.type.indexOf(value) === 0}
+            render={(value: any, record: any, index: any) => renderTags(value, index)}
           />
         )}
         {checkboxColumns.find((item) => item === 'Description') && (
@@ -312,22 +256,16 @@ export const ScheduleTable = (props: any) => {
             title="Place"
             dataIndex="place"
             key="place"
-            render={(value: any, record: any, index: any) =>
-              renderPlace(value, index)
-            }
+            render={(value: any, record: any, index: any) => renderPlace(value, index)}
           />
         )}
-        {props.data.editStatus && (
+        {data.editStatus && (
           <Column
             title="Delete Event"
             dataIndex="id"
             key="id"
             render={(value: any, record: any, index: any) => (
-              <Button
-                type="primary"
-                danger
-                onClick={() => deleteEvent(value, index)}
-              >
+              <Button type="primary" danger onClick={() => deleteEvent(value, index)}>
                 Delete
               </Button>
             )}

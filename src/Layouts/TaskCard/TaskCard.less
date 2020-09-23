@@ -1,4 +1,12 @@
+@import '../../assets/less/animations.less';
+
+.schedule-list__card {
+  margin-bottom: 24px;
+}
+
 .schedule-list__card.ant-card {
+  animation: showElement 1s forwards;
+
   p {
     margin-bottom: 0;
   }
@@ -10,10 +18,12 @@
   }
 
   .ant-card {
+
     &-head,
     &-body,
     &-footer {
-      padding: 12px;
+      padding: 6px;
+      min-height: auto;
     }
 
     &-head {
@@ -21,5 +31,26 @@
         padding: 0;
       }
     }
+
+    &-body {
+      display: flex;
+      flex-wrap: wrap;
+
+      p:not(:last-child) {
+        margin-right: 24px;
+      }
+    }
   }
+
+  .show-time {
+    animation: showElement 1s forwards;
+  }
+
+  .too-late {
+    animation: showTooLate 1s forwards;
+  }
+
+  .showElement(showElement, lightskyblue);
+
+  .showElement(showTooLate, red);
 }

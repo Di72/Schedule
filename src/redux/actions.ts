@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { EventsType, OrganizersType } from '../types/types';
 
 export const actions = {

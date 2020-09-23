@@ -2,24 +2,31 @@ import { Card } from 'antd';
 import moment from 'moment-timezone';
 import React, { CSSProperties, useEffect, useState } from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
-import { EventsType, ITime } from 'src/types/types';
-import { renderTags } from '../Tags/Tags';
+import { ITaskCardProps, ITime } from 'src/types/types';
+import { ScheduleTags } from '../Tags/Tags';
 import { timer } from '../timer/timer';
 import './TaskCard.less';
 
-export const TaskCard = ({
-  event,
-  currentTimeZone,
-}: {
-  event: EventsType;
-  currentTimeZone: string;
-}) => {
+export const TaskCard = ({ event, currentTimeZone }: ITaskCardProps): JSX.Element => {
   const { dateTime, id, name, place, type, deadline } = event;
   const [timeLeft, setTimeLeft] = useState(null as null | ITime);
   const [startsIn, setStartsIn] = useState(null as null | ITime);
+  const [calculating, setCalculating] = useState(true);
 
   useEffect(() => {
-    timer(currentTimeZone, dateTime, deadline, { setStartsIn, setTimeLeft });
+    let timerResult: { (): void };
+
+    if (event) {
+      timerResult = timer(currentTimeZone, dateTime, deadline, { setStartsIn, setTimeLeft });
+      setTimeout(() => {
+        setCalculating((prevState) => prevState && false);
+      }, 1e3);
+    }
+    return () => {
+      if (event) {
+        timerResult();
+      }
+    };
   }, [event, currentTimeZone, deadline, dateTime]);
 
   const cardTitle = () => {
@@ -34,18 +41,19 @@ export const TaskCard = ({
       dateToEnd = startsIn;
       title = 'Starts in';
     }
-    const days =
-      dateToEnd && dateToEnd.days ? `${dateToEnd.days} days, ` : null;
+    const days = dateToEnd && dateToEnd.days ? `${dateToEnd.days} days, ` : null;
+
+    if (calculating) return <b>Calculating...</b>;
     if (!dateToEnd)
       return (
-        <span style={style}>
+        <span className="too-late" style={style}>
           <b>Too late</b>
         </span>
       );
 
     return (
       dateToEnd && (
-        <span style={style}>
+        <span className="show-time" style={style}>
           <b>{title}:</b> {days}
           {dateToEnd.hours}:{`00${dateToEnd.minutes}`.slice(-2)}
         </span>
@@ -54,7 +62,7 @@ export const TaskCard = ({
   };
 
   const time = cardTitle();
-  const typeTSX = type && renderTags(type, id);
+  const typeTSX = type && <ScheduleTags typeTask={type} key={id} />;
   const match = useRouteMatch();
 
   const title = (
@@ -104,12 +112,7 @@ export const TaskCard = ({
     );
 
   return (
-    <Card
-      className="schedule-list__card"
-      key={id}
-      title={title}
-      style={{ marginBottom: '16px' }}
-    >
+    <Card className="schedule-list__card" key={id} title={title}>
       {placeTSX}
       {dateTimeTSX}
       {deadlineTSX}

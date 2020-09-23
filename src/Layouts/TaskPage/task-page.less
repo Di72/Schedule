@@ -1,3 +1,5 @@
+@import '../../assets/less/animations.less';
+
 .task-page {
   padding-top: 96px;
 
@@ -45,21 +47,13 @@
   }
 
   .show-time {
-    animation: showTime 1s forwards;
+    animation: showElement 1s forwards;
   }
 
-  @keyframes showTime {
-    0% {
-      opacity: 0;
-      background-color: lightskyblue;
-    }
-
-    25% {
-      opacity: 1;
-    }
-
-    100% {
-      background-color: transparent;
-    }
+  .too-late {
+    animation: showTooLate 1s forwards;
   }
+
+  .showElement(showElement, lightskyblue);
+  .showElement(showTooLate, red);
 }
