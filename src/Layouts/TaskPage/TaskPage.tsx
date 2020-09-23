@@ -37,7 +37,7 @@ function TaskPage({ id, data, requestEvent }: { id: string; data: InitialStateTy
       const { dateTime, deadline } = event;
       timerResult = timer(timeZone, dateTime, deadline, { setTimeLeft, setStartsIn });
       setTimeout(() => {
-        setCalculating((prevState) => prevState && false);
+        setCalculating((prevState) => prevState && !prevState);
       }, 1e3);
     }
     return () => {
@@ -69,7 +69,7 @@ function TaskPage({ id, data, requestEvent }: { id: string; data: InitialStateTy
     if (calculating) return <b>Calculating...</b>;
     if (event && !dateToEnd)
       return (
-        <span style={style}>
+        <span className="too-late" style={style}>
           <b>Too late</b>
         </span>
       );

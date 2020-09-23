@@ -6,7 +6,6 @@ import { actions } from '../../redux/actions';
 import * as requests from '../../redux/requests';
 import { isNewTaskPostedSelector, setEventsAndOrganizerSelector } from '../../redux/selectors';
 import { AppStateType } from '../../redux/store';
-import BackButton from '../BackButton/BackButton';
 import CalendarContainer from '../Calendar/CalendarContainer';
 import { Header } from '../Header/Header';
 import { ScheduleList } from '../List';

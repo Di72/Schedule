@@ -14,12 +14,19 @@ export const TaskCard = ({ event, currentTimeZone }: ITaskCardProps): JSX.Elemen
   const [calculating, setCalculating] = useState(true);
 
   useEffect(() => {
+    let timerResult: { (): void };
+
     if (event) {
-      timer(currentTimeZone, dateTime, deadline, { setStartsIn, setTimeLeft });
+      timerResult = timer(currentTimeZone, dateTime, deadline, { setStartsIn, setTimeLeft });
       setTimeout(() => {
         setCalculating((prevState) => prevState && false);
       }, 1e3);
     }
+    return () => {
+      if (event) {
+        timerResult();
+      }
+    };
   }, [event, currentTimeZone, deadline, dateTime]);
 
   const cardTitle = () => {

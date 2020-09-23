@@ -22,7 +22,6 @@ export const ScheduleTable = (props: any): JSX.Element => {
 
   const disableEditEvent = (index: number) => {
     props.putEvent(currentEvents[index], currentEvents[index].id);
-    props.requestEvents();
   };
 
   const deleteEvent = (value: string, index: number) => {
