@@ -2,6 +2,7 @@ import { Button, Checkbox, Select, Spin, Table } from 'antd';
 import Column from 'antd/lib/table/Column';
 import moment from 'moment-timezone';
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { CSSProperties } from 'styled-components';
 import { EventsType, IFieldOfEventsType, InitialStateType } from '../../types/types';
 import { ScheduleTags } from '../Tags/Tags';
@@ -131,10 +132,23 @@ export const ScheduleTable = (props: any): JSX.Element => {
     setCheckboxColumns(e);
   };
 
+  const history = useHistory();
+  const clickRow = (record: any, rowIndex: any) => {
+    history.push(`/list/${record.id}`);
+  };
+
   const content = currentEvents ? (
     <>
       <Checkbox.Group options={plainOptions} defaultValue={defaultCheckedList} onChange={changeColumns} />
-      <Table dataSource={currentEvents} rowKey={(item) => item.id}>
+      <Table
+        dataSource={currentEvents}
+        rowKey={(item) => item.id}
+        onRow={(record: any, rowIndex: any) => {
+          return {
+            onClick: () => clickRow(record, rowIndex),
+          };
+        }}
+      >
         {checkboxColumns.find((item) => item === 'Date') && (
           <Column
             title="Date"
