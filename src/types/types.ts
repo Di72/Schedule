@@ -10,6 +10,7 @@ export interface EventsType {
   dateTime: string;
   deadline: string;
   id: string;
+  InputName?: string;
 }
 
 export interface OrganizersType {

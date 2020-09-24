@@ -53,6 +53,10 @@ function TaskPage({ id, data, requestEvent }: { id: string; data: InitialStateTy
     setCurrentTask(null);
   }, [id]);
 
+  useEffect(() => {
+    console.log('TaskPage -> currentTask', currentTask);
+  }, [currentTask]);
+
   const cardTitle = () => {
     const style: CSSProperties = { fontWeight: 'normal' };
     let title = '';
@@ -113,22 +117,17 @@ function TaskPage({ id, data, requestEvent }: { id: string; data: InitialStateTy
       // props.putEvent(currentEvents[index], currentEvents[index].id);
     };
     const onDataChangeHandler = (e: React.ChangeEvent<HTMLInputElement>): void => {
-      console.log(e, currentTask)
-      // const { index, key } = e.currentTarget.dataset as any;
-      // const oldState = [...currentTask];
-      // const newEvent = { ...currentEvents[index] };
-      // const propertyName = key as IFieldOfEventsType;
-      // newEvent[propertyName] = e.currentTarget.value;
-      // const newState = [...oldState];
-      // newState[index] = newEvent;
-      // setCurrentTask(newState);
+      if (currentTask) {
+        const oldState = { ...currentTask };
+        oldState.InputName = e.currentTarget.value;
+        setCurrentTask(oldState);
+      }
     };
     const onKeyPress = (k: React.KeyboardEvent<HTMLInputElement>): void => {
-      // if (k.key === 'Enter') {
-      //   const currentEl = k.target as HTMLElement;
-      //   disableEditEvent(index);
-      //   currentEl.blur();
-      // }
+      if (k.key === 'Enter') {
+        const currentEl = k.target as HTMLElement;
+        currentEl.blur();
+      }
     };
 
     const descriptionTSX = description && (
@@ -154,8 +153,8 @@ function TaskPage({ id, data, requestEvent }: { id: string; data: InitialStateTy
           style={inputCSS}
           type="text"
           disabled={!data.editStatus}
-          onBlur={() => disableEditEvent()}
-          onKeyPress={(k) => onKeyPress(k)}
+          onBlur={disableEditEvent}
+          onKeyPress={onKeyPress}
         />
         :
         <input
@@ -163,8 +162,8 @@ function TaskPage({ id, data, requestEvent }: { id: string; data: InitialStateTy
           style={inputCSS}
           type="text"
           disabled={!data.editStatus}
-          onBlur={() => disableEditEvent()}
-          onKeyPress={(k) => onKeyPress(k)}
+          onBlur={disableEditEvent}
+          onKeyPress={onKeyPress}
         />
       </div>
     );
@@ -194,6 +193,7 @@ function TaskPage({ id, data, requestEvent }: { id: string; data: InitialStateTy
           {descriptionTSX}
           {commentTSX}
           {otherTSX}
+          <p style={{ whiteSpace: 'pre-wrap' }}>{JSON.stringify(currentTask, null, 4)}</p>
         </Col>
       </Row>
     );
