@@ -101,6 +101,35 @@ function TaskPage({ id, data, requestEvent }: { id: string; data: InitialStateTy
           .format('YYYY-MM-DD HH:mm')}
       </h4>
     );
+    const inputCSS: CSSProperties = {
+      border: 'none',
+      boxShadow: `${!data.editStatus ? 'none' : '0px 0px 3px 3px lightblue'}`,
+      padding: 0,
+      backgroundColor: 'transparent',
+      width: '100%',
+      boxSizing: 'border-box',
+    };
+    const disableEditEvent = () => {
+      // props.putEvent(currentEvents[index], currentEvents[index].id);
+    };
+    const onDataChangeHandler = (e: React.ChangeEvent<HTMLInputElement>): void => {
+      console.log(e, currentTask)
+      // const { index, key } = e.currentTarget.dataset as any;
+      // const oldState = [...currentTask];
+      // const newEvent = { ...currentEvents[index] };
+      // const propertyName = key as IFieldOfEventsType;
+      // newEvent[propertyName] = e.currentTarget.value;
+      // const newState = [...oldState];
+      // newState[index] = newEvent;
+      // setCurrentTask(newState);
+    };
+    const onKeyPress = (k: React.KeyboardEvent<HTMLInputElement>): void => {
+      // if (k.key === 'Enter') {
+      //   const currentEl = k.target as HTMLElement;
+      //   disableEditEvent(index);
+      //   currentEl.blur();
+      // }
+    };
 
     const descriptionTSX = description && (
       <div className="task-page__description">
@@ -115,6 +144,28 @@ function TaskPage({ id, data, requestEvent }: { id: string; data: InitialStateTy
       <div className="task-page__comment">
         <h4>Comment:</h4>
         <p>{comment}</p>
+      </div>
+    );
+
+    const otherTSX = comment && (
+      <div className="task-page__comment">
+        <input
+          onChange={onDataChangeHandler}
+          style={inputCSS}
+          type="text"
+          disabled={!data.editStatus}
+          onBlur={() => disableEditEvent()}
+          onKeyPress={(k) => onKeyPress(k)}
+        />
+        :
+        <input
+          onChange={onDataChangeHandler}
+          style={inputCSS}
+          type="text"
+          disabled={!data.editStatus}
+          onBlur={() => disableEditEvent()}
+          onKeyPress={(k) => onKeyPress(k)}
+        />
       </div>
     );
 
@@ -142,6 +193,7 @@ function TaskPage({ id, data, requestEvent }: { id: string; data: InitialStateTy
 
           {descriptionTSX}
           {commentTSX}
+          {otherTSX}
         </Col>
       </Row>
     );

@@ -133,8 +133,8 @@ export const ScheduleTable = (props: any): JSX.Element => {
   };
 
   const history = useHistory();
-  const clickRow = (record: any, rowIndex: any) => {
-    history.push(`/list/${record.id}`);
+  const clickRow = (record: any) => {
+    !props.data.editStatus && history.push(`/list/${record.id}`);
   };
 
   const content = currentEvents ? (
@@ -143,9 +143,9 @@ export const ScheduleTable = (props: any): JSX.Element => {
       <Table
         dataSource={currentEvents}
         rowKey={(item) => item.id}
-        onRow={(record: any, rowIndex: any) => {
+        onRow={(record: any) => {
           return {
-            onClick: () => clickRow(record, rowIndex),
+            onClick: () => clickRow(record),
           };
         }}
       >
