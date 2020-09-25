@@ -23,7 +23,7 @@ export const getEvent = (id: string): ThunkType => async (dispatch) => {
   dispatch(actions.setEvent(response));
 };
 
-export const putEvent = (data: EventsType): ThunkType => async () => {
+export const putEvent = (data: EventsType, id: string): ThunkType => async () => {
   await httpRequests.putEvent(data, data.id);
   getEvents();
 };

@@ -11,6 +11,9 @@ export interface EventsType {
   deadline: string;
   id: string;
   InputName?: string;
+  InputContent?: string;
+  InputImg?: string;
+  InputVideo?: string;
 }
 
 export interface OrganizersType {

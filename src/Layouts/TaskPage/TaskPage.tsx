@@ -1,6 +1,7 @@
 import { Col, Row } from 'antd';
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
+import ReactPlayer from 'react-player';
 import { connect } from 'react-redux';
 import { getEvent } from 'src/redux/requests';
 import { AppStateType } from 'src/redux/store';
@@ -10,8 +11,9 @@ import { setEventsAndOrganizerSelector } from '../../redux/selectors';
 import Spinner from '../Spinner/Spinner';
 import { ScheduleTags } from '../Tags/Tags';
 import { timer } from '../timer/timer';
+import { putEvent } from '../../redux/requests';
 
-function TaskPage({ id, data, requestEvent }: { id: string; data: InitialStateType; requestEvent: any }) {
+function TaskPage({ id, data, requestEvent, putEvent }: { id: string; data: InitialStateType; requestEvent: any, putEvent: any }) {
   const { event, timeZone } = data;
   const [currentTask, setCurrentTask] = useState(event as null | EventsType);
   const [timeLeft, setTimeLeft] = useState(null as null | ITime);
@@ -52,10 +54,6 @@ function TaskPage({ id, data, requestEvent }: { id: string; data: InitialStateTy
   useEffect(() => {
     setCurrentTask(null);
   }, [id]);
-
-  useEffect(() => {
-    console.log('TaskPage -> currentTask', currentTask);
-  }, [currentTask]);
 
   const cardTitle = () => {
     const style: CSSProperties = { fontWeight: 'normal' };
@@ -114,18 +112,40 @@ function TaskPage({ id, data, requestEvent }: { id: string; data: InitialStateTy
       boxSizing: 'border-box',
     };
     const disableEditEvent = () => {
-      // props.putEvent(currentEvents[index], currentEvents[index].id);
+      currentTask && putEvent(currentTask, currentTask.id);
     };
-    const onDataChangeHandler = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    const onDataNameChangeHandler = (e: React.ChangeEvent<HTMLInputElement>): void => {
       if (currentTask) {
         const oldState = { ...currentTask };
         oldState.InputName = e.currentTarget.value;
         setCurrentTask(oldState);
       }
     };
+    const onDataContentChangeHandler = (e: React.ChangeEvent<HTMLInputElement>): void => {
+      if (currentTask) {
+        const oldState = { ...currentTask };
+        oldState.InputContent = e.currentTarget.value;
+        setCurrentTask(oldState);
+      }
+    };
+    const onDataImgChangeHandler = (e: React.ChangeEvent<HTMLInputElement>): void => {
+      if (currentTask) {
+        const oldState = { ...currentTask };
+        oldState.InputImg = e.currentTarget.value;
+        setCurrentTask(oldState);
+      }
+    };
+    const onDataVideoChangeHandler = (e: React.ChangeEvent<HTMLInputElement>): void => {
+      if (currentTask) {
+        const oldState = { ...currentTask };
+        oldState.InputVideo = e.currentTarget.value;
+        setCurrentTask(oldState);
+      }
+    };
     const onKeyPress = (k: React.KeyboardEvent<HTMLInputElement>): void => {
       if (k.key === 'Enter') {
         const currentEl = k.target as HTMLElement;
+        disableEditEvent();
         currentEl.blur();
       }
     };
@@ -146,35 +166,13 @@ function TaskPage({ id, data, requestEvent }: { id: string; data: InitialStateTy
       </div>
     );
 
-    const otherTSX = comment && (
-      <div className="task-page__comment">
-        <input
-          onChange={onDataChangeHandler}
-          style={inputCSS}
-          type="text"
-          disabled={!data.editStatus}
-          onBlur={disableEditEvent}
-          onKeyPress={onKeyPress}
-        />
-        :
-        <input
-          onChange={onDataChangeHandler}
-          style={inputCSS}
-          type="text"
-          disabled={!data.editStatus}
-          onBlur={disableEditEvent}
-          onKeyPress={onKeyPress}
-        />
-      </div>
-    );
-
     const placeTSX = place && (
       <span className="task-page__place">
         <b>Place:</b> {place}
       </span>
     );
 
-    return (
+    return currentTask ? (
       <Row className="task-page" justify="center">
         <Col sm={{ span: 24 }} md={{ span: 22 }} lg={{ span: 20 }} xl={{ span: 18 }}>
           <header className="task-page__header">
@@ -192,10 +190,72 @@ function TaskPage({ id, data, requestEvent }: { id: string; data: InitialStateTy
 
           {descriptionTSX}
           {commentTSX}
-          {otherTSX}
-          <p style={{ whiteSpace: 'pre-wrap' }}>{JSON.stringify(currentTask, null, 4)}</p>
+          {!data.editStatus ? (
+            <div>
+              {currentTask?.InputVideo && <ReactPlayer url={currentTask.InputVideo} />}
+            </div>
+          ) : (
+            <div className="task-page__comment">
+              <h3>Адрес видео:</h3>
+              <input
+                onChange={onDataVideoChangeHandler}
+                style={inputCSS}
+                type="text"
+                value={currentTask.InputVideo}
+                onBlur={disableEditEvent}
+                onKeyPress={onKeyPress}
+              />
+            </div>
+          )}
+          {!data.editStatus ? (
+            <div>
+              {currentTask?.InputImg && <img src={currentTask.InputImg} alt=''/>}
+            </div>
+          ) : (
+            <div className="task-page__comment">
+              <h3>Адрес картинки:</h3>
+              <input
+                onChange={onDataImgChangeHandler}
+                style={inputCSS}
+                type="text"
+                value={currentTask.InputImg}
+                onBlur={disableEditEvent}
+                onKeyPress={onKeyPress}
+              />
+            </div>
+          )}
+          {!data.editStatus ? (
+            <div>
+              {currentTask?.InputName && <h1>{currentTask?.InputName}:</h1>}
+              <br />
+              {currentTask?.InputContent && <span>{currentTask?.InputContent}</span>}
+            </div>
+          ) : (
+            <div className="task-page__comment">
+              <h3>Имя поля:</h3>
+              <input
+                onChange={onDataNameChangeHandler}
+                style={inputCSS}
+                type="text"
+                value={currentTask.InputName}
+                onBlur={disableEditEvent}
+                onKeyPress={onKeyPress}
+              />
+              <h3>Содержимое поля:</h3>
+              <input
+                onChange={onDataContentChangeHandler}
+                style={inputCSS}
+                value={currentTask.InputContent}
+                type="text"
+                onBlur={disableEditEvent}
+                onKeyPress={onKeyPress}
+              />
+            </div>
+          )}
         </Col>
       </Row>
+    ) : (
+      <Spinner />
     );
   };
 
@@ -207,6 +267,6 @@ const mapStateToProps = (state: AppStateType) => ({
   data: setEventsAndOrganizerSelector(state),
 });
 
-const mapDispatchToProps = { requestEvent: getEvent };
+const mapDispatchToProps = { requestEvent: getEvent, putEvent };
 
 export default connect(mapStateToProps, mapDispatchToProps)(TaskPage);
