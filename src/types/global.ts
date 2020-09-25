@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-types */
 import { CombinedState, compose, Store } from 'redux';
 import { InitialStateType } from './types';
 
@@ -13,5 +14,6 @@ declare global {
     > & {
       dispatch: unknown;
     };
+    initYmaps?: any;
   }
 }

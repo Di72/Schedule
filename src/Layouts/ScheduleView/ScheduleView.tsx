@@ -9,6 +9,7 @@ import { AppStateType } from '../../redux/store';
 import CalendarContainer from '../Calendar/CalendarContainer';
 import { Header } from '../Header/Header';
 import { ScheduleList } from '../List';
+import Map from '../Map';
 import Spinner from '../Spinner/Spinner';
 import { ScheduleTable } from '../Table/ScheduleTable';
 import TaskPage from '../TaskPage';
@@ -46,6 +47,8 @@ const ScheduleView = (props: any) => {
               return <TaskPage id={id} />;
             }}
           />
+
+          <Route path="/map" render={() => <Map />} />
         </Switch>
       </Layout>
     </Router>
