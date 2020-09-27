@@ -69,7 +69,6 @@ export const ScheduleTable = (props: any): JSX.Element => {
             type="text"
             disabled={!props.data.editStatus}
             value={value}
-            // onBlur={() => disableEditEvent(index)}
             onKeyPress={(k) => onKeyPress(k, index)}
           />
         ) : (
@@ -94,6 +93,16 @@ export const ScheduleTable = (props: any): JSX.Element => {
       </>
     );
   };
+
+  const changeDataPickerHandler = (e:Moment, index:any, key:String) => {
+    const oldState = [...currentEvents];
+    const newEvent = { ...currentEvents[index] };
+    const propertyName = key as IFieldOfEventsType;
+    newEvent[propertyName] = String(e.toDate().getTime());
+    const newState = [...oldState];
+    newState[index] = newEvent;
+    setCurrentEvents(newState);
+  }
 
   const onDataChangeHandler = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const { index, key } = e.currentTarget.dataset as any;
@@ -158,26 +167,14 @@ export const ScheduleTable = (props: any): JSX.Element => {
             title="Date"
             dataIndex="dateTime"
             key="dateTime"
-            render={(value: any, record: any, index: any) => (
-              // <input
-              //   onChange={onDataChangeHandler}
-              //   style={inputCSS}
-              //   data-key="dateTime"
-              //   data-index={index}
-              //   type="text"
-              //   disabled={!props.data.editStatus}
-              //   value={moment(+value)
-              //     .tz(timeZone)
-              //     .format('YYYY-MM-DD HH:mm')}
-              //   onBlur={() => disableEditEvent(index)}
-              //   onKeyPress={(k) => onKeyPress(k, index)}
-              // />
+            render={(value: any, key: any, index: any) => (
               <DatePicker
-                onChange={(e:any) => {console.log(e)}}
+                onChange={(e:any) => {
+                  changeDataPickerHandler(e, index, key)
+                }}
                 style={inputCSS}
                 data-key="dateTime"
                 data-index={index}
-                // type="text"
                 disabled={!props.data.editStatus}
                 showTime={{ defaultValue: moment('23:59:59', 'HH:mm:ss') }}
                 defaultValue={moment(+value).tz(timeZone)}
@@ -191,27 +188,15 @@ export const ScheduleTable = (props: any): JSX.Element => {
             title="Deadline"
             dataIndex="deadline"
             key="deadline"
-            render={(value: any, record: any, index: any) =>
+            render={(value: any, key: any, index: any) =>
               value && (
-                // <input
-                //   onChange={onDataChangeHandler}
-                //   style={inputCSS}
-                //   data-key="timeZone"
-                //   data-index={index}
-                //   type="text"
-                //   disabled={!props.data.editStatus}
-                //   value={moment(+value)
-                //     .tz(timeZone)
-                //     .format('YYYY-MM-DD HH:mm')}
-                //   onBlur={() => disableEditEvent(index)}
-                //   onKeyPress={(k) => onKeyPress(k, index)}
-                // />
                 <DatePicker
-                onChange={(e:any) => {console.log(e)}}
+                onChange={(e:any) => {
+                  changeDataPickerHandler(e, index, key)
+                }}
                 style={inputCSS}
-                data-key="dateTime"
+                data-key="deadline"
                 data-index={index}
-                // type="text"
                 disabled={!props.data.editStatus}
                 showTime={{ defaultValue: moment('23:59:59', 'HH:mm:ss') }}
                 defaultValue={moment(+value).tz(timeZone)}
