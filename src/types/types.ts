@@ -11,11 +11,29 @@ export interface EventsType {
   deadline: string;
   id: string;
   feedback?: boolean;
-  InputName?: string;
-  InputContent?: string;
   InputImg?: string;
   InputVideo?: string;
-  InputFeedback?: Array<string>;
+  InputFeedbackEvent?: Array<string>;
+  InputName1?: string;
+  InputContent1?: string;
+  InputName2?: string;
+  InputContent2?: string;
+  InputName3?: string;
+  InputContent3?: string;
+  InputName4?: string;
+  InputContent4?: string;
+  InputName5?: string;
+  InputContent5?: string;
+  InputName6?: string;
+  InputContent6?: string;
+  InputName7?: string;
+  InputContent7?: string;
+  InputName8?: string;
+  InputContent8?: string;
+  InputName9?: string;
+  InputContent9?: string;
+  InputName10?: string;
+  InputContent10?: string;
 }
 
 export interface OrganizersType {

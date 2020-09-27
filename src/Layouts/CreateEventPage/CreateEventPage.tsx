@@ -50,6 +50,7 @@ const CreateEventPage = (props: any) => {
         dateTime: startDate,
         deadline: deadlineDate,
         feedback: true,
+        InputFeedbackEvent: [],
       });
     }
     form.resetFields();
