@@ -13,7 +13,17 @@ import { ScheduleTags } from '../Tags/Tags';
 import { timer } from '../timer/timer';
 import { putEvent } from '../../redux/requests';
 
-function TaskPage({ id, data, requestEvent, putEvent }: { id: string; data: InitialStateType; requestEvent: any, putEvent: any }) {
+function TaskPage({
+  id,
+  data,
+  requestEvent,
+  putEvent,
+}: {
+  id: string;
+  data: InitialStateType;
+  requestEvent: any;
+  putEvent: any;
+}) {
   const { event, timeZone } = data;
   const [currentTask, setCurrentTask] = useState(event as null | EventsType);
   const [timeLeft, setTimeLeft] = useState(null as null | ITime);
@@ -142,6 +152,13 @@ function TaskPage({ id, data, requestEvent, putEvent }: { id: string; data: Init
         setCurrentTask(oldState);
       }
     };
+    const onDataFeedbackChangeHandler = (e: React.ChangeEvent<HTMLInputElement>): void => {
+      if (currentTask) {
+        const oldState = { ...currentTask };
+        oldState.InputFeedback = [...oldState.InputFeedback, e.currentTarget.value];
+        setCurrentTask(oldState);
+      }
+    };
     const onKeyPress = (k: React.KeyboardEvent<HTMLInputElement>): void => {
       if (k.key === 'Enter') {
         const currentEl = k.target as HTMLElement;
@@ -192,8 +209,19 @@ function TaskPage({ id, data, requestEvent, putEvent }: { id: string; data: Init
           {commentTSX}
           {!data.editStatus ? (
             <div>
-              {currentTask?.InputVideo && <ReactPlayer url={currentTask.InputVideo} />}
+              {currentTask?.feedback && (
+                <input
+                  onChange={onDataFeedbackChangeHandler}
+                  style={inputCSS}
+                  type="text"
+                  onBlur={disableEditEvent}
+                  onKeyPress={onKeyPress}
+                />
+              )}
             </div>
+          ) : null}
+          {!data.editStatus ? (
+            <div>{currentTask?.InputVideo && <ReactPlayer url={currentTask.InputVideo} />}</div>
           ) : (
             <div className="task-page__comment">
               <h3>Адрес видео:</h3>
@@ -208,9 +236,7 @@ function TaskPage({ id, data, requestEvent, putEvent }: { id: string; data: Init
             </div>
           )}
           {!data.editStatus ? (
-            <div>
-              {currentTask?.InputImg && <img src={currentTask.InputImg} alt=''/>}
-            </div>
+            <div>{currentTask?.InputImg && <img src={currentTask.InputImg} alt="" />}</div>
           ) : (
             <div className="task-page__comment">
               <h3>Адрес картинки:</h3>
@@ -250,6 +276,22 @@ function TaskPage({ id, data, requestEvent, putEvent }: { id: string; data: Init
                 onBlur={disableEditEvent}
                 onKeyPress={onKeyPress}
               />
+            </div>
+          )}
+          {!data.editStatus ? (
+            currentTask.InputFeedback &&
+            currentTask.InputFeedback.map((item: string) => {
+              return (
+                <div>
+                  <br />
+                  <span>{item}</span>
+                  <br />
+                </div>
+              );
+            })
+          ) : (
+            <div>
+
             </div>
           )}
         </Col>

@@ -10,10 +10,12 @@ export interface EventsType {
   dateTime: string;
   deadline: string;
   id: string;
+  feedback?: boolean;
   InputName?: string;
   InputContent?: string;
   InputImg?: string;
   InputVideo?: string;
+  InputFeedback?: Array<string>;
 }
 
 export interface OrganizersType {

@@ -49,6 +49,7 @@ const CreateEventPage = (props: any) => {
         ...task,
         dateTime: startDate,
         deadline: deadlineDate,
+        feedback: true,
       });
     }
     form.resetFields();
