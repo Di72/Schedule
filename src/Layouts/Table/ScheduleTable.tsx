@@ -94,6 +94,40 @@ export const ScheduleTable = (props: any): JSX.Element => {
     );
   };
 
+  const renderDate = (index: any, value:any, key: any) => {
+    return (
+      <>
+        {!props.data.editStatus ?
+        <input
+          onChange={onDataChangeHandler}
+          style={inputCSS}
+          data-key="dateTime"
+          data-index={index}
+          type="text"
+          disabled={!props.data.editStatus}
+          value={moment(+value)
+            .tz(timeZone)
+            .format('YYYY-MM-DD HH:mm')}
+          onBlur={() => disableEditEvent(index)}
+          onKeyPress={(k) => onKeyPress(k, index)}
+        /> :
+          <DatePicker
+            onChange={(e:any) => {
+              changeDataPickerHandler(e, index, key)
+            }}
+            style={inputCSS}
+            data-key="deadline"
+            data-index={index}
+            disabled={!props.data.editStatus}
+            showTime={{ defaultValue: moment('23:59:59', 'HH:mm:ss') }}
+            defaultValue={moment(+value).tz(timeZone)}
+            disabledDate={disabledDate}
+          />
+        }
+      </>
+    )
+  }
+
   const changeDataPickerHandler = (e:Moment, index:any, key:String) => {
     const oldState = [...currentEvents];
     const newEvent = { ...currentEvents[index] };
@@ -168,18 +202,7 @@ export const ScheduleTable = (props: any): JSX.Element => {
             dataIndex="dateTime"
             key="dateTime"
             render={(value: any, key: any, index: any) => (
-              <DatePicker
-                onChange={(e:any) => {
-                  changeDataPickerHandler(e, index, key)
-                }}
-                style={inputCSS}
-                data-key="dateTime"
-                data-index={index}
-                disabled={!props.data.editStatus}
-                showTime={{ defaultValue: moment('23:59:59', 'HH:mm:ss') }}
-                defaultValue={moment(+value).tz(timeZone)}
-                disabledDate={disabledDate}
-              />
+              renderDate(index, value, key)
             )}
           />
         )}
@@ -190,18 +213,7 @@ export const ScheduleTable = (props: any): JSX.Element => {
             key="deadline"
             render={(value: any, key: any, index: any) =>
               value && (
-                <DatePicker
-                onChange={(e:any) => {
-                  changeDataPickerHandler(e, index, key)
-                }}
-                style={inputCSS}
-                data-key="deadline"
-                data-index={index}
-                disabled={!props.data.editStatus}
-                showTime={{ defaultValue: moment('23:59:59', 'HH:mm:ss') }}
-                defaultValue={moment(+value).tz(timeZone)}
-                disabledDate={disabledDate}
-              />
+                renderDate(index, value, key)
               )
             }
           />
