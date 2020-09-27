@@ -1,6 +1,6 @@
-import { Button, Checkbox, Select, Spin, Table } from 'antd';
+import { Button, Checkbox, DatePicker, Select, Spin, Table } from 'antd';
 import Column from 'antd/lib/table/Column';
-import moment from 'moment-timezone';
+import moment, { Moment } from 'moment-timezone';
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { CSSProperties } from 'styled-components';
@@ -9,6 +9,10 @@ import { ScheduleTags } from '../Tags/Tags';
 import './ScheduleTable.less';
 
 const { Option } = Select;
+
+function disabledDate(current: Moment) {
+  return current && current < moment().endOf('day');
+}
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const ScheduleTable = (props: any): JSX.Element => {
@@ -155,18 +159,29 @@ export const ScheduleTable = (props: any): JSX.Element => {
             dataIndex="dateTime"
             key="dateTime"
             render={(value: any, record: any, index: any) => (
-              <input
-                onChange={onDataChangeHandler}
+              // <input
+              //   onChange={onDataChangeHandler}
+              //   style={inputCSS}
+              //   data-key="dateTime"
+              //   data-index={index}
+              //   type="text"
+              //   disabled={!props.data.editStatus}
+              //   value={moment(+value)
+              //     .tz(timeZone)
+              //     .format('YYYY-MM-DD HH:mm')}
+              //   onBlur={() => disableEditEvent(index)}
+              //   onKeyPress={(k) => onKeyPress(k, index)}
+              // />
+              <DatePicker
+                onChange={(e:any) => {console.log(e)}}
                 style={inputCSS}
                 data-key="dateTime"
                 data-index={index}
-                type="text"
+                // type="text"
                 disabled={!props.data.editStatus}
-                value={moment(+value)
-                  .tz(timeZone)
-                  .format('YYYY-MM-DD HH:mm')}
-                onBlur={() => disableEditEvent(index)}
-                onKeyPress={(k) => onKeyPress(k, index)}
+                showTime={{ defaultValue: moment('23:59:59', 'HH:mm:ss') }}
+                defaultValue={moment(+value).tz(timeZone)}
+                disabledDate={disabledDate}
               />
             )}
           />
@@ -178,19 +193,30 @@ export const ScheduleTable = (props: any): JSX.Element => {
             key="deadline"
             render={(value: any, record: any, index: any) =>
               value && (
-                <input
-                  onChange={onDataChangeHandler}
-                  style={inputCSS}
-                  data-key="timeZone"
-                  data-index={index}
-                  type="text"
-                  disabled={!props.data.editStatus}
-                  value={moment(+value)
-                    .tz(timeZone)
-                    .format('YYYY-MM-DD HH:mm')}
-                  onBlur={() => disableEditEvent(index)}
-                  onKeyPress={(k) => onKeyPress(k, index)}
-                />
+                // <input
+                //   onChange={onDataChangeHandler}
+                //   style={inputCSS}
+                //   data-key="timeZone"
+                //   data-index={index}
+                //   type="text"
+                //   disabled={!props.data.editStatus}
+                //   value={moment(+value)
+                //     .tz(timeZone)
+                //     .format('YYYY-MM-DD HH:mm')}
+                //   onBlur={() => disableEditEvent(index)}
+                //   onKeyPress={(k) => onKeyPress(k, index)}
+                // />
+                <DatePicker
+                onChange={(e:any) => {console.log(e)}}
+                style={inputCSS}
+                data-key="dateTime"
+                data-index={index}
+                // type="text"
+                disabled={!props.data.editStatus}
+                showTime={{ defaultValue: moment('23:59:59', 'HH:mm:ss') }}
+                defaultValue={moment(+value).tz(timeZone)}
+                disabledDate={disabledDate}
+              />
               )
             }
           />
