@@ -44,11 +44,20 @@ const CreateEventPage = (props: any) => {
     const startDate = dateTime.tz(task.timeZone, true).format('x');
     const deadlineDate = deadline.tz(task.timeZone, true).format('x');
 
-    props.postEvent({
-      ...task,
-      dateTime: startDate,
-      deadline: deadlineDate,
-    });
+
+    if (startDate > deadlineDate) {
+
+      console.log('task ended before start');
+    } else {
+      props.postEvent({
+        ...task,
+        dateTime: startDate,
+        deadline: deadlineDate,
+        feedback: true,
+        InputFeedbackEvent: [],
+      });
+    }
+
     form.resetFields();
     setOpenedPanel((prevOpenedPanel) => !prevOpenedPanel);
   };
